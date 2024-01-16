@@ -1190,7 +1190,9 @@
     "free_package_duration_field_required": "Field Free Package Duration is required",
     "reports_to_block_auto_ad_required": "Field Number of reports to blockauto is required",
     "custom_positive_value_required" : "custom_positive_value_required",
-    "custom_value_range_required" : "custom_value_range_required"
+    "custom_value_range_required" : "custom_value_range_required",
+    "city_field" : "The city field is required" ,
+    "area_field" : "The area field is required"
   },
 
   "MESSAGES": {

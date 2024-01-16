@@ -123,7 +123,9 @@ export default {
         this.$router.push({ path: "/districts/all" });
       } catch (error) {
         this.isWaitingRequest = false;
-        this.$message.error(error.response.data.message);
+        this.$message.error(this.$t("VALIDATION.area_field"));
+        this.$message.error(this.$t("VALIDATION.city_field"));
+        //this.$message.error(error.response.data.message);
       }
     },
     // End:: Submit Form
@@ -137,7 +139,8 @@ export default {
         // console.log("Cities =>", res.data.data);
         this.getAreasData = res.data.data;
       } catch (error) {
-        console.log(error.response.data.message);
+        this.$message.error(this.$t("VALIDATION.area_field"));
+        //console.log(error.response.data.message);
       }
     },
 
@@ -153,7 +156,8 @@ export default {
         // console.log("Cities =>", res.data.data);
         this.CountriesData = res.data.data;
       } catch (error) {
-        console.log(error.response.data.message);
+        //console.log(error.response.data.message);
+        this.$message.error(this.$t("VALIDATION.city_field"));
       }
     },
 

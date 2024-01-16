@@ -163,7 +163,7 @@ export default {
       // this.notificationsMenuIsOpen = !this.notificationsMenuIsOpen;
       // this.chatsDrawerIsOpen = false;
       this.$router.push("/all-notifications/show");
-
+      this.notificationCount = 0
     },
     // End:: Toggle Notifications Menu
 
@@ -203,7 +203,7 @@ export default {
     this.getData();
 
     navigator.serviceWorker.addEventListener('message', event => {
-      this.notificationCount++;
+      this.notificationCount ++;
     });
 
     // Start:: Fire Methods

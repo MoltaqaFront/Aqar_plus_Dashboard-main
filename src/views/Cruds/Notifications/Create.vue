@@ -117,34 +117,15 @@ export default {
 
     // Start:: validate Form Inputs
     validateFormInputs() {
-      // this.isWaitingRequest = true;
-
-      // if (!this.data.receiverType) {
-      //   this.isWaitingRequest = false;
-      //   this.$message.error(this.$t("VALIDATION.receiverType"));
-      //   return;
-      // } else if (
-      //   this.data.receiverType?.value === "clients" &&
-      //   this.data.clients.length === 0
-      // ) {
-      //   this.isWaitingRequest = false;
-      //   this.$message.error(this.$t("VALIDATION.clientAtLeast"));
-      //   return;
-      // } else if (
-      //   this.data.receiverType?.value === "drivers" &&
-      //   this.data.drivers.length === 0
-      // ) {
-      //   this.isWaitingRequest = false;
-      //   this.$message.error(this.$t("VALIDATION.driverAtLeast"));
-      //   return;
-      // } else if (
-      //   this.data.receiverType?.value === "both" &&
-      //   (this.data.clients.length === 0 || this.data.drivers.length === 0)
-      // ) {
-      //   this.isWaitingRequest = false;
-      //   this.$message.error(this.$t("VALIDATION.clientAndDriver"));
-      //   return;
-      // } 
+      const arabicRegex = /^[\u0600-\u06FF\s]+$/;
+      if (!arabicRegex.test(this.data.titleAr)) {
+      this.$message.error(this.$t("VALIDATION.arabic_words_required"));
+      return;
+    }
+    if (!arabicRegex.test(this.data.contentAr)) {
+      this.$message.error(this.$t("VALIDATION.arabic_words_required"));
+      return;
+    }
       if (!this.data.titleAr) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.nameAr"));
@@ -167,7 +148,6 @@ export default {
       }
     },
     // End:: validate Form Inputs
-
     // Start:: Submit Form
     async submitForm() {
       const REQUEST_DATA = new FormData();
@@ -181,8 +161,6 @@ export default {
           REQUEST_DATA.append(`client_ids[${index}]`, element.id);
         });
       }
-
-
       REQUEST_DATA.append("title[ar]", this.data.titleAr);
       REQUEST_DATA.append("title[en]", this.data.titleEn);
       REQUEST_DATA.append("body[ar]", this.data.contentAr);

@@ -897,7 +897,7 @@
     "Adjective": "الصفة",
     "optional": "اختياري",
 
-    "additional_field_type": "نوع البيان الإضافي",
+    "additional_field_type": "نوع الحقل الإضافي",
     "textbox": "حقل نصي",
     "numberbox": "حقل رقم",
     "textarea": "حقل نصي كبير",
@@ -1195,7 +1195,10 @@
     "free_package_duration_field_required": "حقل مدة انتهاء الباقة المجانية مطلوب",
     "reports_to_block_auto_ad_required": "حقل عدد البلاغات لحجب إعلان تلقائي",
     "custom_positive_value_required" : "القيمة الإيجابية المخصصة المطلوبة" ,
-    "custom_value_range_required" : " حقل نطاق  المخصصة مطلوب"
+    "custom_value_range_required" : " حقل نطاق  المخصصة مطلوب",
+    "city_field" : "حقل المدينة مطلوب" ,
+    "area_field" : "حقل المنطقة مطلوب",
+    "arabic_words_required" : "يجب ادخال العنوان باللغة العربية"
   },
 
   "MESSAGES": {

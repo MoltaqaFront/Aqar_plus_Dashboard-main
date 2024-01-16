@@ -187,7 +187,7 @@ export default {
           this.isWaitingRequest = false;
           this.$message.error(this.$t("VALIDATION.password"));
           return;
-        } else if (this.data.password.length < 6) {
+        }else if (this.data.password.length < 6) {
           this.isWaitingRequest = false;
           this.$message.error(this.$t("VALIDATION.passwordLength"));
           return;
