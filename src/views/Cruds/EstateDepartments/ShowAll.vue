@@ -77,7 +77,7 @@
 
         <!-- Start:: Title -->
         <template v-slot:[`item.title`]="{ item }">
-          <p class="text-danger" v-if="!item.title"> {{ $t("TABLES.noData") }} </p>
+          <p class="text-danger"  v-if="!item.title"> {{ $t("TABLES.noData") }} </p>
           <p v-else>{{ item.title }}</p>
         </template>
         <!-- End:: Title -->

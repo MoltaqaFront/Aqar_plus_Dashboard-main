@@ -1192,7 +1192,10 @@
     "custom_positive_value_required" : "custom_positive_value_required",
     "custom_value_range_required" : "custom_value_range_required",
     "city_field" : "The city field is required" ,
-    "area_field" : "The area field is required"
+    "area_field" : "The area field is required" , 
+    "arabic_words" : "The name must be entered in Arabic",
+    "arabic_words_required" : "The address must be entered in Arabic" ,
+    "region" : "The area Name field is required"
   },
 
   "MESSAGES": {

@@ -122,15 +122,11 @@ export default {
       // this.isValidEmail = emailRegex.test(this.data.email);
       // if (!this.isValidEmail) {
       //   this.isWaitingRequest = false;
-      //   this.$message.error(this.$t("VALIDATION.email_domain"));
       //   return;
       // }
-
-      if (!this.data.image.path) {
-        this.isWaitingRequest = false;
-        this.$message.error(this.$t("VALIDATION.image"));
-        return;
-      } else if (!this.data.name) {
+      //this.$message.error(this.$t("VALIDATION.email_domain"));
+      //  
+      if (!this.data.name) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.name"));
         return;
@@ -180,7 +176,7 @@ export default {
     async submitForm() {
       const REQUEST_DATA = new FormData();
       // Start:: Append Request Data
-      REQUEST_DATA.append("image", this.data.image.file);
+      //REQUEST_DATA.append("image", this.data.image.file);
       REQUEST_DATA.append("name", this.data.name);
       REQUEST_DATA.append("email", this.data.email);
       REQUEST_DATA.append("mobile", this.data.phone);

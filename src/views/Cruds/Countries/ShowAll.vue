@@ -349,6 +349,7 @@ export default {
             page: this.paginations.current_page,
             name: this.filterOptions.title,
             is_active: this.filterOptions.is_active?.value,
+            "status": 1
           },
         });
         this.loading = false;

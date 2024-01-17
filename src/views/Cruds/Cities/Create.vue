@@ -77,7 +77,7 @@ export default {
     // Start:: validate Form Inputs
     validateFormInputs() {
       this.isWaitingRequest = true;
-
+      const arabicRegex = /^[\u0600-\u06FF\s]+$/;
       if (!this.data.nameAr) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.nameAr"));
@@ -86,7 +86,17 @@ export default {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.nameEn"));
         return;
-      } else {
+      } else if(!this.data.region_id){
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.area_field"));
+      } else if (!arabicRegex.test(this.data.titleAr)) {
+        this.$message.error(this.$t("VALIDATION.arabic_words"));
+        return;
+      } else if (!arabicRegex.test(this.data.contentAr)) {
+        this.$message.error(this.$t("VALIDATION.arabic_words"));
+        return;
+      } 
+      else {
         this.submitForm();
         return;
       }

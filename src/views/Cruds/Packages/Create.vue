@@ -106,7 +106,7 @@ export default {
     // Start:: validate Form Inputs
     validateFormInputs() {
       this.isWaitingRequest = true;
-
+      const arabicRegex = /^[\u0600-\u06FF\s]+$/;
       if (!this.data.nameAr) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.nameAr"));
@@ -118,6 +118,15 @@ export default {
       } else if (!this.data.price) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.price"));
+        return;
+      } else if (!this.data.show_image){
+        this.isWaitingRequest = false; 
+        this.$message.error(this.$t("VALIDATION.can_show_image"));
+      }else if (!arabicRegex.test(this.data.titleAr)) {
+        this.$message.error(this.$t("VALIDATION.arabic_words"));
+        return;
+      } else if (!arabicRegex.test(this.data.contentAr)) {
+        this.$message.error(this.$t("VALIDATION.arabic_words"));
         return;
       } else {
         this.submitForm();
