@@ -136,7 +136,7 @@ export default {
         return;
       } else if (!this.data.phone) {
         this.isWaitingRequest = false;
-        this.$message.error(this.$t("VALIDATION.phone"));
+        this.$message.error(this.$t("VALIDATION.mobileNumber"));
         return;
       } else if (!this.data.role) {
         this.isWaitingRequest = false;

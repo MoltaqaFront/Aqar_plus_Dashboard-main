@@ -1167,6 +1167,7 @@
     "image": "You Must Select An Image",
     "startDate": "You Must Select A Start Date",
     "endDate": "You Must Select An End Date",
+    "handle" : "You must choose the exact date" ,
     "permissions": "You Must Select At Least One Permission",
     "role": "You Must Select A Role",
     "content": "Content Field Cant Be Empty",
@@ -1195,7 +1196,10 @@
     "area_field" : "The area field is required" , 
     "arabic_words" : "The name must be entered in Arabic",
     "arabic_words_required" : "The address must be entered in Arabic" ,
-    "region" : "The area Name field is required"
+    "region" : "The area Name field is required" ,
+    "field_type" : "Additional field type is required" ,
+    "estate_depart" : "Estate depart field is required" ,
+    "is_show_map" : "show map field not choose"
   },
 
   "MESSAGES": {

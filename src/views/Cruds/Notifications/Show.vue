@@ -170,7 +170,7 @@ export default {
 }
 
 .notification {
-  background: #EEE;
+  background: #000;
   padding: 30px;
   border-radius: 8px;
   text-align: center;

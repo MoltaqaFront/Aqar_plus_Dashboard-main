@@ -140,6 +140,9 @@ export default {
         let res = await this.$axios({
           method: "GET",
           url: `areas`,
+          params: {
+            "status": 1
+          }
         });
         // console.log("Cities =>", res.data.data);
         this.regions = res.data.data;

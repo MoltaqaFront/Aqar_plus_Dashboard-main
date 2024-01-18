@@ -34,7 +34,7 @@
               <!-- End:: Status Input -->
 
               <!-- Start:: Rate Input -->
-              <base-rate-input col="3" :placeholder="$t('PLACEHOLDERS.rating_stars')" v-model="filterOptions.rate"
+              <base-rate-input col="4" :placeholder="$t('PLACEHOLDERS.rating_stars')" v-model="filterOptions.rate"
                 size="22" disabled />
               <!-- End:: Rate Input -->
             </div>
@@ -276,7 +276,15 @@ export default {
       } else if (this.filterOptions.startDate && !this.filterOptions.endDate) {
         this.$message.error(this.$t("VALIDATION.endDate"));
         return;
-      } else {
+      } else if (this.filterOptions.endDate && this.filterOptions.startDate) {
+        const startDate = new Date(this.filterOptions.startDate);
+        const endDate = new Date(this.filterOptions.endDate);
+        if (endDate <= startDate) {
+          this.$message.error(this.$t("VALIDATION.handle"));
+          return;
+        }
+      }
+      else {
         if (this.$route.query.page !== '1') {
           await this.$router.push({ path: '/rates/all', query: { page: 1 } });
         }

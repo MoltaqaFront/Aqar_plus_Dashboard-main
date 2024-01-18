@@ -98,6 +98,9 @@ export default {
           method: "POST",
           url: `countries`,
           data: REQUEST_DATA,
+          params: {
+            "status": 1
+          }
         });
         this.isWaitingRequest = false;
         this.$message.success(this.$t("MESSAGES.addedSuccessfully"));

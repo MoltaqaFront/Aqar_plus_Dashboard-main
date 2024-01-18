@@ -48,7 +48,7 @@
               </Transition>
 
               <!-- Start:: Submit Button Wrapper -->
-              <div class="btn_wrapper d-flex justify-content-center gap-2">
+              <div  class="btn_wrapper d-flex justify-content-center gap-2">
                 <base-button class="mt-2" styleType="primary_btn" :btnText="$t('BUTTONS.save')"
                   :isLoading="isWaitingRequest" :disabled="isWaitingRequest" />
 
@@ -84,7 +84,6 @@ export default {
       // Start:: Loader Control Data
       isWaitingRequest: false,
       // End:: Loader Control Data
-
       // Start:: Data Collection To Send
       data: {
         image: {
@@ -128,6 +127,7 @@ export default {
     // Start:: Vuex Actions
     ...mapActions({
       setAuthenticatedUserData: "AuthenticationModule/setAuthenticatedUserData",
+      logout: "AuthenticationModule/logout"
     }),
     // End:: Vuex Actions
 
@@ -246,6 +246,7 @@ export default {
           name: res.data.data.user.name,
         });
         this.toggleModal();
+        this.$router.push({ path: "/" });
       } catch (error) {
         this.isWaitingRequest = false;
         this.$message.error(error.response.data.message);

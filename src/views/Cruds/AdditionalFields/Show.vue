@@ -259,7 +259,6 @@ export default {
   created() {
     // Start:: Fire Methods
     this.getDataToEdit();
-    this.showVehicleTypes()
     // End:: Fire Methods
   },
 };

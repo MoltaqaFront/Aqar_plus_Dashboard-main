@@ -262,7 +262,17 @@ export default {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.nameEn"));
         return;
-      } else {
+      } else if (!this.data.field_type){
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.field_type"))
+      } else if (!this.data.estate_depart){
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.estate_depart"))
+      } else if (!this.data.is_show){
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.is_show_map"))
+      }
+      else {
         this.submitForm();
         return;
       }
@@ -306,6 +316,9 @@ export default {
           method: "POST",
           url: `additionalFields`,
           data: REQUEST_DATA,
+          params: {
+          "status":1
+        }
         });
         this.isWaitingRequest = false;
         this.$message.success(this.$t("MESSAGES.addedSuccessfully"));

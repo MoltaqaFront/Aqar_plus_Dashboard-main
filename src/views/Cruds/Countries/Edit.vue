@@ -99,6 +99,9 @@ export default {
           method: "POST",
           url: `countries/${this.$route.params.id}`,
           data: REQUEST_DATA,
+          params: {
+            "status": 1
+          }
         });
         this.isWaitingRequest = false;
         this.$message.success(this.$t("MESSAGES.addedSuccessfully"));
@@ -115,6 +118,9 @@ export default {
         let res = await this.$axios({
           method: "GET",
           url: `countries/${this.$route.params.id}`,
+          params: {
+            "status": 1
+          }
         });
         this.data.nameAr = res.data.data.Country.name_ar;
         this.data.nameEn = res.data.data.Country.name_en;

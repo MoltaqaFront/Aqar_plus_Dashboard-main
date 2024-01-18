@@ -135,6 +135,9 @@ export default {
         let res = await this.$axios({
           method: "GET",
           url: `areas`,
+          params: {
+            "status": 1
+          }
         });
         // console.log("Cities =>", res.data.data);
         this.getAreasData = res.data.data;
@@ -150,7 +153,8 @@ export default {
           method: "GET",
           url: `countries`,
           params: {
-            area_id: `${this.data.area_id?.id}`
+            area_id: `${this.data.area_id?.id}`,
+            "status": 1
           }
         });
         // console.log("Cities =>", res.data.data);
