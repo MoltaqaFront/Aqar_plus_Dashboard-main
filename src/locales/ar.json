@@ -1134,6 +1134,9 @@
     "activate_advertiser": "تفعيل المعلن",
     "deactivate_advertiser": "تعطيل المعلن",
 
+    "report_reason": "سبب البلاغ",
+    "reporter_mobile_number": "رقم جوال مقدم البلاغ",
+
     "no_notifications": "لا يوجد إشعارات",
     "current_balance": "الرصيد الحالى من الاعلانات",
     "bank_accounts_settings": "إعدادات الحسابات البنكية",
@@ -1172,7 +1175,7 @@
     "image": "يجب إختيار الصورة",
     "startDate": "يجب إختيار تاريخ البدء",
     "endDate": "يجب إختيار تاريخ النهاية",
-    "handle" : "يجب اختيار التاريخ مظبوط",
+    "handle": "يجب اختيار التاريخ مظبوط",
     "permissions": "يجب إختيار صلاحية واحدة علي الأقل",
     "role": "يجب إختيار الدور",
     "content": "حقل المحتوي لايمكن ان يكون فارغ",
@@ -1195,17 +1198,17 @@
     "free_package_ads_field_required": "حقل عدد إعلانات الباقة المجانية مطلوب",
     "free_package_duration_field_required": "حقل مدة انتهاء الباقة المجانية مطلوب",
     "reports_to_block_auto_ad_required": "حقل عدد البلاغات لحجب إعلان تلقائي",
-    "custom_positive_value_required" : "القيمة الإيجابية المخصصة المطلوبة" ,
-    "custom_value_range_required" : " حقل نطاق  المخصصة مطلوب",
-    "city_field" : "حقل المدينة مطلوب" ,
-    "area_field" : "حقل المنطقة مطلوب",
-    "arabic_words_required" : "يجب ادخال العنوان باللغة العربية" ,
-    "region" : "حقل اسم المنطقة مطلوب" ,
-    "arabic_words" : "يجب ادخال الاسم باللغة العربية" , 
-    "can_show_image" : "حقل اظهار صورة/شعار المعلن عن العقار مطلوب" ,
-    "field_type" : "نوع الحقل الاضافى مطلوب" ,
-    "estate_depart" : "حقل قسم العقار مطلوب" ,
-    "is_show_map" : "لم يتم اختيار ظهور الخريطه"
+    "custom_positive_value_required": "القيمة الإيجابية المخصصة المطلوبة",
+    "custom_value_range_required": " حقل نطاق  المخصصة مطلوب",
+    "city_field": "حقل المدينة مطلوب",
+    "area_field": "حقل المنطقة مطلوب",
+    "arabic_words_required": "يجب ادخال العنوان باللغة العربية",
+    "region": "حقل اسم المنطقة مطلوب",
+    "arabic_words": "يجب ادخال الاسم باللغة العربية",
+    "can_show_image": "حقل اظهار صورة/شعار المعلن عن العقار مطلوب",
+    "field_type": "نوع الحقل الاضافى مطلوب",
+    "estate_depart": "حقل قسم العقار مطلوب",
+    "is_show_map": "لم يتم اختيار ظهور الخريطه"
   },
 
   "MESSAGES": {

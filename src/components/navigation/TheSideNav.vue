@@ -109,6 +109,19 @@
       </div>
       <!-- End:: packages Route -->
 
+      <!-- Start:: reports_management Route -->
+      <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')" v-if="$can('reports index', 'reports')">
+        <router-link to="/reports/all">
+          <span class="route_icon">
+            <img src="@/assets/media/icons/ui_icons/reports.png" alt="icon" width="40" height="40" />
+          </span>
+          <span class="route_text">
+            {{ $t("PLACEHOLDERS.reports_management") }}
+          </span>
+        </router-link>
+      </div>
+      <!-- End:: reports_management Route -->
+
       <!-- Start:: rates Route -->
       <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')" v-if="$can('rates index', 'rates')">
         <router-link to="/rates/all">
