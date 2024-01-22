@@ -223,19 +223,6 @@ export default {
           align: "center",
           sortable: false,
         },
-        // {
-        //   text: this.$t("TABLES.Notifications.time"),
-        //   value: "time",
-        //   align: "center",
-        //   width: "150",
-        // },
-        // {
-        //   text: this.$t("TABLES.StoresTypes.actions"),
-        //   value: "actions",
-        //   sortable: false,
-        //   align: "center",
-
-        // },
       ],
       tableRows: [],
       // End:: Table Data

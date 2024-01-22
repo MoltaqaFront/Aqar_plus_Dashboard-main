@@ -1,27 +1,131 @@
+import AboutUs from "../views/Cruds/AppContent/AboutUs.vue";
+import AdditionalFieldsHome from "../views/Cruds/AdditionalFields/Home.vue";
+import AdminsHome from "../views/Cruds/Admins/Home.vue";
+import AllAdditionalFields from "../views/Cruds/AdditionalFields/ShowAll.vue";
+import AllAdmins from "../views/Cruds/Admins/ShowAll.vue";
+import AllAreas from "../views/Cruds/Areas/ShowAll.vue";
+import AllBankTransfer from "../views/Cruds/BankTransfer/ShowAll.vue";
+import AllBanks from "../views/Cruds/Banks/ShowAll.vue";
+import AllCategory from "../views/Cruds/Category/ShowAll.vue";
+import AllCharacteristics from "../views/Cruds/Characteristics/ShowAll.vue";
+import AllCities from "../views/Cruds/Cities/ShowAll.vue";
+import AllClients from "../views/Cruds/Clients/ShowAll.vue";
+import AllContactMessages from "../views/Cruds/ContactMessages/ShowAll.vue";
+import AllCountries from "../views/Cruds/Countries/ShowAll.vue";
+import AllDistricts from "../views/Cruds/Districts/ShowAll.vue";
+import AllEstateDepartments from "../views/Cruds/EstateDepartments/ShowAll.vue";
+import AllFinancialReports from "../views/Cruds/FinancialReports/ShowAll.vue";
+import AllNotifications from "../views/Cruds/Notifications/ShowAll.vue";
+import AllOffers from "../views/Cruds/Offers/ShowAll.vue";
+import AllPackages from "../views/Cruds/Packages/ShowAll.vue";
+import AllRates from "../views/Cruds/Rates/ShowAll.vue";
+import AllRoles from "../views/Cruds/Roles/ShowAll.vue";
+import AppContentHome from "../views/Cruds/AppContent/Home.vue";
+import AppContentWrapper from "../pages/AppContentWrapper.vue";
+import AppSettings from "../views/Cruds/AppSettings/AppSettings.vue";
+import AppSettingsHome from "../views/Cruds/AppSettings/Home.vue";
+import AqarConditions from "../views/Cruds/AppContent/AqarConditions.vue";
+import AqarUses from "../views/Cruds/AppContent/AqarUses.vue";
+import AreasHome from "../views/Cruds/Areas/Home.vue";
+import Authentication from "../pages/Authentication.vue";
+import BankAccounts from "../views/Cruds/AppContent/BankAccounts.vue";
+import BanksHome from "../views/Cruds/Banks/Home.vue";
+import CategoryHome from "../views/Cruds/Category/Home.vue";
+import ChangePhoneNumberForm from "../views/Auth/ChangePhoneNumber.vue";
+import CharacteristicsHome from "../views/Cruds/Characteristics/Home.vue";
+import CitiesHome from "../views/Cruds/Cities/Home.vue";
+import ClientsHome from "../views/Cruds/Clients/Home.vue";
+import ContactMessagesHome from "../views/Cruds/ContactMessages/Home.vue";
+import CountriesHome from "../views/Cruds/Countries/Home.vue";
+import CreateAdditionalFields from "../views/Cruds/AdditionalFields/Create.vue";
+import CreateAdmin from "../views/Cruds/Admins/Create.vue";
+import CreateAreas from "../views/Cruds/Areas/Create.vue";
+import CreateBanks from "../views/Cruds/Banks/Create.vue";
+import CreateCategory from "../views/Cruds/Category/Create.vue";
+import CreateCharacteristics from "../views/Cruds/Characteristics/Create.vue";
+import CreateCities from "../views/Cruds/Cities/Create.vue";
+import CreateCountries from "../views/Cruds/Countries/Create.vue";
+import CreateDistricts from "../views/Cruds/Districts/Create.vue";
+import CreateEstateDepartments from "../views/Cruds/EstateDepartments/Create.vue";
+import CreateNotifications from "../views/Cruds/Notifications/Create.vue";
+import CreateOffers from "../views/Cruds/Offers/Create.vue";
+import CreatePackages from "../views/Cruds/Packages/Create.vue";
+import CreateRole from "../views/Cruds/Roles/Create.vue";
+import DistrictsHome from "../views/Cruds/Districts/Home.vue";
+import EditAdditionalFields from "../views/Cruds/AdditionalFields/Edit.vue";
+import EditAdmin from "../views/Cruds/Admins/Edit.vue";
+import EditAreas from "../views/Cruds/Areas/Edit.vue";
+import EditBanks from "../views/Cruds/Banks/Edit.vue";
+import EditCategory from "../views/Cruds/Category/Edit.vue";
+import EditCharacteristics from "../views/Cruds/Characteristics/Edit.vue";
+import EditCities from "../views/Cruds/Cities/Edit.vue";
+import EditCountries from "../views/Cruds/Countries/Edit.vue";
+import EditDistricts from "../views/Cruds/Districts/Edit.vue";
+import EditEstateDepartments from "../views/Cruds/EstateDepartments/Edit.vue";
+import EditOffers from "../views/Cruds/Offers/Edit.vue";
+import EditPackages from "../views/Cruds/Packages/Edit.vue";
+import EditRole from "../views/Cruds/Roles/Edit.vue";
+import EmailVerificationForm from "../views/Auth/EmailVerificationForm.vue";
+import EstateDepartmentsHome from "../views/Cruds/EstateDepartments/Home.vue";
+import FinancialReportsHome from "../views/Cruds/FinancialReports/Home.vue";
+import ForbiddenPage from "../pages/ForbiddenPage.vue";
+import GeneralSettings from "../views/Cruds/AppSettings/GeneralSettings.vue";
+import HomePage from "../pages/HomePage.vue";
+import LoginForm from "../views/Auth/LoginForm.vue";
+import NotFoundPage from "../pages/NotFound.vue";
+import NotificationsHome from "../views/Cruds/Notifications/Home.vue";
+import OffersHome from "../views/Cruds/Offers/Home.vue";
+import PackagesHome from "../views/Cruds/Packages/Home.vue";
+import PrivacyPolicy from "../views/Cruds/AppContent/PrivacyPolicy.vue";
+import RatesHome from "../views/Cruds/Rates/Home.vue";
+import ResetPasswordEmailForm from "../views/Auth/ResetPasswordEmailForm.vue";
+import ResetPasswordForm from "../views/Auth/ResetPasswordForm.vue";
+import RolesHome from "../views/Cruds/Roles/Home.vue";
+import ShowAdditionalFields from "../views/Cruds/AdditionalFields/Show.vue";
+import ShowAdmin from "../views/Cruds/Admins/Show.vue";
+import ShowAreas from "../views/Cruds/Areas/Show.vue";
+import ShowBankTransfer from "../views/Cruds/BankTransfer/Show.vue";
+import ShowBanks from "../views/Cruds/Banks/Show.vue";
+import ShowCategory from "../views/Cruds/Category/Show.vue";
+import ShowCharacteristics from "../views/Cruds/Characteristics/Show.vue";
+import ShowCities from "../views/Cruds/Cities/Show.vue";
+import ShowClient from "../views/Cruds/Clients/Show.vue";
+import ShowCountries from "../views/Cruds/Countries/Show.vue";
+import ShowDistricts from "../views/Cruds/Districts/Show.vue";
+import ShowEstateDepartments from "../views/Cruds/EstateDepartments/Show.vue";
+import ShowFinancialReport from "../views/Cruds/FinancialReports/Show.vue";
+import ShowNotifications from "../views/Cruds/Notifications/Show.vue";
+import ShowOffer from "../views/Cruds/Offers/Show.vue";
+import ShowPackages from "../views/Cruds/Packages/Show.vue";
+import ShowRates from "../views/Cruds/Rates/Show.vue";
+import Terms from "../views/Cruds/AppContent/Terms.vue";
 import Vue from "vue";
 import VueRouter from "vue-router";
+import auth from "../middleware/auth.js";
+import bankTransferHome from "../views/Cruds/BankTransfer/Home.vue";
+import subscriptionsPackages from "../views/Cruds/Packages/subscriptions.vue";
 
 // Start:: Importing Middleware
-import auth from "../middleware/auth.js";
+
 // End:: Importing Middleware
 
 // Start:: Importing Router Components
-import Authentication from "../pages/Authentication.vue";
-import LoginForm from "../views/Auth/LoginForm.vue";
-import ResetPasswordEmailForm from "../views/Auth/ResetPasswordEmailForm.vue";
-import EmailVerificationForm from "../views/Auth/EmailVerificationForm.vue";
-import ChangePhoneNumberForm from "../views/Auth/ChangePhoneNumber.vue";
-import ResetPasswordForm from "../views/Auth/ResetPasswordForm.vue";
-import AppContentWrapper from "../pages/AppContentWrapper.vue";
+
+
+
+
+
+
+
 
 // ============== Start:: Home Page Route
-import HomePage from "../pages/HomePage.vue";
+
 // ============== End:: Home Page Route
 
 // ============== Start:: Clients Routes
-import ClientsHome from "../views/Cruds/Clients/Home.vue";
-import AllClients from "../views/Cruds/Clients/ShowAll.vue";
-import ShowClient from "../views/Cruds/Clients/Show.vue";
+
+
+
 // ============== End:: Clients Routes
 
 // ============== Start:: Reports Routes
@@ -38,154 +142,157 @@ import ShowAdvertisements from "../views/Cruds/Advertisements/Show.vue";
 // ============== End:: Advertisements Routes
 
 // ============== Start:: Offers Routes
-import OffersHome from "../views/Cruds/Offers/Home.vue";
-import AllOffers from "../views/Cruds/Offers/ShowAll.vue";
-import EditOffers from "../views/Cruds/Offers/Edit.vue";
-import CreateOffers from "../views/Cruds/Offers/Create.vue";
-import ShowOffer from "../views/Cruds/Offers/Show.vue";
+
+
+
+
+
 // ============== End:: Offers Routes
 
 // ============== Start:: Packages Routes
-import PackagesHome from "../views/Cruds/Packages/Home.vue";
-import AllPackages from "../views/Cruds/Packages/ShowAll.vue";
-import CreatePackages from "../views/Cruds/Packages/Create.vue";
-import ShowPackages from "../views/Cruds/Packages/Show.vue";
-import EditPackages from "../views/Cruds/Packages/Edit.vue";
+
+
+
+
+
+
+
+
 // ============== End:: Packages Routess
 
 // ============== Start:: Category Routes
-import CategoryHome from "../views/Cruds/Category/Home.vue";
-import AllCategory from "../views/Cruds/Category/ShowAll.vue";
-import CreateCategory from "../views/Cruds/Category/Create.vue";
-import EditCategory from "../views/Cruds/Category/Edit.vue";
-import ShowCategory from "../views/Cruds/Category/Show.vue";
+
+
+
+
+
 // ============== End:: Category Routes
 
 // ============== Start:: Rates Routes
-import RatesHome from "../views/Cruds/Rates/Home.vue";
-import AllRates from "../views/Cruds/Rates/ShowAll.vue";
-import ShowRates from "../views/Cruds/Rates/Show.vue";
+
+
+
 // ============== End:: Rates Routes
 
 // ============== Start:: Financial Reports Routes
-import FinancialReportsHome from "../views/Cruds/FinancialReports/Home.vue";
-import AllFinancialReports from "../views/Cruds/FinancialReports/ShowAll.vue";
-import ShowFinancialReport from "../views/Cruds/FinancialReports/Show.vue";
+
+
+
 // ============== End:: Financial Reports Routes
 
 // ============== Start:: Contact Messages Routes
-import ContactMessagesHome from "../views/Cruds/ContactMessages/Home.vue";
-import AllContactMessages from "../views/Cruds/ContactMessages/ShowAll.vue";
+
+
 // ============== End:: Contact Messages Routes
 
 // ============== Start:: App Content Routes
-import AppContentHome from "../views/Cruds/AppContent/Home.vue";
-import AboutUs from "../views/Cruds/AppContent/AboutUs.vue";
-import Terms from "../views/Cruds/AppContent/Terms.vue";
-import PrivacyPolicy from "../views/Cruds/AppContent/PrivacyPolicy.vue";
-import AqarUses from "../views/Cruds/AppContent/AqarUses.vue";
-import AqarConditions from "../views/Cruds/AppContent/AqarConditions.vue";
-import BankAccounts from "../views/Cruds/AppContent/BankAccounts.vue";
+
+
+
+
+
+
+
 // ============== End:: App Content Routes
 
 // ============== Start:: App Settings Routes
-import AppSettingsHome from "../views/Cruds/AppSettings/Home.vue";
-import GeneralSettings from "../views/Cruds/AppSettings/GeneralSettings.vue";
-import AppSettings from "../views/Cruds/AppSettings/AppSettings.vue";
+
+
+
 // ============== End:: App Settings Routes
 
 // ============== Start:: Countries Routes
-import CountriesHome from "../views/Cruds/Countries/Home.vue";
-import AllCountries from "../views/Cruds/Countries/ShowAll.vue";
-import CreateCountries from "../views/Cruds/Countries/Create.vue";
-import EditCountries from "../views/Cruds/Countries/Edit.vue";
-import ShowCountries from "../views/Cruds/Countries/Show.vue";
+
+
+
+
+
 // ============== End:: Countries Routes
 
 // ============== Start:: Cities Routes
-import CitiesHome from "../views/Cruds/Cities/Home.vue";
-import AllCities from "../views/Cruds/Cities/ShowAll.vue";
-import CreateCities from "../views/Cruds/Cities/Create.vue";
-import EditCities from "../views/Cruds/Cities/Edit.vue";
-import ShowCities from "../views/Cruds/Cities/Show.vue";
+
+
+
+
+
 // ============== End:: Cities Routes
 
 // ============== Start:: Areas Routes
-import AreasHome from "../views/Cruds/Areas/Home.vue";
-import AllAreas from "../views/Cruds/Areas/ShowAll.vue";
-import CreateAreas from "../views/Cruds/Areas/Create.vue";
-import EditAreas from "../views/Cruds/Areas/Edit.vue";
-import ShowAreas from "../views/Cruds/Areas/Show.vue";
+
+
+
+
+
 // ============== End:: Areas Routes
 
 // ============== Start:: Districts Routes
-import DistrictsHome from "../views/Cruds/Districts/Home.vue";
-import AllDistricts from "../views/Cruds/Districts/ShowAll.vue";
-import CreateDistricts from "../views/Cruds/Districts/Create.vue";
-import EditDistricts from "../views/Cruds/Districts/Edit.vue";
-import ShowDistricts from "../views/Cruds/Districts/Show.vue";
+
+
+
+
+
 // ============== End:: Districts Routes
 
 // ============== Start:: Roles Routes
-import RolesHome from "../views/Cruds/Roles/Home.vue";
-import AllRoles from "../views/Cruds/Roles/ShowAll.vue";
-import CreateRole from "../views/Cruds/Roles/Create.vue";
-import EditRole from "../views/Cruds/Roles/Edit.vue";
+
+
+
+
 // ============== End:: Roles Routes
 
 // ============== Start:: Admins Routes
-import AdminsHome from "../views/Cruds/Admins/Home.vue";
-import AllAdmins from "../views/Cruds/Admins/ShowAll.vue";
-import CreateAdmin from "../views/Cruds/Admins/Create.vue";
-import EditAdmin from "../views/Cruds/Admins/Edit.vue";
-import ShowAdmin from "../views/Cruds/Admins/Show.vue";
+
+
+
+
+
 // ============== End:: Admins Routes
 
 // ============== Start:: Characteristics Routes
-import CharacteristicsHome from "../views/Cruds/Characteristics/Home.vue";
-import AllCharacteristics from "../views/Cruds/Characteristics/ShowAll.vue";
-import CreateCharacteristics from "../views/Cruds/Characteristics/Create.vue";
-import EditCharacteristics from "../views/Cruds/Characteristics/Edit.vue";
-import ShowCharacteristics from "../views/Cruds/Characteristics/Show.vue";
+
+
+
+
+
 // ============== End:: Characteristics Routes
 
 // ============== Start:: All Notifications Routes
-import NotificationsHome from "../views/Cruds/Notifications/Home.vue";
-import AllNotifications from "../views/Cruds/Notifications/ShowAll.vue";
-import CreateNotifications from "../views/Cruds/Notifications/Create.vue";
-import ShowNotifications from "../views/Cruds/Notifications/Show.vue";
+
+
+
+
 // ============== End:: All Notifications Routes
 
 // ============== Start:: EstateDepartments Routes
-import EstateDepartmentsHome from "../views/Cruds/EstateDepartments/Home.vue";
-import AllEstateDepartments from "../views/Cruds/EstateDepartments/ShowAll.vue";
-import CreateEstateDepartments from "../views/Cruds/EstateDepartments/Create.vue";
-import EditEstateDepartments from "../views/Cruds/EstateDepartments/Edit.vue";
-import ShowEstateDepartments from "../views/Cruds/EstateDepartments/Show.vue";
+
+
+
+
+
 // ============== End:: EstateDepartments Routes
 
 // ============== Start:: Banks Routes
-import BanksHome from "../views/Cruds/Banks/Home.vue";
-import AllBanks from "../views/Cruds/Banks/ShowAll.vue";
-import CreateBanks from "../views/Cruds/Banks/Create.vue";
-import EditBanks from "../views/Cruds/Banks/Edit.vue";
-import ShowBanks from "../views/Cruds/Banks/Show.vue";
+
+
+
+
+
 // ============== End:: Banks Routes
 
 // ============== Start:: additionalFields Routes
-import AdditionalFieldsHome from "../views/Cruds/AdditionalFields/Home.vue";
-import AllAdditionalFields from "../views/Cruds/AdditionalFields/ShowAll.vue";
-import CreateAdditionalFields from "../views/Cruds/AdditionalFields/Create.vue";
-import ShowAdditionalFields from "../views/Cruds/AdditionalFields/Show.vue";
-import EditAdditionalFields from "../views/Cruds/AdditionalFields/Edit.vue";
+
+
+
+
+
 // ============== End:: additionalFields Routes
 
 // ============== Start:: Forbidden Route
-import ForbiddenPage from "../pages/ForbiddenPage.vue";
+
 // ============== End:: Forbidden Route
 
 // ============== Start:: Not Found Route
-import NotFoundPage from "../pages/NotFound.vue";
+
 // ============== End:: Not Found Route
 // End:: Importing Router Components
 
@@ -553,6 +660,19 @@ const routes = [
               },
             },
           },
+          {
+            path: "subscriptions/:id",
+            name: "subscriptionsPackages",
+            component: subscriptionsPackages,
+            props: true,
+            meta: {
+              middleware: [auth],
+              requiresPermission: {
+                action: "packages subscriptions",
+                subject: "packages",
+              },
+            },
+          },
         ],
       },
       // End:: Packages Config
@@ -594,6 +714,42 @@ const routes = [
       },
       // End:: Rates Routes Config
 
+      // Start:: bankTransfer
+      {
+        path: "/bankTransfer",
+        name: "bankTransferHome",
+        component: bankTransferHome,
+        meta: {
+          middleware: [auth],
+        },
+        children: [
+          {
+            path: "all",
+            name: "AllBankTransfer",
+            component: AllBankTransfer,
+            meta: {
+              middleware: [auth],
+              requiresPermission: {
+                action: "bankTransfer index",
+                subject: "bankTransfer",
+              },
+            },
+          },
+          {
+            path: "show/:id",
+            name: "ShowBankTransfer",
+            component: ShowBankTransfer,
+            meta: {
+              middleware: [auth],
+              requiresPermission: {
+                action: "bankTransfer show",
+                subject: "bankTransfer",
+              },
+            },
+          },
+        ],
+      },
+      // End:: Rates Routes Config
       // Start:: Financial Reports Routes Config
       {
         path: "/financial-reports",

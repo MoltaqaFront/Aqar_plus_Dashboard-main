@@ -190,7 +190,8 @@ export default {
           method: "GET",
           url: "clients",
           params: {
-            "status": 1
+            "status": 1 ,
+            receiver_type: value,
           }
         });
         this.loading = false;
