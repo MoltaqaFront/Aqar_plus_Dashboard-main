@@ -1135,7 +1135,17 @@
     "current_balance": "Current Balance of Ads",
 
     "bank_accounts_settings": "Bank Accounts Settings",
-    "show_advertiser_image_logo": "Show Advertiser Image/Logo"
+    "show_advertiser_image_logo": "Show Advertiser Image/Logo",
+
+    "ads_management": "Ads Management",
+    "property_details": "Property Details",
+    "rent_type": "Rent Type",
+    "advertiser_details": "Advertiser Details",
+
+    "daily": "Daily",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "download_pdf": "Download PDF"
   },
 
   "VALIDATION": {
