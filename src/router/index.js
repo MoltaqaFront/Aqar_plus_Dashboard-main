@@ -128,6 +128,12 @@ import subscriptionsPackages from "../views/Cruds/Packages/subscriptions.vue";
 
 // ============== End:: Clients Routes
 
+// ============== Start:: Reports Routes
+import ReportsHome from "../views/Cruds/Reports/Home.vue";
+import ShowReports from "../views/Cruds/Reports/Show.vue";
+import AllReports from "../views/Cruds/Reports/ShowAll.vue";
+// ============== End:: Reports Routes
+
 // ============== Start:: Offers Routes
 
 
@@ -371,6 +377,45 @@ const routes = [
         ],
       },
       // End:: Clients Routes Config
+
+      // Start:: Reports Routes Config
+      {
+        path: "/reports",
+        name: "ReportsHome",
+        component: ReportsHome,
+        meta: {
+          middleware: [auth],
+        },
+        children: [
+          {
+            path: "all",
+            name: "AllReports",
+            component: AllReports,
+            meta: {
+              middleware: [auth],
+              requiresPermission: {
+                action: "reports index",
+                subject: "reports",
+              },
+            },
+          },
+          {
+            path: "show/:id",
+            name: "ShowReports",
+            component: ShowReports,
+            props: true,
+            meta: {
+              middleware: [auth],
+              requiresPermission: {
+                action: "reports index",
+                subject: "reports",
+              },
+            },
+          },
+        ],
+      },
+
+      // End:: Reports Routes Config
 
       // Start:: Category  Config
       {

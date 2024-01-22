@@ -1167,6 +1167,9 @@
     "activate_advertiser": "تفعيل المعلن",
     "deactivate_advertiser": "تعطيل المعلن",
 
+    "report_reason": "سبب البلاغ",
+    "reporter_mobile_number": "رقم جوال مقدم البلاغ",
+
     "no_notifications": "لا يوجد إشعارات",
     "current_balance": "الرصيد الحالى من الاعلانات",
     "bank_accounts_settings": "إعدادات الحسابات البنكية",

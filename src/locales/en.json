@@ -1154,6 +1154,9 @@
     "activate_advertiser": "Activate Advertiser",
     "deactivate_advertiser": "Deactivate Advertiser",
 
+    "report_reason": "Report Reason",
+    "reporter_mobile_number": "Reporter Mobile Number",
+
     "no_notifications": "No Notifications",
 
     "current_balance": "Current Balance of Ads",
@@ -1217,16 +1220,16 @@
     "free_package_ads_field_required": "Field Number of Free Package Ads is required",
     "free_package_duration_field_required": "Field Free Package Duration is required",
     "reports_to_block_auto_ad_required": "Field Number of reports to blockauto is required",
-    "custom_positive_value_required" : "custom_positive_value_required",
-    "custom_value_range_required" : "custom_value_range_required",
-    "city_field" : "The city field is required" ,
-    "area_field" : "The area field is required" , 
-    "arabic_words" : "The name must be entered in Arabic",
-    "arabic_words_required" : "The address must be entered in Arabic" ,
-    "region" : "The area Name field is required" ,
-    "field_type" : "Additional field type is required" ,
-    "estate_depart" : "Estate depart field is required" ,
-    "is_show_map" : "show map field not choose"
+    "custom_positive_value_required": "custom_positive_value_required",
+    "custom_value_range_required": "custom_value_range_required",
+    "city_field": "The city field is required",
+    "area_field": "The area field is required",
+    "arabic_words": "The name must be entered in Arabic",
+    "arabic_words_required": "The address must be entered in Arabic",
+    "region": "The area Name field is required",
+    "field_type": "Additional field type is required",
+    "estate_depart": "Estate depart field is required",
+    "is_show_map": "show map field not choose"
   },
 
   "MESSAGES": {

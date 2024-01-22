@@ -63,6 +63,19 @@
       <v-data-table class="thumb" :loading="loading" :loading-text="$t('TABLES.loadingData')" :search="searchValue"
         :headers="tableHeaders" :items="tableRows" item-class="ltr" :items-per-page="paginations.items_per_page"
         hide-default-footer>
+
+
+        <!-- Custom Footer Row -->
+        <!-- <template v-slot:footer>
+          <tr>
+            <td v-for="(header, index) in tableHeaders" :key="index">
+              <template v-if="header.value === 'name'">
+                {{ header.value }}
+              </template>
+            </td>
+          </tr>
+        </template> -->
+
         <!-- Start:: No Data State -->
         <template v-slot:no-data>
           {{ $t("TABLES.noData") }}
