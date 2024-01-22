@@ -379,6 +379,31 @@
       "driverName": "Driver Name",
       "sendDate": "Send Date",
       "publishStatus": "Publish Status"
+    },
+    "subscriptions": {
+      "serialNumber": "Serial",
+      "name": "Name",
+      "phone": "Phone Name",
+      "packagePrice": "Package price without tax",
+      "AddedTax": "added tax",
+      "totalSubscription" : "Total subscription including tax",
+      "SubscriptionPeriod" : "Subscription period",
+      "UserBalance" : "User Balance" ,
+      "verified": "Verified",
+      "active": "Active",
+      "actions": "Actions"
+    },
+    "BankTransferManagement": {
+      "serialNumber": "serial",
+      "name": "customer name",
+      "phone": "mobile number",
+      "bankTransfer": "the transfer bank",
+      "number": "the IBAN number to which it is transferred",
+      "money" : "transfer amount",
+      "image": "receipt image",
+      "data" : "creation date",
+      "active": "activated",
+      "actions": "control"
     }
   },
 
@@ -477,6 +502,7 @@
     "rejectConfirmingMessage": "Are You Sure?! ({name}) Will Be Rejected",
     "logoutConfirmingMessage": "Are You Sure?! You Want To Logout",
     "users": "Users",
+    "subscriptions": "Package subscribers" ,
     "addUser": "Add New User",
     "addNotification": "Send New Notification",
     "editUser": "Edit User",
@@ -628,7 +654,8 @@
     "AllSections": "All Sections",
     "show_offer": "Show Offer",
     "download_invoice": "Download invoice",
-    "addStore": "Add Store"
+    "addStore": "Add Store",
+    "subscriptions": "Package subscribers" 
   },
 
   "TABS": {
@@ -706,7 +733,7 @@
     "contentEn": "English Content",
     "taxPercentage": "Tax Percentage (%)",
     "discountPercentage": "Discount Percentage (%)",
-
+    "BankTransferManagement" : " Bank transfer management" ,
     "deliveryPrice": "Delivery Price",
     "driverDailyOrdersAmount": "Driver Daily Orders Amount",
     "appointmentOrdersAmount": "Appointment Orders Amount",
@@ -939,7 +966,7 @@
     "employee_name": "Employee Name",
     "add_at": "Added At",
 
-    "VAT_percentage": "VAT percentage",
+    "VAT_percentage": "VAT percentage %",
     "Application_commission_percentage": "Application commission percentage",
     "Cancellation_Rejection_percentage": "Cancellation/Rejection percentage",
     "Reminder_before_the_trip_date_by_duration": "Reminder before the trip date by duration",
@@ -1061,7 +1088,7 @@
     "number_of_free_package_ads": "Number of Free Package Ads",
     "free_package_expiry_duration": "Free Package Expiry Duration in (Days)",
 
-    "search_scope": "Search Scope",
+    "search_scope": "Search Scope (km)",
 
     "bank_management": "Bank Management",
     "bank_name": "Bank Name",
@@ -1167,7 +1194,7 @@
     "image": "You Must Select An Image",
     "startDate": "You Must Select A Start Date",
     "endDate": "You Must Select An End Date",
-    "handle" : "You must choose the exact date" ,
+    "handle" : "The start date must be before the end date" ,
     "permissions": "You Must Select At Least One Permission",
     "role": "You Must Select A Role",
     "content": "Content Field Cant Be Empty",

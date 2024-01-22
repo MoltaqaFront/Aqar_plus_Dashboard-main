@@ -175,6 +175,19 @@
       </div>
       <!-- End:: additionalServices Route -->
 
+      <!-- Start:: Bank transfer management -->
+      <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')"
+       >
+        <router-link to="/bankTransfer/all">
+          <span class="route_icon">
+            <img src="@/assets/media/icons/ui_icons/exchange.png" alt="icon" width="40" height="40" />
+          </span>
+          <span class="route_text">
+            {{ $t("PLACEHOLDERS.BankTransferManagement") }}
+          </span>
+        </router-link>
+      </div>
+      <!-- End:: Bank transfer management -->
       <!-- Start:: characteristics Route -->
       <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')"
         v-if="$can('characteristics index', 'characteristics')">

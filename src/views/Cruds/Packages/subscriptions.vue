@@ -13,14 +13,13 @@
         <div class="filter_form_wrapper">
           <form @submit.prevent="submitFilterForm">
             <div class="row justify-content-center align-items-center w-100">
-
               <!-- Start:: Name Input -->
-              <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.name')" v-model.trim="filterOptions.title" />
+              <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.name')" v-model.trim="filterOptions.name" />
               <!-- End:: Name Input -->
 
               <!-- Start:: Status Input -->
               <base-select-input col="6" :optionsList="activeStatuses" :placeholder="$t('PLACEHOLDERS.status')"
-                v-model="filterOptions.active" />
+                v-model="filterOptions.isActive" />
               <!-- End:: Status Input -->
             </div>
 
@@ -40,17 +39,11 @@
       <!--  =========== Start:: Table Title =========== -->
       <div class="table_title_wrapper">
         <div class="title_text_wrapper">
-          <h5>{{ $t("PLACEHOLDERS.packages") }}</h5>
+          <h5>{{ $t("TITLES.subscriptions") }}</h5>
           <button v-if="!filterFormIsActive" class="filter_toggler"
             @click.stop="filterFormIsActive = !filterFormIsActive">
             <i class="fal fa-search"></i>
           </button>
-        </div>
-
-        <div class="title_route_wrapper" v-if="$can('packages create', 'packages')">
-          <router-link to="/packages/create">
-            {{ $t("PLACEHOLDERS.add_package") }}
-          </router-link>
         </div>
       </div>
       <!--  =========== End:: Table Title =========== -->
@@ -65,119 +58,63 @@
         </template>
         <!-- Start:: No Data State -->
 
-        <!-- Start:: Item Image -->
-        <template v-slot:[`item.id`]="{ item, index }">
-          <div class="table_image_wrapper">
-            <h6 class="text-danger" v-if="!item.id"> {{ $t("TABLES.noData") }} </h6>
-            <h6 v-else>{{ index + 1 }}</h6> <!-- Display the index for each row -->
-          </div>
+        <!-- Start:: Name -->
+        <template v-slot:[`item.name`]="{ item }">
+          <span class="text-danger" v-if="!item.name"> {{ $t("TABLES.noData") }} </span>
+          <span v-else> {{ item.name }} </span>
         </template>
-        <!-- End:: Item Image -->
+        <!-- End:: Name -->
 
-        <!-- Start:: Title -->
-        <template v-slot:[`item.title`]="{ item }">
-          <p class="text-danger" v-if="!item.title"> {{ $t("TABLES.noData") }} </p>
-          <p v-else>{{ item.title }}</p>
+        <!-- Start:: Phone -->
+        <template v-slot:[`item.phone`]="{ item }">
+          <span class="text-danger" v-if="!item.phone"> {{ $t("TABLES.noData") }} </span>
+          <span v-else> {{ item.phone }} </span>
         </template>
-        <!-- End:: Title -->
-
-        <!-- Start:: Activation -->
-        <template v-slot:[`item.is_active`]="{ item }">
-          <div class="activation" dir="ltr" style="z-index: 1" v-if="$can('packages activate', 'packages')">
-            <v-switch class="mt-2" color="success" v-model="item.is_active" hide-details
-              @change="changeActivationStatus(item)"></v-switch>
-          </div>
-
-          <template v-else>
-            <span class="text-success text-h5" v-if="item.is_active">
-              <i class="far fa-check"></i>
-            </span>
-            <span class="text-danger text-h5" v-else>
-              <i class="far fa-times"></i>
-            </span>
-          </template>
-        </template>
-        <!-- End:: Activation -->
+        <!-- End:: Phone -->
 
         <!-- Start:: Actions -->
         <template v-slot:[`item.actions`]="{ item }">
           <div class="actions">
-
-            <a-tooltip placement="bottom" v-if="$can('packages show', 'packages')">
-              <template slot="title">
-                <span>{{ $t("BUTTONS.show") }}</span>
-              </template>
-              <button class="btn_show" @click="showItem(item)">
-                <i class="fal fa-eye"></i>
-              </button>
-            </a-tooltip>
-
-            <a-tooltip placement="bottom" v-if="$can('packages edit', 'packages')">
-              <template slot="title">
-                <span>{{ $t("BUTTONS.edit") }}</span>
-              </template>
-              <button class="btn_edit" @click="editItem(item)">
-                <i class="fal fa-edit"></i>
-              </button>
-            </a-tooltip>
-
             <a-tooltip placement="bottom">
               <template slot="title">
-                <span>{{ $t("BUTTONS.subscriptions") }}</span>
+                <span>{{ $t("PLACEHOLDERS.current_balance") }}</span>
               </template>
 
-              <button class="btn_edit" @click="subscription(item)">
+              <button class="btn_edit" @click="selectAcceptItem(item)">
                 <i class="fal fa-wallet"></i>
               </button>
             </a-tooltip>
-
-
-
-            <a-tooltip placement="bottom" v-if="$can('packages delete', 'packages')">
-              <template slot="title">
-                <span>{{ $t("BUTTONS.delete") }}</span>
-              </template>
-              <button class="btn_delete" @click="selectDeleteItem(item)">
-                <i class="fal fa-trash-alt"></i>
-              </button>
-            </a-tooltip>
-
-            <template v-else>
-              <i class="fal fa-lock-alt fs-5 blue-grey--text text--darken-1"></i>
-            </template>
           </div>
         </template>
         <!-- End:: Actions -->
 
         <!-- ======================== Start:: Dialogs ======================== -->
         <template v-slot:top>
-          <!-- Start:: Image Modal -->
-          <image-modal v-if="dialogImage" :modalIsOpen="dialogImage" :modalImage="selectedItemImage"
-            @toggleModal="dialogImage = !dialogImage" />
-          <!-- End:: Image Modal -->
-
-          <!-- Start:: Description Modal -->
-          <description-modal v-if="dialogDescription" :modalIsOpen="dialogDescription"
-            :modalDesc="selectedDescriptionTextToShow" @toggleModal="dialogDescription = !dialogDescription" />
-          <!-- End:: Description Modal -->
-
-          <!-- Start:: Delete Modal -->
-          <v-dialog v-model="dialogDelete">
+           <!-- Start:: Balance Modal -->
+           <v-dialog v-model="dialogBalance">
             <v-card>
-              <v-card-title class="text-h5 justify-center" v-if="itemToDelete">
-                {{ $t("TITLES.DeleteConfirmingMessage", { name: itemToDelete.name }) }}
+              <v-card-title class="text-h5 justify-center" v-if="itemToBalance">
+                <span>{{ $t('PLACEHOLDERS.current_balance') }} : </span>
+                <span>{{ itemToBalance.balance }}</span>
               </v-card-title>
+
+              <form class="w-100">
+
+                <base-input col="12" type="text" :placeholder="$t('PLACEHOLDERS.current_balance')"
+                  v-model.trim="balance_package" required />
+              </form>
+
               <v-card-actions>
-                <v-btn class="modal_confirm_btn" @click="confirmDeleteItem">{{
+                <v-btn class="modal_confirm_btn" @click="confirmAcceptItem">{{
                   $t("BUTTONS.ok")
                 }}</v-btn>
 
-                <v-btn class="modal_cancel_btn" @click="dialogDelete = false">{{ $t("BUTTONS.cancel") }}</v-btn>
+                <v-btn class="modal_cancel_btn" @click="dialogBalance = false">{{ $t("BUTTONS.cancel") }}</v-btn>
                 <v-spacer></v-spacer>
               </v-card-actions>
             </v-card>
           </v-dialog>
-          <!-- End:: Delete Modal -->
+          <!-- End:: Balance Modal -->
         </template>
         <!-- ======================== End:: Dialogs ======================== -->
       </v-data-table>
@@ -202,7 +139,7 @@
 import { mapGetters } from "vuex";
 
 export default {
-  name: "AllStores",
+  name: "AllSubscriptons",
 
   computed: {
     ...mapGetters({
@@ -211,11 +148,6 @@ export default {
 
     activeStatuses() {
       return [
-        {
-          id: 3,
-          name: this.$t("STATUS.all"),
-          value: null,
-        },
         {
           id: 1,
           name: this.$t("STATUS.active"),
@@ -226,7 +158,11 @@ export default {
           name: this.$t("STATUS.notActive"),
           value: 0,
         },
-
+        {
+          id: null,
+          name: this.$t("STATUS.all"),
+          value: null,
+        },
       ];
     },
   },
@@ -241,8 +177,10 @@ export default {
       // Start:: Filter Data
       filterFormIsActive: false,
       filterOptions: {
-        title: null,
-        active: null,
+        name: null,
+        phone: null,
+        email: null,
+        isActive: null,
       },
       // End:: Filter Data
 
@@ -250,56 +188,64 @@ export default {
       searchValue: "",
       tableHeaders: [
         {
-          text: this.$t("TABLES.StoresTypes.serialNumber"),
+          text: this.$t("TABLES.subscriptions.serialNumber"),
           value: "id",
           align: "center",
-          width: "80",
           sortable: false,
         },
         {
-          text: this.$t("TABLES.StoresTypes.name"),
-          value: "name",
+          text: this.$t("TABLES.subscriptions.name"),
+          value: "user_name",
           align: "center",
           sortable: false,
         },
         {
-          text: this.$t("PLACEHOLDERS.package_price"),
-          value: "price",
+          text: this.$t("TABLES.subscriptions.phone"),
+          value: "user_mobile",
           align: "center",
           sortable: false,
         },
         {
-          text: this.$t("PLACEHOLDERS.number_of_ads"),
-          value: "number_of_advertisements",
+          text: this.$t("TABLES.subscriptions.packagePrice"),
+          value: "balance",
           align: "center",
+          width: "100",
           sortable: false,
         },
         {
-          text: this.$t("PLACEHOLDERS.package_duration"),
-          value: "duration",
+          text: this.$t("TABLES.subscriptions.AddedTax"),
+          value: "tax",
           align: "center",
+          width: "100",
           sortable: false,
         },
         {
-          text: this.$t("TABLES.Products.created_at"),
-          value: "created_at",
-          sortable: false,
+          text: this.$t("TABLES.subscriptions.totalSubscription"),
+          value: "total_balance",
           align: "center",
-        },
-
-        {
-          text: this.$t("TABLES.StoresTypes.active"),
-          value: "is_active",
-          align: "center",
-          width: "120",
+          width: "150",
           sortable: false,
         },
-
         {
-          text: this.$t("TABLES.StoresTypes.actions"),
+          text: this.$t("TABLES.subscriptions.starSubscription"),
+          value: "start_date",
+          align: "center",
+          width: "150",
+          sortable: false,
+        },
+        {
+          text: this.$t("TABLES.subscriptions.endSubscription"),
+          value: "end_date",
+          align: "center",
+          width: "150",
+          sortable: false,
+        },
+        {
+          text: this.$t("TABLES.subscriptions.UserBalance"),
           value: "actions",
           sortable: false,
           align: "center",
+          width: "200"
         },
       ],
       tableRows: [],
@@ -308,13 +254,16 @@ export default {
       // Start:: Dialogs Control Data
       dialogImage: false,
       selectedItemImage: null,
-      dialogDescription: false,
-      selectedDescriptionTextToShow: "",
+      dialogDeactivate: false,
+      itemToChangeActivationStatus: null,
+      deactivateReason: null,
       dialogDelete: false,
       itemToDelete: null,
+      dialogBalance: false,
+      itemToBalance: null,
       // End:: Dialogs Control Data
 
-      // Start:: Pagination Data 
+      // Start:: Pagination Data
       paginations: {
         current_page: 1,
         last_page: 1,
@@ -325,7 +274,6 @@ export default {
       // Start:: Page Permissions
       permissions: null,
       // Start:: Page Permissions
-
     };
   },
 
@@ -342,15 +290,21 @@ export default {
     // Start:: Handel Filter
     async submitFilterForm() {
       if (this.$route.query.page !== '1') {
-        await this.$router.push({ path: '/packages/all', query: { page: 1 } });
+        await this.$router.push({ path: '/subscriptions/:id', query: { page: 1 } });
       }
       this.setTableRows();
     },
     async resetFilter() {
-      this.filterOptions.title = null;
-      this.filterOptions.active = null;
+      this.filterOptions.user_name = null;
+      this.filterOptions.user_mobile = null;
+      this.filterOptions.balance = null;
+      this.filterOptions.tax = null;
+      this.filterOptions.total_balance = null;
+      this.filterOptions.start_date = null;
+      this.filterOptions.end_date = null;
+      this.filterOptions.package_id = null
       if (this.$route.query.page !== '1') {
-        await this.$router.push({ path: '/packages/all', query: { page: 1 } });
+        await this.$router.push({ path: '/subscriptions/:id', query: { page: 1 } });
       }
       this.setTableRows();
     },
@@ -374,15 +328,22 @@ export default {
       try {
         let res = await this.$axios({
           method: "GET",
-          url: "packages",
+          url: `packages/subscriptions/${this.$route.params.id}`,
           params: {
             page: this.paginations.current_page,
-            name: this.filterOptions.title,
-            status: this.filterOptions.active?.value,
+            name: this.filterOptions.user_name,
+            phone: this.filterOptions.user_mobile,
+            packagePrice: this.filterOptions.balance,
+            AddedTax: this.filterOptions.tax,
+            totalSubscription :this.filterOptions.total_balance,
+            starSubscription: this.filterOptions.start_date,
+            endSubscription: this.filterOptions.end_date,
+            UserBalance:  this.filterOptions.package_id,
+            status: this.filterOptions.isActive?.value,
           },
         });
         this.loading = false;
-        this.tableRows = res.data.data;
+        this.tableRows = res.data.data.subscriptions;
         this.paginations.last_page = res.data.meta.last_page;
         this.paginations.items_per_page = res.data.meta.per_page;
 
@@ -393,67 +354,71 @@ export default {
     },
     // End:: Set Table Rows
 
-    showDescriptionModal(description) {
-      this.dialogDescription = true;
-      this.selectedDescriptionTextToShow = description;
+    // Start:: Control Modals
+    showImageModal(image) {
+      this.dialogImage = true;
+      this.selectedItemImage = image;
     },
     // End:: Control Modals
 
-    // Start:: Change Activation Status
-    async changeActivationStatus(item) {
+    // ===== Start:: Handling Activation & Deactivation
+    selectDeactivateItem(item) {
+      this.dialogDeactivate = true;
+      this.itemToChangeActivationStatus = item;
+    },
+    async HandlingItemActivationStatus(selectedItem) {
+      this.dialogDeactivate = false;
+      let targetItem = this.itemToChangeActivationStatus ? this.itemToChangeActivationStatus : selectedItem;
+      const REQUEST_DATA = {};
+      // Start:: Append Request Data
+      REQUEST_DATA.message = this.deactivateReason;
+      // Start:: Append Request Data
+
       try {
         await this.$axios({
-          method: "GET",
-          url: `packages/active/${item.id}`,
+          method: "POST",
+          url: `packages/active/${targetItem.id}`,
+          data: targetItem.is_active ? REQUEST_DATA : null,
         });
-        this.setTableRows();
         this.$message.success(this.$t("MESSAGES.changeActivation"));
+        let filteredElemet = this.tableRows.find(element => element.id === targetItem.id);
+        filteredElemet.is_active = !filteredElemet.is_active;
+        this.itemToChangeActivationStatus = null;
+        this.deactivateReason = null;
       } catch (error) {
         this.$message.error(error.response.data.message);
       }
     },
-    // End:: Change Activation Status
+    // ===== End:: Handling Activation & Deactivation
 
     // ==================== Start:: Crud ====================
-    // ===== Start:: End
-    editItem(item) {
-      this.$router.push({ path: `/packages/edit/${item.id}` });
+    // ===== Start:: balance
+    selectAcceptItem(item) {
+      this.dialogBalance = true;
+      this.itemToBalance = item;
     },
+    async confirmAcceptItem(item) {
 
-    showItem(item) {
-      this.$router.push({ path: `/packages/show/${item.id}` });
-    },
-    subscription(item) {
-      this.$router.push({path: `/packages/subscriptions/${item.id}`})
-    },
-    // ===== End:: End
+      const REQUEST_DATA = new FormData();
+      REQUEST_DATA.append("balance", this.balance_package);
+      // REQUEST_DATA.append("_method", "PUT");
 
-    // ===== Start:: Delete
-    selectDeleteItem(item) {
-      this.dialogDelete = true;
-      this.itemToDelete = item;
-    },
-
-    async confirmDeleteItem() {
       try {
         await this.$axios({
-          method: "DELETE",
-          url: `packages/${this.itemToDelete.id}`,
+          method: "POST",
+          url: `change-client-balance/${this.itemToBalance.id}`,
+          data: REQUEST_DATA,
         });
-        this.dialogDelete = false;
-        this.tableRows = this.tableRows.filter((item) => {
-          return item.id != this.itemToDelete.id;
-        });
-        this.setTableRows();
-        this.$message.success(this.$t("MESSAGES.deletedSuccessfully"));
+        this.dialogBalance = false;
+        this.balance_package = null,
+          this.setTableRows();
+        this.$message.success(this.$t("MESSAGES.verifiedSuccessfully"));
       } catch (error) {
-        this.dialogDelete = false;
+        this.dialogBalance = false;
         this.$message.error(error.response.data.message);
       }
     },
-    // ===== End:: Delete
-
-
+    // ===== End:: balance
     // ==================== End:: Crud ====================
   },
 
@@ -466,7 +431,6 @@ export default {
       this.paginations.current_page = +this.$route.query.page;
     }
     this.setTableRows();
-
     // End:: Fire Methods
   },
 };
