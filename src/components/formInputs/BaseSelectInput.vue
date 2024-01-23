@@ -7,10 +7,10 @@
         <span class="text-danger" v-if="required">*</span>
       </label>
       <multiselect :options="optionsList" label="name" track-by="id" placeholder=" " :searchable="true"
-        :allow-empty="false" :show-labels="false" :open-direction="'bottom'" :value="value" @input="
+        :allow-empty="true" :show-labels="false" :open-direction="'bottom'" :value="value" @input="
           updateValue($event);
         $emit('fireInputEvent');
-        " :multiple="multiple" :readonly="readonly" :disabled="disabled">
+        " :multiple="multiple" :readonly="readonly" :disabled="disabled" :close-on-select="focus">
       </multiselect>
     </div>
   </div>
@@ -52,6 +52,11 @@ export default {
       required: false,
       type: Boolean,
       default: false,
+    },
+    focus: {
+      required: false,
+      type: Boolean,
+      default: true,
     },
     disabled: {
       required: false,

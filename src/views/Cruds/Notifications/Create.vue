@@ -21,7 +21,7 @@
             <div class="row">
               <base-select-input v-if="(data.receiverType && data.receiverType.value === 'clients' && clients.length)"
                 class="col-12" :optionsList="clients" :placeholder="$t('TITLES.clients')" v-model="data.clients" required
-                multiple />
+                multiple :focus="false" />
 
             </div>
 
@@ -119,13 +119,13 @@ export default {
     validateFormInputs() {
       const arabicRegex = /^[\u0600-\u06FF\s]+$/;
       if (!arabicRegex.test(this.data.titleAr)) {
-      this.$message.error(this.$t("VALIDATION.arabic_words_required"));
-      return;
-    }
-    if (!arabicRegex.test(this.data.contentAr)) {
-      this.$message.error(this.$t("VALIDATION.arabic_words_required"));
-      return;
-    }
+        this.$message.error(this.$t("VALIDATION.arabic_words_required"));
+        return;
+      }
+      if (!arabicRegex.test(this.data.contentAr)) {
+        this.$message.error(this.$t("VALIDATION.arabic_words_required"));
+        return;
+      }
       if (!this.data.titleAr) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.nameAr"));
@@ -155,9 +155,11 @@ export default {
 
       if (this.data.receiverType.value == "all") {
         REQUEST_DATA.append(`roles[]`, "client");
+        REQUEST_DATA.append(`receiver_type`, "client");
       }
       else if (this.data.receiverType.value == "clients") {
         this.data.clients.forEach((element, index) => {
+          REQUEST_DATA.append(`receiver_type`, "client");
           REQUEST_DATA.append(`client_ids[${index}]`, element.id);
         });
       }
@@ -190,8 +192,8 @@ export default {
           method: "GET",
           url: "clients",
           params: {
-            "status": 1 ,
-            receiver_type: value,
+            "status": 1,
+
           }
         });
         this.loading = false;

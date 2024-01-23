@@ -149,19 +149,6 @@
       </div>
       <!-- End:: rates Route -->
 
-      <!-- Start:: cities Route -->
-      <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')" v-if="$can('countries index', 'countries')">
-        <router-link to="/cities/all">
-          <span class="route_icon">
-            <img src="@/assets/media/icons/ui_icons/city.svg" alt="icon" width="40" height="40" />
-          </span>
-          <span class="route_text">
-            {{ $t("SIDENAV.Cities.title") }}
-          </span>
-        </router-link>
-      </div>
-      <!-- End:: cities Route -->
-
       <!-- Start:: areas Route -->
       <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')" v-if="$can('areas index', 'areas')">
         <router-link to="/areas/all">
@@ -174,6 +161,19 @@
         </router-link>
       </div>
       <!-- End:: areas Route -->
+
+      <!-- Start:: cities Route -->
+      <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')" v-if="$can('countries index', 'countries')">
+        <router-link to="/cities/all">
+          <span class="route_icon">
+            <img src="@/assets/media/icons/ui_icons/city.svg" alt="icon" width="40" height="40" />
+          </span>
+          <span class="route_text">
+            {{ $t("SIDENAV.Cities.title") }}
+          </span>
+        </router-link>
+      </div>
+      <!-- End:: cities Route -->
 
       <!-- Start:: districts Route -->
       <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')" v-if="$can('districts index', 'districts')">
@@ -203,8 +203,7 @@
       <!-- End:: additionalServices Route -->
 
       <!-- Start:: Bank transfer management -->
-      <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')"
-       >
+      <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')">
         <router-link to="/bankTransfer/all">
           <span class="route_icon">
             <img src="@/assets/media/icons/ui_icons/exchange.png" alt="icon" width="40" height="40" />

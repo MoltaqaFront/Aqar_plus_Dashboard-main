@@ -149,14 +149,14 @@
               </button>
             </a-tooltip>
 
-            <a-tooltip placement="bottom" v-if="$can('advertisements edit', 'advertisements')">
+            <!-- <a-tooltip placement="bottom" v-if="$can('advertisements edit', 'advertisements')">
               <template slot="title">
                 <span>{{ $t("BUTTONS.edit") }}</span>
               </template>
               <button class="btn_edit" @click="editItem(item)">
                 <i class="fal fa-edit"></i>
               </button>
-            </a-tooltip>
+            </a-tooltip> -->
 
             <template v-else>
               <i class="fal fa-lock-alt fs-5 blue-grey--text text--darken-1"></i>
