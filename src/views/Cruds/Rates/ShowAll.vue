@@ -29,7 +29,7 @@
               <!-- End:: End Date Input -->
 
               <!-- Start:: Status Input -->
-              <base-select-input col="3" :optionsList="status" :placeholder="$t('PLACEHOLDERS.status')"
+              <base-select-input col="3" :optionsList="activeStatuses" :placeholder="$t('PLACEHOLDERS.status')"
                 v-model="filterOptions.status" />
               <!-- End:: Status Input -->
 
@@ -100,7 +100,7 @@
         <!-- End:: Rate Comment Btns -->
 
         <!-- Start:: Activation -->
-        <template v-slot:[`item.status`]="{ item }">
+        <template v-slot:[`item.is_active`]="{ item }">
           <div class="activation" dir="ltr" style="z-index: 1" v-if="$can('rates activate', 'rates')">
             <v-switch class="mt-2" color="success" v-model="item.status" hide-details
               @change="changeActivationStatus(item)"></v-switch>
@@ -160,22 +160,22 @@ export default {
       getAppLocale: "AppLangModule/getAppLocale",
     }),
 
-    status() {
+    activeStatuses() {
       return [
         {
           id: 1,
           name: this.$t("STATUS.published"),
-          value: "published",
+          value: "1",
         },
         {
           id: 2,
           name: this.$t("STATUS.notPublished"),
-          value: "unPublished",
+          value: 0,
         },
         {
           id: 1,
           name: this.$t("STATUS.new"),
-          value: "new",
+          value: null,
         },
       ];
     },
@@ -195,7 +195,7 @@ export default {
         rate: 0,
         startDate: null,
         endDate: null,
-        status: null,
+        is_active: null,
         name: null
       },
       providers_list: [],
@@ -232,7 +232,7 @@ export default {
         },
         {
           text: this.$t("TABLES.Rates.publishStatus"),
-          value: "status",
+          value: "is_active",
           align: "center",
           sortable: false
         }
@@ -296,7 +296,7 @@ export default {
       this.filterOptions.rate = 0;
       this.filterOptions.startDate = null;
       this.filterOptions.endDate = null;
-      this.filterOptions.status = null;
+      this.filterOptions.is_active = null;
       if (this.$route.query.page !== '1') {
         await this.$router.push({ path: '/rates/all', query: { page: 1 } });
       }
@@ -327,7 +327,7 @@ export default {
             page: this.paginations.current_page,
             clientName: this.filterOptions.name,
             rate: this.filterOptions.rate === 0 ? null : this.filterOptions.rate,
-            status: this.filterOptions.status?.value,
+            status: this.filterOptions.is_active?.value,
             start_date: this.filterOptions.startDate,
             end_date: this.filterOptions.endDate,
           },
@@ -356,17 +356,18 @@ export default {
 
     // Start:: Change Activation Status
     async changeActivationStatus(item) {
-
-      if (item.status == 1) {
+      if (item.is_active == 1) {
+        console.log("published");
         this.status_word = "published"
       } else {
+        console.log("unpublished");
+
         this.status_word = "unpublished"
       }
-
       try {
         await this.$axios({
           method: "POST",
-          url: `rates/${item.id}`,
+          url: `rates/${item.id}`, 
           data: { status: this.status_word }
         });
         this.$message.success(this.$t("MESSAGES.changedSuccessfully"));

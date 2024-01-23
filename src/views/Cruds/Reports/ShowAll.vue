@@ -13,32 +13,17 @@
         <div class="filter_form_wrapper">
           <form @submit.prevent="submitFilterForm">
             <div class="row justify-content-center align-items-center w-100">
-              <!-- Start:: report_number Input -->
-              <base-input col="3" type="text" :placeholder="$t('PLACEHOLDERS.report_number')"
-                v-model.trim="filterOptions.report_number" />
-              <!-- End:: report_number Input -->
-
-              <!-- Start:: Phone Input -->
-              <base-input col="3" type="number" :placeholder="$t('PLACEHOLDERS.report_submitter')"
-                v-model.trim="filterOptions.report_submitter" />
-              <!-- End:: Phone Input -->
-
-              <!-- Start:: email Input -->
-              <base-input col="3" type="number" :placeholder="$t('PLACEHOLDERS.ad_number_in_report')"
+             
+              <!-- Start:: ad_number_in_report Input -->
+              <base-input col="6" type="number" :placeholder="$t('PLACEHOLDERS.ad_number_in_report')"
                 v-model.trim="filterOptions.ad_number_in_report" />
-              <!-- End:: email Input -->
+              <!-- End:: ad_number_in_report Input -->
 
-              <base-input col="3" type="text" :placeholder="$t('PLACEHOLDERS.ad_name')"
-                v-model.trim="filterOptions.ad_name" />
-
-              <base-input col="3" type="text" :placeholder="$t('PLACEHOLDERS.advertiser_name')"
+              <!-- Start:: advertiser_name Input -->
+              <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.advertiser_name')"
                 v-model.trim="filterOptions.advertiser_name" />
+              <!-- End:: advertiser_name Input -->
 
-
-              <!-- Start:: Status Input -->
-              <!-- <base-select-input col="3" :optionsList="activeStatuses" :placeholder="$t('PLACEHOLDERS.status')"
-                v-model="filterOptions.isActive" /> -->
-              <!-- End:: Status Input -->
             </div>
 
             <div class="btns_wrapper">
@@ -94,7 +79,7 @@
           <p v-else>{{ item.serialNumber }}</p>
         </template>
 
-        <template v-slot:[`item.id`]="{ item, index }">
+        <template v-slot:[`item.id`]="{ item }">
           <div class="table_image_wrapper">
             <h6 class="text-danger" v-if="!item.id"> {{ $t("TABLES.noData") }} </h6>
             <p v-else>{{ item.id }}</p>
@@ -126,6 +111,23 @@
           </v-chip>
         </template>
 
+        
+        <!-- Start:: Message Reply -->
+        <template v-slot:[`item.reply_message`]="{ item }">
+          <template v-if="$can('contactuses reply', 'contactuses')">
+            <h6 class="text-danger" v-if="!item.reply_message"> {{ $t("TABLES.noData") }} </h6>
+            <div class="actions" v-else>
+              <button class="btn_show" @click="showReplayModal(item.reply_message)">
+                <i class="fal fa-file-alt"></i>
+              </button>
+            </div>
+          </template>
+
+          <template v-else>
+            <i class="fal fa-lock-alt fs-5 blue-grey--text text--darken-1"></i>
+          </template>
+          </template>
+          <!-- End:: Message Reply -->
 
         <!-- Start:: Activation Status -->
         <template v-slot:[`item.is_active`]="{ item }">
@@ -149,6 +151,24 @@
                 <i class="fal fa-eye"></i>
               </button>
             </a-tooltip>
+
+            <template v-if="$can('contactuses reply', 'contactuses')">
+              <span class="blue-grey--text text--darken-1" v-if="item.is_reply">
+                <i class="far fa-horizontal-rule"></i>
+              </span>
+              <a-tooltip placement="bottom" v-else>
+                <template slot="title">
+                  <span>{{ $t("BUTTONS.share") }}</span>
+                </template>
+                <button class="btn_show" @click="selectItemToSendReplay(item)">
+                  <i class="fal fa-reply"></i>
+                </button>
+              </a-tooltip>
+            </template>
+            
+            <template v-else>
+              <i class="fal fa-lock-alt fs-5 blue-grey--text text--darken-1"></i>
+            </template>
 
             <template v-if="$can('clients activate', 'clients') && item.id !== 1">
               <a-tooltip placement="bottom" v-if="!item.is_active">
@@ -203,8 +223,36 @@
           </v-dialog>
           <!-- End:: Deactivate Modal -->
 
+           <!-- Start:: Replay Modal -->
+           <description-modal v-if="dialogReplay" :modalIsOpen="dialogReplay" :modalDesc="selectedReplayTextToShow"
+            @toggleModal="dialogReplay = !dialogReplay" />
+          <!-- End:: Replay Modal -->
+
+          <!-- Start:: Replay Modal -->
+          <v-dialog v-model="dialogSendReplay">
+            <v-card>
+              <v-card-title class="text-h5 justify-center">
+                {{ $t("TITLES.sendReplay") }}
+              </v-card-title>
+
+              <form class="w-100">
+                <base-input col="12" rows="3" type="textarea" :placeholder="$t('PLACEHOLDERS.messageReplay')"
+                  v-model.trim="messageReplay" required />
+              </form>
+
+              <v-card-actions>
+                <v-btn class="modal_confirm_btn" @click="sendReplay" :disabled="!(!!messageReplay)">
+                  {{ $t("BUTTONS.replay") }}
+                </v-btn>
+
+                <v-btn class="modal_cancel_btn" @click="dialogSendReplay = false">{{ $t("BUTTONS.cancel") }}</v-btn>
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+          <!-- End:: Replay Modal -->
           <!-- Start:: Balance Modal -->
-          <v-dialog v-model="dialogBalance">
+          <!-- <v-dialog v-model="dialogBalance">
             <v-card>
               <v-card-title class="text-h5 justify-center" v-if="itemToBalance">
                 <span>{{ $t('PLACEHOLDERS.current_balance') }} : </span>
@@ -226,7 +274,7 @@
                 <v-spacer></v-spacer>
               </v-card-actions>
             </v-card>
-          </v-dialog>
+          </v-dialog> -->
           <!-- End:: Balance Modal -->
 
         </template>
@@ -292,11 +340,9 @@ export default {
       // Start:: Filter Data
       filterFormIsActive: false,
       filterOptions: {
-        report_number: null,
-        report_submitter: null,
         ad_number_in_report: null,
-        ad_name: null,
         advertiser_name: null,
+        isActive: null,
       },
       // End:: Filter Data
 
@@ -310,48 +356,42 @@ export default {
           sortable: false,
         },
         {
-          text: this.$t("PLACEHOLDERS.report_number"),
+          text: this.$t("PLACEHOLDERS.ad_number_in_report"),
           value: "id",
           align: "center",
           sortable: false,
         },
         {
-          text: this.$t("PLACEHOLDERS.report_submitter"),
-          value: "mobile",
-          align: "center",
-          sortable: false,
-        },
-        {
-          text: this.$t("PLACEHOLDERS.ad_name"),
-          value: "email",
-          align: "center",
-          sortable: false,
-        },
-        {
           text: this.$t("PLACEHOLDERS.advertiser_name"),
-          value: "email",
+          value: "user.name",
+          align: "center",
+          sortable: false,
+        },
+        {
+          text: this.$t("PLACEHOLDERS.ad_phone_advertiser"),
+          value: "user.mobile",
           align: "center",
           sortable: false,
         },
         {
           text: this.$t("PLACEHOLDERS.number_of_reports"),
-          value: "email",
+          value: "report_count",
           align: "center",
           sortable: false,
         },
-        // {
-        //   text: this.$t("TABLES.Clients.active"),
-        //   value: "is_active",
-        //   align: "center",
-        //   width: "120",
-        //   sortable: false,
-        // },
+        {
+          text: this.$t("TABLES.Clients.active"),
+          value: "is_active",
+          align: "center",
+          width: "120",
+          sortable: false,
+        },
         {
           text: this.$t("TABLES.Clients.actions"),
           value: "actions",
           sortable: false,
           align: "center",
-        },
+        }
       ],
       tableRows: [],
       // End:: Table Data
@@ -395,10 +435,7 @@ export default {
       this.setTableRows();
     },
     async resetFilter() {
-      this.filterOptions.report_number = null;
-      this.filterOptions.report_submitter = null;
       this.filterOptions.ad_number_in_report = null;
-      this.filterOptions.ad_name = null;
       this.filterOptions.advertiser_name = null;
       if (this.$route.query.page !== '1') {
         await this.$router.push({ path: '/reports/all', query: { page: 1 } });
@@ -425,14 +462,12 @@ export default {
       try {
         let res = await this.$axios({
           method: "GET",
-          url: "reports",
+          url: "advertisements",
           params: {
             page: this.paginations.current_page,
-            mobile: this.filterOptions.report_number,
-            email: this.filterOptions.report_submitter,
-            status: this.filterOptions.ad_number_in_report,
-            status: this.filterOptions.ad_name,
-            status: this.filterOptions.advertiser_name,
+            id: this.filterOptions.ad_number_in_report,
+            user_name: this.filterOptions.advertiser_name,
+            "hasPeport" : 1
           },
         });
         this.loading = false;

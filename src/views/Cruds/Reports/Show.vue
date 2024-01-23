@@ -1,41 +1,65 @@
 <template>
-  <div class="crud_form_wrapper">
+  <div class="show_all_content_wrapper">
     <!-- Start:: Main Section -->
     <main>
+      <!--  =========== Start:: Filter Form =========== -->
+      <div class="filter_content_wrapper" :class="{ active: filterFormIsActive }">
+        <button class="filter_toggler" @click="filterFormIsActive = !filterFormIsActive">
+          <i class="fal fa-times"></i>
+        </button>
+        <div class="filter_title_wrapper">
+          <h5>{{ $t("TITLES.searchBy") }}</h5>
+        </div>
+        <div class="filter_form_wrapper">
+          <form @submit.prevent="submitFilterForm">
+            <div class="row justify-content-center align-items-center w-100">
+             
+              <!-- Start:: ad_number_in_report Input -->
+              <base-input col="6" type="number" :placeholder="$t('PLACEHOLDERS.report_number')"
+                v-model.trim="filterOptions.report_number" />
+              <!-- End:: ad_number_in_report Input -->
 
-      <div class="single_step_form_content_wrapper">
-        <form @submit.prevent="submitFilterForm">
-          <div class="row justify-content-center align-items-center w-100">
-            <!-- Start:: report_number Input -->
-            <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.report_number')"
-              v-model.trim="data.report_number" disabled />
-            <!-- End:: report_number Input -->
+              <!-- Start:: advertiser_name Input -->
+              <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.reporter_name')"
+                v-model.trim="filterOptions.reporter_name" />
+              <!-- End:: advertiser_name Input -->
 
-            <!-- Start:: Phone Input -->
-            <base-input col="6" type="number" :placeholder="$t('PLACEHOLDERS.report_submitter')"
-              v-model.trim="data.report_submitter" disabled />
-            <!-- End:: Phone Input -->
+            </div>
 
-            <!-- Start:: email Input -->
-            <base-input col="6" type="number" :placeholder="$t('PLACEHOLDERS.ad_number_in_report')"
-              v-model.trim="data.ad_number_in_report" disabled />
-            <!-- End:: email Input -->
+            <div class="btns_wrapper">
 
-            <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.ad_name')" v-model.trim="data.ad_name"
-              disabled />
+              <a-tooltip placement="bottom">
+                <template slot="title">
+                  <span>{{ $t("BUTTONS.search") }}</span>
+                </template>
+                <span class="submit_btn" @click="submitFilterForm" :disabled="isWaitingRequest">
+                  <i class="fal fa-search"></i>
+                </span>
+              </a-tooltip>
 
-            <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.advertiser_name')"
-              v-model.trim="data.advertiser_name" disabled />
+              <a-tooltip placement="bottom">
+                <template slot="title">
+                  <span>{{ $t("BUTTONS.rseet_search") }}</span>
+                </template>
+                <span class="reset_btn" :disabled="isWaitingRequest" @click="resetFilter">
+                  <i class="fal fa-redo"></i>
+                </span>
+              </a-tooltip>
 
-          </div>
-
-        </form>
+            </div>
+          </form>
+        </div>
       </div>
+      <!--  =========== End:: Filter Form =========== -->
 
       <!--  =========== Start:: Table Title =========== -->
-      <div class="table_title_wrapper mt-5">
+      <div class="table_title_wrapper">
         <div class="title_text_wrapper">
           <h5>{{ $t("PLACEHOLDERS.report_data_list") }}</h5>
+          <button v-if="!filterFormIsActive" class="filter_toggler"
+            @click.stop="filterFormIsActive = !filterFormIsActive">
+            <i class="fal fa-search"></i>
+          </button>
         </div>
       </div>
       <!--  =========== End:: Table Title =========== -->
@@ -50,42 +74,28 @@
         </template>
         <!-- Start:: No Data State -->
 
-        <!-- Start:: Item Image -->
-        <template v-slot:[`item.id`]="{ item, index }">
+        <template v-slot:[`item.serialNumber`]="{ item }">
+          <p class="blue-grey--text text--darken-1 fs-3" v-if="!item.serialNumber">-</p>
+          <p v-else>{{ item.serialNumber }}</p>
+        </template>
+
+        <template v-slot:[`item.id`]="{ item }">
           <div class="table_image_wrapper">
             <h6 class="text-danger" v-if="!item.id"> {{ $t("TABLES.noData") }} </h6>
-            <p v-else>{{ (paginations.current_page - 1) * paginations.items_per_page + index + 1 }}</p>
+            <p v-else>{{ item.id }}</p>
           </div>
         </template>
 
-        <template v-slot:[`item.price`]="{ item, index }">
-          <div class="table_image_wrapper">
-            <h6 class="text-danger" v-if="!item.price"> {{ $t("TABLES.noData") }} </h6>
-            <p v-else>{{ item.price }}</p>
-          </div>
+        <!-- Start:: Name -->
+        <template v-slot:[`item.name`]="{ item }">
+          <h6 class="text-danger" v-if="!item.name"> {{ $t("TABLES.noData") }} </h6>
+          <h6 v-else> {{ item.name }} </h6>
         </template>
-
-        <template v-slot:[`item.message`]="{ item }">
-          <template>
-            <h6 class="text-danger" v-if="item.message.length === 0"> {{ $t("TABLES.noData") }} </h6>
-            <div class="actions" v-else>
-              <button class="btn_show" @click="showReplayModal(item.message)">
-                <i class="fal fa-file-alt"></i>
-              </button>
-            </div>
-          </template>
-        </template>
+        <!-- End:: Name -->
 
         <!-- ======================== Start:: Dialogs ======================== -->
-        <template v-slot:top>
-          <!-- Start:: Replay Modal -->
-          <description-modal v-if="dialogReplay" :modalIsOpen="dialogReplay" :modalDesc="selectedReplayTextToShow"
-            @toggleModal="dialogReplay = !dialogReplay" />
-          <!-- End:: Replay Modal -->
-
-        </template>
+       
         <!-- ======================== End:: Dialogs ======================== -->
-
 
       </v-data-table>
       <!--  =========== End:: Data Table =========== -->
@@ -109,7 +119,7 @@
 import { mapGetters } from "vuex";
 
 export default {
-  name: "AllOrders",
+  name: "AllClients",
 
   computed: {
     ...mapGetters({
@@ -125,61 +135,56 @@ export default {
       isWaitingRequest: false,
       // End:: Loading Data
 
-      data: {
+      // Start:: Filter Data
+      filterFormIsActive: false,
+      filterOptions: {
         report_number: null,
-        report_submitter: null,
-        ad_number_in_report: null,
-        ad_name: null,
-        advertiser_name: null,
+        reporter_name: null,
       },
+      // End:: Filter Data
 
       // Start:: Table Data
       searchValue: "",
       tableHeaders: [
         {
-          text: this.$t("TABLES.StoresTypes.serialNumber"),
-          value: "id",
+          text: this.$t("TABLES.Rates.serialNumber"),
+          value: "serialNumber",
           align: "center",
+          sortable: false,
         },
         {
           text: this.$t("PLACEHOLDERS.report_number"),
-          value: "type",
+          value: "id",
           align: "center",
+          sortable: false,
         },
         {
-          text: this.$t("PLACEHOLDERS.report_submitter"),
-          value: "price",
+          text: this.$t("PLACEHOLDERS.reporter_name"),
+          value: "reporter.name",
           align: "center",
+          sortable: false,
         },
         {
           text: this.$t("PLACEHOLDERS.reporter_mobile_number"),
-          value: "tax",
+          value: "reporter.mobile",
           align: "center",
+          sortable: false,
         },
         {
           text: this.$t("PLACEHOLDERS.report_reason"),
-          value: "total",
+          value: "reason",
           align: "center",
+          sortable: false,
         },
         {
           text: this.$t("PLACEHOLDERS.report_date"),
-          value: "start_at",
+          value: "created_at",
           align: "center",
+          sortable: false,
         },
-
       ],
       tableRows: [],
       // End:: Table Data
-
-      // Start:: Dialogs Control Data
-      dialogDelete: false,
-      itemToDelete: null,
-      dialogReplay: false,
-      selectedReplayTextToShow: "",
-      dialogSendReplay: false,
-      itemToSendReplay: null,
-      messageReplay: null,
-      // End:: Dialogs Control Data]
 
       // Start:: Pagination Data
       paginations: {
@@ -189,9 +194,16 @@ export default {
       },
       // End:: Pagination Data
 
+      dialogDeactivate: false,
+      itemToChangeActivationStatus: null,
+      deactivateReason: null,
+
+      dialogBalance: false,
+      itemToBalance: null,
       // Start:: Page Permissions
       permissions: null,
       // Start:: Page Permissions
+
     };
   },
 
@@ -205,6 +217,22 @@ export default {
   },
 
   methods: {
+    // Start:: Handel Filter
+    async submitFilterForm() {
+      if (this.$route.query.page !== '1') {
+        await this.$router.push({ path: '/reports/show/:id', query: { page: 1 } });
+      }
+      this.setTableRows();
+    },
+    async resetFilter() {
+      this.filterOptions.report_number = null;
+      this.filterOptions.reporter_name = null;
+      if (this.$route.query.page !== '1') {
+        await this.$router.push({ path: '/reports/show/:id', query: { page: 1 } });
+      }
+      this.setTableRows();
+    },
+    // End:: Handel Filter
 
     // Start:: Set Table Rows
     updateRouterQueryParam(pagenationValue) {
@@ -222,16 +250,23 @@ export default {
     async setTableRows() {
       this.loading = true;
       try {
-        const { query } = this.$route;
         let res = await this.$axios({
           method: "GET",
-          url: `clients/subscriptions/${this.$route.params.id}`,
+          url: `advertisements/${this.$route.params.id}/reports`,
+          params: {
+            page: this.paginations.current_page,
+            id: this.filterOptions.report_number,
+            user_name: this.filterOptions.reporter_name,
+          },
         });
         this.loading = false;
-        this.tableRows = res.data.data;
+       // console.log("All Data ==>", res.data.data);
+        res.data.data.reports.forEach((item, index) => {
+          item.serialNumber = (this.paginations.current_page - 1) * this.paginations.items_per_page + index + 1;
+        });
+        this.tableRows = res.data.data.reports;
         this.paginations.last_page = res.data.meta.last_page;
-        this.paginations.items_per_page = res.data.meta.per_page;
-        this.permissions = res.data.permissions;
+        this.paginations.items_per_page = res.data.meta.per_page;;
       } catch (error) {
         this.loading = false;
         console.log(error.response.data.message);
@@ -239,13 +274,12 @@ export default {
     },
     // End:: Set Table Rows
 
+
     // ==================== Start:: Crud ====================
- // Start:: Control Modals
-    showReplayModal(replay) {
-      this.dialogReplay = true;
-      this.selectedReplayTextToShow = replay;
-    },
-    // End:: Control Modals
+   
+    // ===== Start:: Handling Activation & Deactivation
+    
+    // ===== End:: Handling Activation & Deactivation
     // ==================== End:: Crud ====================
   },
 
@@ -257,8 +291,22 @@ export default {
     if (this.$route.query.page) {
       this.paginations.current_page = +this.$route.query.page;
     }
-    // this.setTableRows();
+    this.setTableRows();
     // End:: Fire Methods
   },
 };
 </script>
+<style>
+span.submit_btn {
+  width: 45px;
+  height: 45px;
+  font-size: 16px;
+  border-radius: 10px;
+  color: var(--white_clr);
+  transition: all 0.3s linear;
+  background-color: #F6A513;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>

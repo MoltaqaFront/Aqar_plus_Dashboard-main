@@ -190,11 +190,7 @@ export default {
       try {
         let res = await this.$axios({
           method: "GET",
-          url: "clients",
-          params: {
-            "status": 1,
-
-          }
+          url: "clients"
         });
         this.loading = false;
         this.clients = res.data.data;
