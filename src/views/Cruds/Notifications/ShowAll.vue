@@ -90,20 +90,7 @@
         </template>
         <!-- End:: Notification Content -->
 
-        <!-- Start:: Receiver Type Status -->
-        <template v-slot:[`item.receiver_type`]="{ item }">
-          <v-chip v-if="item.receiver_type === 'client'" color="deep-purple darken-1" text-color="white" small>
-            {{ $t("PLACEHOLDERS.service_requester") }}
-          </v-chip>
-          <v-chip v-else-if="item.receiver_type === 'provider'" color="blue-grey darken-1" text-color="white" small>
-            {{ $t("PLACEHOLDERS.service_provider") }}
-          </v-chip>
-          <v-chip v-else-if="item.receiver_type === 'admin'" color="info" text-color="white" small>
-            {{ $t("SIDENAV.dashboard") }}
-          </v-chip>
-        </template>
-        <!-- End:: Receiver Type Status -->
-
+        
         <!-- Start:: Actions -->
         <template v-slot:[`item.actions`]="{ item }">
           <div class="actions">
