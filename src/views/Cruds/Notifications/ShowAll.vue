@@ -297,7 +297,7 @@ export default {
           params: {
             page: this.paginations.current_page,
             title: this.filterOptions.name,
-            // receiver_type: this.filterOptions.type?.value,
+            //receiver_type: this.filterOptions.type?.value,
             // startDate: this.filterOptions.startDate,
             // endDate: this.filterOptions.endDate,
           },

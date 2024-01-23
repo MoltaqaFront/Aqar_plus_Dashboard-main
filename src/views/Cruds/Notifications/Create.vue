@@ -191,7 +191,6 @@ export default {
           url: "clients",
           params: {
             "status": 1 ,
-            receiver_type: value,
           }
         });
         this.loading = false;

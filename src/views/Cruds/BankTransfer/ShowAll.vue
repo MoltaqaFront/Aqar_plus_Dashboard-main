@@ -233,17 +233,17 @@ export default {
         {
           id: 1,
           name: this.$t("PLACEHOLDERS.transfer_wait"),
-          value: "transfer_wait",
+          value: "1",
         },
         {
           id: 2,
           name: this.$t("PLACEHOLDERS.transfer_confirmed"),
-          value: "transfer_confirmed",
+          value: 0,
         },
         {
-          id: null,
+          id: 1,
           name: this.$t("PLACEHOLDERS.transfer_not_confirmed"),
-          value: "transfer_not_confirmed",
+          value: null,
         },
       ];
     },
@@ -266,7 +266,7 @@ export default {
         iban: null,
         transfer_amount: null,
        // receipt_image: null,
-        status: null,
+        is_active: null,
         created_at: null,
         region_id: null
       },
@@ -400,7 +400,7 @@ export default {
       this.filterOptions.transfer_amount = null;
       this.filterOptions.receipt_image = null;
       this.filterOptions.created_at = null;
-      this.filterOptions.status = null;
+      this.filterOptions.is_active = null;
       this.filterOptions.region_id = null;
       if (this.$route.query.page !== '1') {
         await this.$router.push({ path: '/bankTransfer/all', query: { page: 1 } });
@@ -434,7 +434,7 @@ export default {
             phone: this.filterOptions.mobile,
             bank_name: this.filterOptions.bankname,
             area_id: this.filterOptions.region_id?.id,
-            status: this.filterOptions.status?.value,
+            is_active: this.filterOptions.is_active?.value,
           },
         });
         this.loading = false;

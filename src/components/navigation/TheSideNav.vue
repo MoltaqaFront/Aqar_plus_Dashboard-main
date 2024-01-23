@@ -135,6 +135,19 @@
       </div>
       <!-- End:: rates Route -->
 
+      <!-- Start:: areas Route -->
+      <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')" v-if="$can('areas index', 'areas')">
+        <router-link to="/areas/all">
+          <span class="route_icon">
+            <img src="@/assets/media/icons/ui_icons/areas.svg" alt="icon" width="40" height="40" />
+          </span>
+          <span class="route_text">
+            {{ $t("SIDENAV.Areas.title") }}
+          </span>
+        </router-link>
+      </div>
+      <!-- End:: areas Route -->
+
       <!-- Start:: cities Route -->
       <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')" v-if="$can('countries index', 'countries')">
         <router-link to="/cities/all">
@@ -148,18 +161,6 @@
       </div>
       <!-- End:: cities Route -->
 
-      <!-- Start:: areas Route -->
-      <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')" v-if="$can('areas index', 'areas')">
-        <router-link to="/areas/all">
-          <span class="route_icon">
-            <img src="@/assets/media/icons/ui_icons/areas.svg" alt="icon" width="40" height="40" />
-          </span>
-          <span class="route_text">
-            {{ $t("SIDENAV.Areas.title") }}
-          </span>
-        </router-link>
-      </div>
-      <!-- End:: areas Route -->
 
       <!-- Start:: districts Route -->
       <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')" v-if="$can('districts index', 'districts')">

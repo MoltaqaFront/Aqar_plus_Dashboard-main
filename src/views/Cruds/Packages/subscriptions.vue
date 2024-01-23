@@ -2,39 +2,6 @@
   <div class="show_all_content_wrapper">
     <!-- Start:: Main Section -->
     <main>
-      <!--  =========== Start:: Filter Form =========== -->
-      <div class="filter_content_wrapper" :class="{ active: filterFormIsActive }">
-        <button class="filter_toggler" @click="filterFormIsActive = !filterFormIsActive">
-          <i class="fal fa-times"></i>
-        </button>
-        <div class="filter_title_wrapper">
-          <h5>{{ $t("TITLES.searchBy") }}</h5>
-        </div>
-        <div class="filter_form_wrapper">
-          <form @submit.prevent="submitFilterForm">
-            <div class="row justify-content-center align-items-center w-100">
-              <!-- Start:: Name Input -->
-              <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.name')" v-model.trim="filterOptions.name" />
-              <!-- End:: Name Input -->
-
-              <!-- Start:: Status Input -->
-              <base-select-input col="6" :optionsList="activeStatuses" :placeholder="$t('PLACEHOLDERS.status')"
-                v-model="filterOptions.isActive" />
-              <!-- End:: Status Input -->
-            </div>
-
-            <div class="btns_wrapper">
-              <button class="submit_btn" :disabled="isWaitingRequest">
-                <i class="fal fa-search"></i>
-              </button>
-              <button class="reset_btn" type="button" :disabled="isWaitingRequest" @click="resetFilter">
-                <i class="fal fa-redo"></i>
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-      <!--  =========== End:: Filter Form =========== -->
 
       <!--  =========== Start:: Table Title =========== -->
       <div class="table_title_wrapper">
@@ -100,18 +67,14 @@
 
               <form class="w-100">
 
-                <base-input col="12" type="text" :placeholder="$t('PLACEHOLDERS.current_balance')"
-                  v-model.trim="balance_package" required />
+                <base-input col="12" type="text" :placeholder="$t('PLACEHOLDERS.Remaining_advertising')"
+                  v-model.trim="Remaining_advertising" disabled />
+                <base-input col="12" type="text" :placeholder="$t('PLACEHOLDERS.Consumer_advertising')"
+                  v-model.trim="Consumer_advertising" disabled />
+                <base-input col="12" type="text" :placeholder="$t('PLACEHOLDERS.packega_balence')"
+                  v-model.trim="balance_package" disabled />
               </form>
 
-              <v-card-actions>
-                <v-btn class="modal_confirm_btn" @click="confirmAcceptItem">{{
-                  $t("BUTTONS.ok")
-                }}</v-btn>
-
-                <v-btn class="modal_cancel_btn" @click="dialogBalance = false">{{ $t("BUTTONS.cancel") }}</v-btn>
-                <v-spacer></v-spacer>
-              </v-card-actions>
             </v-card>
           </v-dialog>
           <!-- End:: Balance Modal -->
@@ -274,6 +237,9 @@ export default {
       // Start:: Page Permissions
       permissions: null,
       // Start:: Page Permissions
+      Remaining_advertising:'',
+      Consumer_advertising:'',
+      balance_package:'',
     };
   },
 
@@ -394,8 +360,14 @@ export default {
     // ==================== Start:: Crud ====================
     // ===== Start:: balance
     selectAcceptItem(item) {
+      console.log("item",item);
       this.dialogBalance = true;
       this.itemToBalance = item;
+
+      this.Remaining_advertising = item.user_balance.Remaining_advertising_balance;
+      this.Consumer_advertising = item.user_balance.Consumer_advertising_balance;
+      this.balance_package = item.user_balance.package;
+
     },
     async confirmAcceptItem(item) {
 
