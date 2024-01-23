@@ -1155,6 +1155,7 @@
     "facade": "الواجهة",
     "property_purpose": "الغرض من العقار",
     "last_update_before_duration": "آخر تحديث قبل (مدة)",
+    "advertiser_details": "بيانات المعلن",
     "advertiser_image": "صورة المعلن",
     "advertiser_name": "اسم المعلن",
     "advertiser_mobile_number": "رقم جوال المعلن",
@@ -1179,7 +1180,16 @@
     "no_notifications": "لا يوجد إشعارات",
     "current_balance": "الرصيد الحالى من الاعلانات",
     "bank_accounts_settings": "إعدادات الحسابات البنكية",
-    "show_advertiser_image_logo": "اظهار صورة/شعار المعلن عن العقار"
+    "show_advertiser_image_logo": "اظهار صورة/شعار المعلن عن العقار",
+
+    "ads_management": "إدارة الإعلانات",
+    "property_details": "بيانات العقار",
+    "rent_type": "نوع الإيجار",
+
+    "daily": "يومي",
+    "monthly": "شهري",
+    "yearly": "سنوي",
+    "download_pdf": "تحميل PDF"
   },
 
   "VALIDATION": {

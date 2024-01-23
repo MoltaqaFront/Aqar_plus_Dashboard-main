@@ -122,6 +122,20 @@
       </div>
       <!-- End:: reports_management Route -->
 
+      <!-- Start:: advertisements Route -->
+      <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')"
+        v-if="$can('advertisements index', 'advertisements')">
+        <router-link to="/advertisements/all">
+          <span class="route_icon">
+            <img src="@/assets/media/icons/ui_icons/image.svg" alt="icon" width="40" height="40" />
+          </span>
+          <span class="route_text">
+            {{ $t("PLACEHOLDERS.ads_management") }}
+          </span>
+        </router-link>
+      </div>
+      <!-- End:: advertisements Route -->
+
       <!-- Start:: rates Route -->
       <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')" v-if="$can('rates index', 'rates')">
         <router-link to="/rates/all">

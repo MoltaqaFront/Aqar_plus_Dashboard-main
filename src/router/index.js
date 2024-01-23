@@ -134,6 +134,13 @@ import ShowReports from "../views/Cruds/Reports/Show.vue";
 import AllReports from "../views/Cruds/Reports/ShowAll.vue";
 // ============== End:: Reports Routes
 
+// ============== Start:: Advertisements Routes
+import AdvertisementsHome from "../views/Cruds/Advertisements/Home.vue";
+import AllAdvertisements from "../views/Cruds/Advertisements/ShowAll.vue";
+import EditAdvertisements from "../views/Cruds/Advertisements/Edit.vue";
+import ShowAdvertisements from "../views/Cruds/Advertisements/Show.vue";
+// ============== End:: Advertisements Routes
+
 // ============== Start:: Offers Routes
 
 
@@ -542,6 +549,57 @@ const routes = [
         ],
       },
       // End:: Offers Routes Config
+
+      // Start:: advertisements Routes Config
+      {
+        path: "/advertisements",
+        name: "AdvertisementsHome",
+        component: AdvertisementsHome,
+        meta: {
+          middleware: [auth],
+        },
+        children: [
+          {
+            path: "all",
+            name: "AllAdvertisements",
+            component: AllAdvertisements,
+            meta: {
+              middleware: [auth],
+              requiresPermission: {
+                action: "advertisements index",
+                subject: "advertisements",
+              },
+            },
+          },
+          {
+            path: "show/:id",
+            name: "ShowAdvertisements",
+            component: ShowAdvertisements,
+            props: true,
+            meta: {
+              middleware: [auth],
+              requiresPermission: {
+                action: "advertisements show",
+                subject: "advertisements",
+              },
+            },
+          },
+          {
+            path: "edit/:id",
+            name: "EditAdvertisements",
+            component: EditAdvertisements,
+            props: true,
+            meta: {
+              middleware: [auth],
+              requiresPermission: {
+                action: "advertisements edit",
+                subject: "advertisements",
+              },
+            },
+          },
+        ],
+      },
+      // End:: advertisements Routes Config
 
       // Start:: packages  Config
       {

@@ -30,6 +30,10 @@
 @import "views/cruds/createAndEdit";
 // ********** END:: Importing Cruds Styles ********** //
 
+// ********** Start:: PDF Content Styles ********** //
+@import "views/pdfContent/pdfContent";
+// ********** END:: PDF Content Styles ********** //
+
 // ********** Start:: Importing Special Authentication Components Styles ********** //
 @import "views/auth/authentication";
 @import "views/auth/phoneVerification";
