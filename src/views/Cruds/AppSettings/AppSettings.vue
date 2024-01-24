@@ -159,22 +159,6 @@ export default {
         return;
       }
     },
-    /* validateFormInputs() {
-      this.isWaitingRequest = true;
-
-      if (!this.data.number_of_free_package_ads || this.data.number_of_free_package_ads == 'null') {
-        this.isWaitingRequest = false;
-        this.$message.error(this.$t("VALIDATION.free_package_ads_field_required"));
-        return;
-      } else if (!this.data.free_package_expiry_duration || this.data.free_package_expiry_duration == 'null') {
-        this.isWaitingRequest = false;
-        this.$message.error(this.$t("VALIDATION.free_package_duration_field_required"));
-        return;
-      } else {
-        this.submitForm();
-        return;
-      }
-    }, */
     // End:: validate Form Inputs
   },
 

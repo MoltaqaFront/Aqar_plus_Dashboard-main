@@ -19,8 +19,6 @@
               <base-input col="4" type="text" :placeholder="$t('TABLES.Areas.name')" v-model.trim="filterOptions.title" />
               <!-- End:: Name Input -->
 
-              <base-select-input col="4" v-if="getCountriesData" :optionsList="getCountriesData"
-                :placeholder="$t('SIDENAV.Cities.name')" v-model="filterOptions.country_id" />
 
               <!-- Start:: Status Input -->
               <base-select-input col="4" :optionsList="activeStatuses" :placeholder="$t('PLACEHOLDERS.status')"

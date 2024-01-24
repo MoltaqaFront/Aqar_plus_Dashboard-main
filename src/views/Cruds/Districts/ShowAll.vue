@@ -376,6 +376,7 @@ export default {
             area_id: this.filterOptions.area_id?.id,
             country_id: this.filterOptions.country_id?.id,
             status: this.filterOptions.is_active?.value,
+            "status": 1
           },
         });
         this.loading = false;
@@ -442,6 +443,9 @@ export default {
         let res = await this.$axios({
           method: "GET",
           url: `areas`,
+          params: {
+            "status": 1
+          },
         });
         // console.log("Cities =>", res.data.data);
         this.getAreasData = res.data.data;
@@ -456,7 +460,8 @@ export default {
           method: "GET",
           url: `countries`,
           params: {
-            area_id: `${this.filterOptions.area_id?.id}`
+            //area_id: `${this.filterOptions.area_id?.id}`,
+            "status": 1
           }
         });
         // console.log("Cities =>", res.data.data);
@@ -479,7 +484,7 @@ export default {
     }
     this.setTableRows();
     this.getAreas();
-    // this.getCountries()
+    this.getCountries()
 
     // End:: Fire Methods
   },

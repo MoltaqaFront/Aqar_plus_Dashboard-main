@@ -19,9 +19,6 @@
           <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.nameEn')" v-model.trim="data.nameEn" required />
           <!-- End:: Name Input -->
 
-          <!-- <base-select-input col="6" v-if="getCountriesData" :optionsList="getCountriesData"
-            :placeholder="$t('SIDENAV.Countries.title')" v-model="data.country_id" /> -->
-
           <!-- Start:: Deactivate Switch Input -->
           <div class="input_wrapper switch_wrapper my-5">
             <v-switch color="green" :label="data.active ? $t('PLACEHOLDERS.active') : $t('PLACEHOLDERS.notActive')"

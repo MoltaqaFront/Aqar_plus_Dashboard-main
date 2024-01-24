@@ -21,12 +21,12 @@
 
           <!-- Start:: Name Input -->
           <base-select-input col="6" :placeholder="$t('TABLES.Areas.name')" :optionsList="getAreasData"
-            v-model.trim="data.area_id" @input="getCountries" />
+            v-model.trim="data.area_id" @input="getCountries" required />
           <!-- End:: Name Input -->
 
           <!-- {{ getCountriesData }} -->
           <base-select-input col="6" v-if="CountriesData" :optionsList="CountriesData"
-            :placeholder="$t('SIDENAV.Cities.name')" v-model="data.country_id" />
+            :placeholder="$t('SIDENAV.Cities.name')" v-model="data.country_id" required/>
 
           <!-- Start:: Deactivate Switch Input -->
           <div class="input_wrapper switch_wrapper my-5">

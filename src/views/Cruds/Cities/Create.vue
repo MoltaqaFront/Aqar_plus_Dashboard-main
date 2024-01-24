@@ -19,8 +19,8 @@
           <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.nameEn')" v-model.trim="data.nameEn" required />
           <!-- End:: Name Input -->
 
-          <base-select-input col="6" :optionsList="regions" :placeholder="$t('TABLES.Areas.name')"
-            v-model="data.region_id" />
+          <base-select-input col="6" type="text" :optionsList="regions" :placeholder="$t('TABLES.Areas.name')"
+            v-model.trim="data.region_id" required/>
 
           <!-- Start:: Deactivate Switch Input -->
           <div class="input_wrapper switch_wrapper my-5">

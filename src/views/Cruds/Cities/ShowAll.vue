@@ -354,6 +354,7 @@ export default {
             name: this.filterOptions.title,
             area_id: this.filterOptions.region_id?.id,
             status: this.filterOptions.is_active?.value,
+            "status": 1
           },
         });
         this.loading = false;
@@ -373,7 +374,7 @@ export default {
       try {
         await this.$axios({
           method: "GET",
-          url: `countries/active/${item.id}`,
+          url: `countries/active/${item.id}`, 
         });
         this.setTableRows();
         this.$message.success(this.$t("MESSAGES.changeActivation"));
@@ -421,6 +422,9 @@ export default {
         let res = await this.$axios({
           method: "GET",
           url: `areas`,
+          params: {
+            "status": 1
+          },
         });
         // console.log("Cities =>", res.data.data);
         this.regions = res.data.data;
