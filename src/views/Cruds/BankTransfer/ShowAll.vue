@@ -111,7 +111,7 @@
         <!-- End:: Phone -->
 
        <!-- Start:: Activation Status -->
-        <template v-slot:[`item.is_active`]="{ item }">
+       <template v-slot:[`item.is_active`]="{ item }">
           <span class="text-success text-h5" v-if="item.is_active">
             <i class="far fa-check"></i>
           </span>
@@ -266,7 +266,7 @@ export default {
         iban: null,
         transfer_amount: null,
        // receipt_image: null,
-        is_active: null,
+        status: null,
         created_at: null,
         region_id: null
       },
@@ -286,6 +286,7 @@ export default {
           text: this.$t("TABLES.BankTransferManagement.name"),
           value: "user.name",
           align: "center",
+          width: "120",
           sortable: false
         },
         {
@@ -298,14 +299,14 @@ export default {
           text: this.$t("TABLES.BankTransferManagement.bank_name"),
           value: "bank.name",
           align: "center",
-          width: "100",
+          width: "120",
           sortable: false
         },
         {
           text: this.$t("TABLES.BankTransferManagement.bankTransfer"),
           value: "transformer_name",
           align: "center",
-          width: "100",
+          width: "180",
           sortable: false
         },
         {
@@ -326,6 +327,7 @@ export default {
           text: this.$t("TABLES.BankTransferManagement.image"),
           value: "receipt_image",
           align: "center",
+          width: "120",
           sortable: false
         },
         {
@@ -400,7 +402,7 @@ export default {
       this.filterOptions.transfer_amount = null;
       this.filterOptions.receipt_image = null;
       this.filterOptions.created_at = null;
-      this.filterOptions.is_active = null;
+      this.filterOptions.status = null;
       this.filterOptions.region_id = null;
       if (this.$route.query.page !== '1') {
         await this.$router.push({ path: '/bankTransfer/all', query: { page: 1 } });
@@ -434,7 +436,7 @@ export default {
             phone: this.filterOptions.mobile,
             bank_name: this.filterOptions.bankname,
             area_id: this.filterOptions.region_id?.id,
-            is_active: this.filterOptions.is_active?.value,
+            is_active: this.filterOptions.status?.value,
           },
         });
         this.loading = false;

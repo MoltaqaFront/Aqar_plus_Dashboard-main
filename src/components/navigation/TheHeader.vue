@@ -16,7 +16,7 @@
         <div class="navbar_btns_wrapper">
           <div class="group">
             <!-- ********** Start:: Notification Button ********** -->
-           <!--  <div class="user_notification_content_wrapper">
+            <!-- <div class="user_notification_content_wrapper">
               <v-badge :content="notificationCount" floating>
                 <div class="notification_btn" @click.stop="
                   toggleNotificationsMenu();">
@@ -160,15 +160,28 @@ export default {
 
     // Start:: Toggle Notifications Menu
     toggleNotificationsMenu() {
-      // this.notificationsMenuIsOpen = !this.notificationsMenuIsOpen;
-      // this.chatsDrawerIsOpen = false;
+      this.notificationsMenuIsOpen = !this.notificationsMenuIsOpen;
+      this.chatsDrawerIsOpen = false;
+      this.notificationCount = 0;
       this.$router.push("/all-notifications/show");
-      this.notificationCount = 0
     },
     // End:: Toggle Notifications Menu
 
     // Start:: Notification Redirect
-    redirectNotification(notifyType) {
+    redirectNotification(notifyType, notificationId) {
+    if (notifyType === "new_user_register") {
+      this.$router.push(`/clients/${notificationId}`);
+    } else if (
+      notifyType === "add_shipment_attach" ||
+      notifyType === "update_shipment_request" ||
+      notifyType === "new_shipment_request"
+    ) {
+      this.$router.push(`/shipment/${notificationId}`);
+    } else if (notifyType === "new_authorization_for_user") {
+      this.$router.push(`/authorizations/${notificationId}`);
+    }
+  },
+   /*  redirectNotification(notifyType) {
       if (notifyType == "new_user_register") {
         this.$router.push("/clients/all");
       } else if (
@@ -180,10 +193,10 @@ export default {
       } else if (notifyType == "new_authorization_for_user") {
         this.$router.push("/authorizations/all");
       }
-    },
+    }, */
     // End:: Notification Redirect
-
-    async getData() {
+    
+     async getData() {
       try {
         let res = await this.$axios({
           method: "GET",
@@ -195,7 +208,7 @@ export default {
         this.loading = false;
         console.log(error.response.data.message);
       }
-    },
+    }, 
   },
 
   created() {

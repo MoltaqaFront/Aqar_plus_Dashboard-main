@@ -170,7 +170,7 @@
               <i class="fal fa-lock-alt fs-5 blue-grey--text text--darken-1"></i>
             </template>
 
-            <template v-if="$can('clients activate', 'clients') && item.id !== 1">
+            <template v-if="$can('users activate', 'users') && item.id !== 1">
               <a-tooltip placement="bottom" v-if="!item.is_active">
                 <template slot="title">
                   <span>{{ $t("BUTTONS.activate") }}</span>
@@ -222,6 +222,7 @@
             </v-card>
           </v-dialog>
           <!-- End:: Deactivate Modal -->
+
 
            <!-- Start:: Replay Modal -->
            <description-modal v-if="dialogReplay" :modalIsOpen="dialogReplay" :modalDesc="selectedReplayTextToShow"
@@ -485,21 +486,6 @@ export default {
     },
     // End:: Set Table Rows
 
-    // Start:: Change Activation Status
-    async changeActivationStatus(item) {
-      try {
-        await this.$axios({
-          method: "POST",
-          url: `clients/active/${item.id}`,
-        });
-        this.setTableRows();
-        this.$message.success(this.$t("MESSAGES.changeActivation"));
-      } catch (error) {
-        this.$message.error(error.response.data.message);
-      }
-    },
-    // End:: Change Activation Status
-
     // ==================== Start:: Crud ====================
     // ===== Start:: Show
     showItem(item) {
@@ -519,14 +505,16 @@ export default {
       // Start:: Append Request Data
       REQUEST_DATA.message = this.deactivateReason;
       // Start:: Append Request Data
+
       try {
         await this.$axios({
           method: "POST",
-          url: `clients/active/${targetItem.id}`,
-          data: REQUEST_DATA,
+          url: `bank-transfers/${targetItem.id}/change-status`,
+          data: targetItem.is_active ? REQUEST_DATA : null,
         });
         this.$message.success(this.$t("MESSAGES.changeActivation"));
-        this.setTableRows();
+        let filteredElemet = this.tableRows.find(element => element.id === targetItem.id);
+        filteredElemet.is_active = !filteredElemet.is_active;
         this.itemToChangeActivationStatus = null;
         this.deactivateReason = null;
       } catch (error) {

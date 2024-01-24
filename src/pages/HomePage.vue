@@ -1,36 +1,46 @@
 <template>
-  <div class="home_page_wrapper">
-    <!-- <ComingSoon /> -->
+  <div class="show_all_content_wrapper">
+    <!-- Start:: Main Section -->
+    <main>
+      <!--  =========== Start:: Table Title =========== -->
+      <div class="table_title_wrapper">
+        <div class="title_text_wrapper">
+          <h5>{{ $t("SIDENAV.dashboard") }}</h5>
+        </div>
+      </div>
+      <!--  =========== End:: Table Title =========== -->
 
-    <div class="statics mt-4">
+      <!--  =========== Start:: Data Table =========== -->
+       <!-- <ComingSoon /> -->
+      <div class="statics mt-4">
       <div class="row">
-        <div class="col-lg-4 col-md-6 col-12" v-for="(value, key) in statics" :key="'i' + key">
+        <div class="col-lg-6 col-md-6 col-12" v-for="(value, key) in statics" :key="'i' + key">
           <div class="box">
             <div class="icon">
-              <i v-if="key === 'new'" class="fas fa-newspaper"></i>
+              <i v-if="key === 'advertisements_count'" class="fas fa-users"></i>
 
-              <i v-else-if="key === 'accepted'" class="fas fa-cart-plus"></i>
-              <i v-else-if="key === 'processing'" class="fas fa-toolbox"></i>
+              <i v-else-if="key === 'blocked_advertisements_count'" class="fas fa-image"></i>
+              <i v-else-if="key === 'packages_count'" class="fas fa-clipboard-check"></i>
 
 
-              <i v-else-if="key === 'completed'" class="fas fa-clipboard-check"></i>
-              <i v-else-if="key === 'cancelled'" class="fas fa-newspaper"></i>
-              <i v-else-if="key === 'rejected'" class="fas fa-ban"></i>
+              <i v-else-if="key === 'published_advertisements_count'" class="fas fa-ban"></i>
+              <i v-else-if="key === 'total_subscribe_packages_price'" class="fas fa-toolbox"></i>
+              <i v-else-if="key === 'users_count'" class="fas fa-plus"></i>
 
-              <i v-else-if="key === 'total'" class="fas fa-concierge-bell"></i>
+              <i v-else-if="key === 'total'" class="fas fa-dollar"></i>
 
             </div>
             <div class="info_box">
-              <span v-if="key == 'new'">{{ $t('PLACEHOLDERS.new_requests_count') }}</span>
+              <span v-if="key == 'advertisements_count'">{{ $t('PLACEHOLDERS.new_requests_count') }}</span>
 
-              <span v-else-if="key === 'accepted'">{{ $t('PLACEHOLDERS.number_of_accepted_orders')
+              <span v-else-if="key === 'blocked_advertisements_count'">{{ $t('PLACEHOLDERS.incomplete_requests_count')
               }}</span>
 
-              <span v-else-if="key === 'processing'">{{ $t('PLACEHOLDERS.ongoing_requests_count') }}</span>
+              <span v-else-if="key === 'packages_count'">{{ $t('PLACEHOLDERS.completed_requests_count') }}</span>
 
-              <span v-else-if="key === 'completed'">{{ $t('PLACEHOLDERS.completed_requests_count') }}</span>
-              <span v-else-if="key === 'cancelled'">{{ $t('PLACEHOLDERS.canceled_requests_count') }}</span>
-              <span v-else-if="key === 'rejected'">{{ $t('PLACEHOLDERS.rejected_requests_count') }}</span>
+              <span v-else-if="key === 'published_advertisements_count'">{{ $t('PLACEHOLDERS.canceled_requests_count') }}</span>
+              <span v-else-if="key === 'total_subscribe_packages_price'">{{ $t('PLACEHOLDERS.ongoing_requests_count') }}</span>
+              <span v-else-if="key === 'users_count'">{{ $t('PLACEHOLDERS.rejected_requests_count') }}</span>
 
               <span v-else-if="key === 'total'">{{ $t('PLACEHOLDERS.total_requests') }}</span>
 
@@ -38,8 +48,11 @@
             </div>
           </div>
         </div>
-      </div>
+        </div>
     </div>
+      <!--  =========== End:: Data Table =========== -->
+    </main>
+    <!-- End:: Main Section -->
   </div>
 </template>
 
@@ -88,14 +101,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.home_page_wrapper {
-  position: relative;
-
-  min-height: 500px;
-  padding: 0 10px;
-  overflow-y: auto;
-  overflow-x: hidden;
-
+.show_all_content_wrapper {
   .statics {
     .box {
       background: aliceblue;
