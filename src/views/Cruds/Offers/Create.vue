@@ -115,6 +115,16 @@ export default {
         this.$message.error(this.$t("VALIDATION.nameEn"));
         return;
       }
+      else if(!this.data.discount){
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.discount_field"));
+        return;
+      }
+      else if(this.data.discount < 1 || this.data.discount > 100){
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.dissount"));
+        return;
+      }
       else if (!this.data.publish_start_date) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.startDate"));

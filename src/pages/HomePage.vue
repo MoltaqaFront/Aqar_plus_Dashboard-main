@@ -25,7 +25,7 @@
 
               <i v-else-if="key === 'published_advertisements_count'" class="fas fa-ban"></i>
               <i v-else-if="key === 'total_subscribe_packages_price'" class="fas fa-toolbox"></i>
-              <i v-else-if="key === 'users_count'" class="fas fa-plus"></i>
+              <i v-else-if="key === 'users_count'" class="fas fa-dollar-sign"></i>
 
               <i v-else-if="key === 'total'" class="fas fa-dollar"></i>
 
@@ -104,6 +104,71 @@ export default {
 .show_all_content_wrapper {
   .statics {
     .box {
+      background: #49a956;
+      padding: 25px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+      display: flex;
+      justify-content: space-between;
+
+      cursor: pointer;
+      transition: all 0.5s;
+
+      &:hover {
+        background: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+        .icon {
+          background: #49a956;
+          color: #FFF
+        }
+        .info_box {
+
+          span,
+          p.number_box {
+            color: #000
+          }
+        }
+      }
+
+      .icon {
+        height: 60px;
+        min-width: 60px;
+        width: 60px;
+        border-radius: 60px;
+        background: #FFF;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        i {
+          font-size: 25px ;
+          //color: #49a956;
+        }
+      }
+
+      .info_box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+
+        span {
+          font-size: 19px;
+          color: #FFF;
+        }
+
+        p.number_box {
+          font-size: 30px;
+          color: #FFF;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+ /*  .statics {
+    .box {
       background: aliceblue;
       padding: 25px;
       margin-bottom: 10px;
@@ -153,6 +218,6 @@ export default {
         }
       }
     }
-  }
+  } */
 }
 </style>

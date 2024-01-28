@@ -13,39 +13,25 @@
         <div class="filter_form_wrapper">
           <form @submit.prevent="submitFilterForm">
             <div class="row justify-content-center align-items-center w-100">
-             
-              <!-- Start:: ad_number_in_report Input -->
+
+              <!-- Start:: Name Input -->
               <base-input col="6" type="number" :placeholder="$t('PLACEHOLDERS.report_number')"
                 v-model.trim="filterOptions.report_number" />
-              <!-- End:: ad_number_in_report Input -->
+              <!-- End:: Name Input -->
 
-              <!-- Start:: advertiser_name Input -->
+              <!-- Start:: Status Input -->
               <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.reporter_name')"
                 v-model.trim="filterOptions.reporter_name" />
-              <!-- End:: advertiser_name Input -->
-
+              <!-- End:: Status Input -->
             </div>
 
             <div class="btns_wrapper">
-
-              <a-tooltip placement="bottom">
-                <template slot="title">
-                  <span>{{ $t("BUTTONS.search") }}</span>
-                </template>
-                <span class="submit_btn" @click="submitFilterForm" :disabled="isWaitingRequest">
-                  <i class="fal fa-search"></i>
-                </span>
-              </a-tooltip>
-
-              <a-tooltip placement="bottom">
-                <template slot="title">
-                  <span>{{ $t("BUTTONS.rseet_search") }}</span>
-                </template>
-                <span class="reset_btn" :disabled="isWaitingRequest" @click="resetFilter">
-                  <i class="fal fa-redo"></i>
-                </span>
-              </a-tooltip>
-
+              <button class="submit_btn" :disabled="isWaitingRequest">
+                <i class="fal fa-search"></i>
+              </button>
+              <button class="reset_btn" type="button" :disabled="isWaitingRequest" @click="resetFilter">
+                <i class="fal fa-redo"></i>
+              </button>
             </div>
           </form>
         </div>
@@ -156,18 +142,21 @@ export default {
           text: this.$t("PLACEHOLDERS.report_number"),
           value: "id",
           align: "center",
+          width:"100",
           sortable: false,
         },
         {
           text: this.$t("PLACEHOLDERS.reporter_name"),
           value: "reporter.name",
           align: "center",
+          width:"150",
           sortable: false,
         },
         {
           text: this.$t("PLACEHOLDERS.reporter_mobile_number"),
           value: "reporter.mobile",
           align: "center",
+          width:"150",
           sortable: false,
         },
         {
@@ -180,6 +169,7 @@ export default {
           text: this.$t("PLACEHOLDERS.report_date"),
           value: "created_at",
           align: "center",
+          width:"150",
           sortable: false,
         },
       ],

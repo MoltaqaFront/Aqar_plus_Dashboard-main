@@ -13,13 +13,10 @@
             <p>{{ message.data.body }}</p>
 
             <!-- @click="DeleteNotification(message.id)" -->
-            <div v-if="message.is_read" class="delete_notification">
+            <div v-if="message.id" :class="{ 'read': message.is_read == 1 }" class="delete_notification"
+              @click="NotificationsReaded(message.id)">
               <i class="fas fa-check-double"></i>
             </div>
-            <div v-else class="delete_notification not_read">
-              <i class="fas fa-check-double"></i>
-            </div>
-
             <!-- </router-link> -->
 
           </div>
@@ -45,7 +42,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters  , mapActions} from "vuex";
 export default {
   name: "CreateContact",
 
@@ -84,6 +81,11 @@ export default {
   },
 
   methods: {
+
+    ...mapActions({
+      readAllNotifications: "NotificationsModule/readAllNotifications",
+    }),
+
     async getData() {
       try {
         let res = await this.$axios({
@@ -101,6 +103,25 @@ export default {
       } catch (error) {
         this.loading = false;
         console.log(error.response.data.message);
+      }
+    },
+    async NotificationsReaded(item_id) {
+      try {
+        let res = await this.$axios({
+          method: "POST",
+          url: `notification/mark-as-read`,
+          params: {
+            "notification_id" : item_id
+          }
+        });
+        this.$message.success(res.data.message);
+        this.readAllNotifications();
+        this.notificationsData.unreadNotifications--;
+        console.log("notificationsData.unreadNotifications", this.notificationsData.unreadNotifications)
+        this.getData();
+      } catch (error) {
+        this.dialogDelete = false;
+        this.$message.error(error.response.data.errors);
       }
     },
 
@@ -183,16 +204,17 @@ export default {
     left: 20px;
     cursor: pointer;
 
-    &.not_read {
+    &.read {
       i {
-        color: #cdc8c8
+        color: #49a956;
       }
     }
 
     i {
       font-size: 20px;
-      color: #49a956
+      color: #DDD
     }
+    
   }
 }
 

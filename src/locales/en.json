@@ -384,10 +384,12 @@
       "serialNumber": "Serial",
       "name": "Name",
       "phone": "Phone Name",
-      "packagePrice": "Package price without tax",
+      "packagePrice": "Package price",
       "AddedTax": "added tax",
-      "totalSubscription" : "Total subscription including tax",
+      "totalSubscription" : "Total including tax",
       "SubscriptionPeriod" : "Subscription period",
+      "starSubscription": "Beginning subscription",
+      "endSubscription" : "End  subscription",
       "UserBalance" : "User Balance" ,
       "verified": "Verified",
       "active": "Active",
@@ -1244,7 +1246,10 @@
     "region": "The area Name field is required",
     "field_type": "Additional field type is required",
     "estate_depart": "Estate depart field is required",
-    "is_show_map": "show map field not choose"
+    "is_show_map": "show map field not choose" ,
+    "package_duration" : "The number of days must be positive" ,
+    "dissount" : "The discount percentage cannot be higher than 100" ,
+    "discount_field" : "The discount percentage field is required"
   },
 
   "MESSAGES": {

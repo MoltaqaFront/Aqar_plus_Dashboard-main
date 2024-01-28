@@ -1,24 +1,24 @@
-import i18n from "@/plugins/i18n.js";
-import axios from "axios";
 import Antd from "ant-design-vue";
+import axios from "axios";
+import i18n from "@/plugins/i18n.js";
 
 export default {
   // START:: GET NOTIFICATIONS
   getNotifications(context) {
     // START:: SEND GET REQUEST
-    // axios({
-    //   method: "GET",
-    //   url: `notifications`,
-    // })
-    //   .then((res) => {
-    //     context.commit("setNotifications", {
-    //       notifications: res.data.data.notifications,
-    //       unreadNotificationsCount: res.data.data.unreadnotifications_count,
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.response.data.message);
-    //   });
+     axios({
+      method: "GET",
+      url: `notifications`,
+    })
+      .then((res) => {
+        context.commit("setNotifications", {
+        notifications: res.data.data.notifications,
+           unreadNotificationsCount: res.data.data.unreadnotifications_count,
+         });
+      })
+    .catch((error) => {
+        console.log(error.response.data.message);
+       });
     // END:: SEND GET REQUEST
   },
   // END:: GET NOTIFICATIONS
@@ -45,7 +45,7 @@ export default {
     // START:: SEND GET REQUEST
     axios({
       method: "GET",
-      url: `read/all/notifications`,
+      url: `notification/index`,
     })
       .then((res) => {
         context.commit("setAllReadiedNotifications", {

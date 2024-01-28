@@ -27,7 +27,7 @@
             <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">
                   <button v-bind="attrs" v-on="on">
-                    <v-badge :content="notificationCount" floating>
+                    <v-badge :content="notificationsData.unreadNotifications" floating>
                     <div class="notification_btn" @click.stop="
                       toggleNotificationsMenu();">
                       <i class=" fal fa-bell"></i>
@@ -132,6 +132,7 @@ export default {
       getAppTheme: "AppThemeModule/getAppTheme",
       getAppLocale: "AppLangModule/getAppLocale",
       getAuthenticatedUserData: "AuthenticationModule/getAuthenticatedUserData",
+      notificationsData: "NotificationsModule/notificationsData",
     }),
     // End:: Vuex Getters
   },
@@ -160,9 +161,9 @@ export default {
 
     // Start:: Toggle Notifications Menu
     toggleNotificationsMenu() {
-      this.notificationsMenuIsOpen = !this.notificationsMenuIsOpen;
-      this.chatsDrawerIsOpen = false;
-      this.notificationCount = 0;
+      //this.notificationsMenuIsOpen = !this.notificationsMenuIsOpen;
+      /* this.chatsDrawerIsOpen = false;
+      this.notificationCount = 0; */
       this.$router.push("/all-notifications/show");
     },
     // End:: Toggle Notifications Menu
@@ -181,19 +182,7 @@ export default {
       this.$router.push(`/authorizations/${notificationId}`);
     }
   },
-   /*  redirectNotification(notifyType) {
-      if (notifyType == "new_user_register") {
-        this.$router.push("/clients/all");
-      } else if (
-        notifyType == "add_shipment_attach" ||
-        notifyType == "update_shipment_request" ||
-        notifyType == "new_shipment_request"
-      ) {
-        this.$router.push("/shipment/all");
-      } else if (notifyType == "new_authorization_for_user") {
-        this.$router.push("/authorizations/all");
-      }
-    }, */
+
     // End:: Notification Redirect
     
      async getData() {
@@ -202,7 +191,7 @@ export default {
           method: "GET",
           url: "notification/index"
         });
-        // console.log("All Data ==>", res.data.data);
+        console.log("All Data ==>", res.data.data);
         this.notificationCount = res.data.data.filter((item) => item.is_read == 0).length;
       } catch (error) {
         this.loading = false;

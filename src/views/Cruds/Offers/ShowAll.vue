@@ -15,7 +15,7 @@
             <div class="row justify-content-center align-items-center w-100">
 
               <base-input col="6" type="text" :placeholder="$t('BUTTONS.offer')" v-model="filterOptions.offer_name"
-                required />
+                 />
 
               <!-- Start:: Status Input -->
               <base-select-input col="6" :optionsList="activeStatuses" :placeholder="$t('PLACEHOLDERS.status')"

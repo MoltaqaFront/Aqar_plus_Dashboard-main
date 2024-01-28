@@ -382,9 +382,9 @@
       "serialNumber": "المسلسل",
       "name": "الإسم",
       "phone": "رقم الجوال",
-      "packagePrice": "سعر الباقة بدون ضريبه",
+      "packagePrice": "سعر الباقة",
       "AddedTax": "الضريبة المضافة",
-      "totalSubscription" : "اجمالى الاشتراك شامل الضريبة",
+      "totalSubscription" : "الاجمالى  شامل الضريبة",
       "SubscriptionPeriod" : "فترة الاشتراك",
       "starSubscription": "بداية فتره الاشتراك",
       "endSubscription" : "نهاية فترة الاشتراك",
@@ -1257,7 +1257,10 @@
     "can_show_image" : "حقل اظهار صورة/شعار المعلن عن العقار مطلوب" ,
     "field_type" : "نوع الحقل الاضافى مطلوب" ,
     "estate_depart" : "حقل قسم العقار مطلوب" ,
-    "is_show_map" : "لم يتم اختيار ظهور الخريطه"
+    "is_show_map" : "لم يتم اختيار ظهور الخريطه" ,
+    "package_duration" : "يجب أن يكون عدد الأيام صحيحة موجبة" ,
+    "dissount" : "لايمكن أن تكون نسبة الخصم أعلى من 100" ,
+    "discount_field" : "حقل نسبة الخصم مطلوب "
   },
 
   "MESSAGES": {
