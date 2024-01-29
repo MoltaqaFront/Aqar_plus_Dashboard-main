@@ -328,6 +328,7 @@ export default {
           text: this.$t("TABLES.Clients.joiningDate"),
           value: "created_at",
           align: "center",
+          width: "120",
           sortable: false,
         },
         // {

@@ -1,5 +1,5 @@
 <template>
-  <div class="my-5" :class="col ? `col-lg-${col}` : ''">
+  <div class="my-5 mx-4" :class="col ? `col-lg-${col}` : ''">
     <div class="input_wrapper switch_wrapper">
       <v-switch
         :color="color"

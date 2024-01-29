@@ -99,6 +99,22 @@
         </template>
         <!-- End:: Rate Comment Btns -->
 
+         <!-- Start:: Actions -->
+         <template v-slot:[`item.actions`]="{ item }">
+          <div class="actions">
+            <a-tooltip placement="bottom">
+              <template slot="title">
+                <span>{{ $t("TABLES.Rates.user_commet") }}</span>
+              </template>
+
+              <button class="btn_edit" @click="selectAcceptItem(item)">
+                <i class="fal fa-wallet"></i>
+              </button>
+            </a-tooltip>
+          </div>
+        </template>
+        <!-- End:: Actions -->
+
         <!-- Start:: Activation -->
         <template v-slot:[`item.is_active`]="{ item }">
           <div class="activation" dir="ltr" style="z-index: 1" v-if="$can('rates activate', 'rates')">
@@ -123,6 +139,17 @@
           <description-modal v-if="dialogComment" :modalIsOpen="dialogComment" :modalDesc="selectedCommentTextToShow"
             @toggleModal="dialogComment = !dialogComment" />
           <!-- End:: Desc Modal -->
+             <!-- Start:: Balance Modal -->
+             <v-dialog v-model="dialogBalance">
+            <v-card>
+              <form class="w-100">
+                <base-input col="12" type="text" :placeholder="$t('TABLES.Rates.user_commet')"
+                  v-model="balance_package" disabled />
+              </form>
+
+            </v-card>
+          </v-dialog>
+          <!-- End:: Balance Modal -->
         </template>
         <!-- ======================== End:: Dialogs ======================== -->
       </v-data-table>
@@ -173,7 +200,7 @@ export default {
           value: 0,
         },
         {
-          id: 1,
+          id: null,
           name: this.$t("STATUS.new"),
           value: null,
         },
@@ -231,6 +258,12 @@ export default {
           sortable: false
         },
         {
+          text: this.$t("TABLES.Rates.comment"),
+          value: "actions",
+          align: "center",
+          sortable: false
+        },
+        {
           text: this.$t("TABLES.Rates.publishStatus"),
           value: "is_active",
           align: "center",
@@ -243,6 +276,8 @@ export default {
       // Start:: Dialogs Control Data
       dialogComment: false,
       selectedCommentTextToShow: "",
+      dialogBalance: false,
+      itemToBalance: null,
       // End:: Dialogs Control Data
 
       // Start:: Pagination Data
@@ -253,7 +288,8 @@ export default {
       },
       // End:: Pagination Data
 
-      status_word: ''
+      status_word: '',
+      balance_package:'',
 
     };
   },
@@ -376,6 +412,38 @@ export default {
       }
     },
     // End:: Change Activation Status
+
+      // ===== Start:: balance
+      selectAcceptItem(item) {
+      console.log("item",item);
+      this.dialogBalance = true;
+      this.itemToBalance = item;
+
+      this.balance_package = item.comment;
+
+    },
+    async confirmAcceptItem(item) {
+
+      const REQUEST_DATA = new FormData();
+      REQUEST_DATA.append("comment", this.balance_package);
+      // REQUEST_DATA.append("_method", "PUT");
+
+      try {
+        await this.$axios({
+          method: "GET",
+          url: "rates",
+          data: REQUEST_DATA,
+        });
+        this.dialogBalance = false;
+        this.balance_package = null,
+          this.setTableRows();
+        this.$message.success(this.$t("MESSAGES.verifiedSuccessfully"));
+      } catch (error) {
+        this.dialogBalance = false;
+        this.$message.error(error.response.data.message);
+      }
+    },
+    // ===== End:: balance
 
   },
 

@@ -259,6 +259,7 @@ export default {
           text: this.$t("BUTTONS.offer"),
           value: "name",
           align: "center",
+          width:"120",
           sortable: false,
         },
         {
@@ -271,24 +272,28 @@ export default {
           text: this.$t("PLACEHOLDERS.discount_percentage_on_booking"),
           value: "offer_value",
           align: "center",
+          width:"120",
           sortable: false,
         },
         {
           text: this.$t("TABLES.Offers.startDate"),
           value: "offer_date_from",
-          align: "center",
+          align: " center",
+          width:"120",
           sortable: false,
         },
         {
           text: this.$t("TABLES.Offers.endDate"),
           value: "offer_date_to",
           align: "center",
+          width:"120",
           sortable: false,
         },
         {
           text: this.$t("TABLES.Products.created_at"),
           value: "created_at",
           align: "center",
+          width:"120",
           sortable: false,
         },
         {

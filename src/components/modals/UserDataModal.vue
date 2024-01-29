@@ -85,6 +85,7 @@ export default {
       isWaitingRequest: false,
       // End:: Loader Control Data
       // Start:: Data Collection To Send
+      logoutConfirmationModalIsOpen: false,
       data: {
         image: {
           path: null,
@@ -245,8 +246,9 @@ export default {
         this.setAuthenticatedUserData({
           name: res.data.data.user.name,
         });
-        this.toggleModal();
-        this.$router.push({ path: "/" });
+        //this.toggleModal();
+        this.logout();
+       // this.$router.push({ path: "/" });
       } catch (error) {
         this.isWaitingRequest = false;
         this.$message.error(error.response.data.message);

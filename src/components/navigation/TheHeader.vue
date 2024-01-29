@@ -16,14 +16,6 @@
         <div class="navbar_btns_wrapper">
           <div class="group">
             <!-- ********** Start:: Notification Button ********** -->
-            <!-- <div class="user_notification_content_wrapper">
-              <v-badge :content="notificationCount" floating>
-                <div class="notification_btn" @click.stop="
-                  toggleNotificationsMenu();">
-                  <i class=" fal fa-bell"></i>
-                </div>
-              </v-badge>
-            </div> -->
             <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">
                   <button v-bind="attrs" v-on="on">

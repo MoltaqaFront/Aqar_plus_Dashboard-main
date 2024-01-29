@@ -29,7 +29,7 @@
 
           <!-- Start:: Roles Input -->
           <base-select-input v-if="allRoles" col="6" :optionsList="allRoles" :placeholder="$t('PLACEHOLDERS.role')"
-            v-model="data.role" required />
+            v-model.trim="data.role" required />
 
           <!-- {{ data.role }} -->
           <!-- End:: Roles Input -->
@@ -226,7 +226,7 @@ export default {
       REQUEST_DATA.append("name", this.data.name);
       REQUEST_DATA.append("email", this.data.email);
       REQUEST_DATA.append("mobile", this.data.phone);
-      REQUEST_DATA.append("role_id", this.data.role.id);
+      REQUEST_DATA.append("role_id", this.data.role);
       if (this.data.enableEditPassword) {
         REQUEST_DATA.append("password", this.data.password);
         REQUEST_DATA.append("password_confirmation", this.data.passwordConfirmation);

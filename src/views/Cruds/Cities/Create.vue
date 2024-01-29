@@ -89,7 +89,7 @@ export default {
       } else if(!this.data.region_id){
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.area_field"));
-      } else if (!arabicRegex.test(this.data.titleAr)) {
+      } else if (!arabicRegex.test(this.data.nameAr)) {
         this.$message.error(this.$t("VALIDATION.arabic_words"));
         return;
       } else if (!arabicRegex.test(this.data.contentAr)) {

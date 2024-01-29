@@ -375,6 +375,7 @@
       "clientName": "Client Name",
       "rate": "Rate",
       "comment": "Comment",
+      "user_commet":"User Comment",
       "orderNumber": "Order Number",
       "driverName": "Driver Name",
       "sendDate": "Send Date",

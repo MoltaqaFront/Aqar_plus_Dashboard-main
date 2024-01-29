@@ -15,7 +15,7 @@
             v-model="data.number_of_reports_to_block_auto_ad" />
           <!-- End:: Status Input -->
 
-          <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.number_of_free_package_ads')"
+          <base-input col="6" type="number" :placeholder="$t('PLACEHOLDERS.number_of_free_package_ads')"
             v-model="data.number_of_free_package_ads" />
 
           <base-input col="6" type="number" :placeholder="$t('PLACEHOLDERS.free_package_expiry_duration')"

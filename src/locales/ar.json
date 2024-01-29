@@ -372,6 +372,7 @@
       "serialNumber": "المسلسل",
       "clientName": "إسم العميل",
       "rate": "التقييم",
+      "user_commet":"تعليق المستخدم",
       "comment": "التعليق",
       "orderNumber": "رقم الطلب",
       "driverName": "إسم السائق",
