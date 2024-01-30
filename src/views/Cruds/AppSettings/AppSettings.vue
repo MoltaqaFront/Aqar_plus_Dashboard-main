@@ -1,6 +1,11 @@
 <template>
   <div class="crud_form_wrapper">
     <!-- Start:: Single Step Form Content -->
+    <div class="table_title_wrapper">
+        <div class="title_text_wrapper">
+          <h5 style="color: #49a956;">{{ $t("SIDENAV.settings.title") }}</h5>
+        </div>
+      </div>
     <div class="single_step_form_content_wrapper">
       <form @submit.prevent="validateFormInputs">
         <div class="row">
@@ -18,7 +23,7 @@
           <base-input col="6" type="number" :placeholder="$t('PLACEHOLDERS.number_of_free_package_ads')"
             v-model="data.number_of_free_package_ads" />
 
-          <base-input col="6" type="number" :placeholder="$t('PLACEHOLDERS.free_package_expiry_duration')"
+          <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.free_package_expiry_duration')"
             v-model="data.free_package_expiry_duration" />
 
           <base-input col="6" type="number" :placeholder="$t('PLACEHOLDERS.search_scope')" v-model="data.Search_scope" />
@@ -133,18 +138,18 @@ export default {
         return;
       } else if (!this.data.number_of_free_package_ads || this.data.number_of_free_package_ads <= 0) {
         this.isWaitingRequest = false;
-        this.$message.error(this.$t("VALIDATION.custom_positive_value_required"));
+        this.$message.error(this.$t("VALIDATION.advertiste_positve"));
         return;
       } else if (this.data.VAT_percentage < 1 || this.data.VAT_percentage > 100) {
         this.isWaitingRequest = false;
-        this.$message.error(this.$t("VALIDATION.custom_value_range_required"));
+        this.$message.error(this.$t("VALIDATION.advertiste_positve"));
         } else if (!this.data.number_of_reports_to_block_auto_ad || this.data.number_of_reports_to_block_auto_ad === 'null') {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.reports_to_block_auto_ad_required"));
         return;
       } else if (!this.data.number_of_reports_to_block_auto_ad || this.data.number_of_reports_to_block_auto_ad <= 0) {
         this.isWaitingRequest = false;
-        this.$message.error(this.$t("VALIDATION.custom_positive_value_required"));
+        this.$message.error(this.$t("VALIDATION.report_postive"));
         return;
       }else if (!this.data.free_package_expiry_duration || this.data.free_package_expiry_duration === 'null') {
         this.isWaitingRequest = false;
@@ -152,9 +157,14 @@ export default {
         return;
       } else if (!this.data.free_package_expiry_duration || this.data.free_package_expiry_duration <= 0) {
         this.isWaitingRequest = false;
-        this.$message.error(this.$t("VALIDATION.custom_positive_value_required"));
+        this.$message.error(this.$t("VALIDATION.days_positive"));
         return;
-      } else {
+      }  else if (!this.data.Search_scope || this.data.Search_scope <= 0) {
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.Search_scope"));
+        return;
+      }
+      else {
         this.submitForm();
         return;
       }

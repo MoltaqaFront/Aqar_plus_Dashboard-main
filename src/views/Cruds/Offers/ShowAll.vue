@@ -75,30 +75,6 @@
         </template>
         <!-- End:: Product -->
 
-        <!-- Start:: Service -->
-        <template v-slot:[`item.id`]="{ item, index }">
-          <p class="blue-grey--text text--darken-1 fs-3" v-if="!item.id">-</p>
-          <p v-else>{{ (paginations.current_page - 1) * paginations.items_per_page + index + 1 }}</p>
-        </template>
-        <template v-slot:[`item.service`]="{ item }">
-          <p class="blue-grey--text text--darken-1 fs-3" v-if="!item.service">-</p>
-          <p v-else>{{ item.service.name }}</p>
-        </template>
-        <!-- End:: Service -->
-
-        <!-- Start:: Price Before Discount -->
-        <template v-slot:[`item.price_before_discount`]="{ item }">
-          <p class="text-danger fs-3" v-if="!item.price_before_discount">-</p>
-          <p class="text-danger fs-6" v-else>{{ item.price_before_discount }}</p>
-        </template>
-        <!-- End:: Price Before Discount -->
-
-        <!-- Start:: Price After Discount -->
-        <template v-slot:[`item.price_after_discount`]="{ item }">
-          <p class="text-success fs-3" v-if="!item.price_after_discount">-</p>
-          <p class="text-success fs-6" v-else>{{ item.price_after_discount }}</p>
-        </template>
-        <!-- End:: Price After Discount -->
 
         <!-- Start:: Activation -->
         <template v-slot:[`item.is_active`]="{ item }">
@@ -252,14 +228,12 @@ export default {
           text: this.$t("TABLES.Offers.serialNumber"),
           value: "id",
           align: "center",
-          width: "80",
           sortable: false,
         },
         {
           text: this.$t("BUTTONS.offer"),
           value: "name",
           align: "center",
-          width:"120",
           sortable: false,
         },
         {
@@ -272,35 +246,30 @@ export default {
           text: this.$t("PLACEHOLDERS.discount_percentage_on_booking"),
           value: "offer_value",
           align: "center",
-          width:"120",
           sortable: false,
         },
         {
           text: this.$t("TABLES.Offers.startDate"),
           value: "offer_date_from",
           align: " center",
-          width:"120",
           sortable: false,
         },
         {
           text: this.$t("TABLES.Offers.endDate"),
           value: "offer_date_to",
           align: "center",
-          width:"120",
           sortable: false,
         },
         {
           text: this.$t("TABLES.Products.created_at"),
           value: "created_at",
           align: "center",
-          width:"120",
           sortable: false,
         },
         {
           text: this.$t("PLACEHOLDERS.status"),
           value: "is_active",
           align: "center",
-          width: "120",
           sortable: false,
         },
         {

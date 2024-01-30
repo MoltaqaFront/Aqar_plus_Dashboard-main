@@ -183,7 +183,7 @@
                 {{ $t("TITLES.DeactivateConfirmingMessage", { name: itemToChangeActivationStatus.name }) }}
               </v-card-title>
 
-              <form class="w-100">
+              <form class="w-100" >
                 <base-input col="12" rows="3" type="textarea" :placeholder="$t('PLACEHOLDERS.deactivateReason')"
                   v-model.trim="deactivateReason" required />
               </form>
@@ -210,7 +210,7 @@
 
               <form class="w-100">
 
-                <base-input col="12" type="text" :placeholder="$t('PLACEHOLDERS.current_balance')"
+                <base-input col="12" type="number" :placeholder="$t('PLACEHOLDERS.current_balance')"
                   v-model.trim="balance_package" required />
               </form>
 
@@ -403,7 +403,6 @@ export default {
       this.setTableRows();
     },
     // End:: Handel Filter
-
     // Start:: Set Table Rows
     updateRouterQueryParam(pagenationValue) {
       this.$router.push({
@@ -481,7 +480,8 @@ export default {
       let targetItem = this.itemToChangeActivationStatus ? this.itemToChangeActivationStatus : selectedItem;
       const REQUEST_DATA = {};
       // Start:: Append Request Data
-      REQUEST_DATA.message = this.deactivateReason;
+      REQUEST_DATA.message = this.deactivateReason; 
+
       // Start:: Append Request Data
       try {
         await this.$axios({
@@ -504,11 +504,15 @@ export default {
       this.itemToBalance = item;
     },
     async confirmAcceptItem(item) {
-
       const REQUEST_DATA = new FormData();
       REQUEST_DATA.append("balance", this.balance_package);
       // REQUEST_DATA.append("_method", "PUT");
-
+      this.isWaitingRequest = true;
+      if (isNaN(this.balance_package) || this.balance_package <= 0){
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.deactivateReason_word"));
+        return;
+      }
       try {
         await this.$axios({
           method: "POST",

@@ -23,7 +23,7 @@
               <!-- End:: Phone Input -->
 
               <!-- Start:: Email Input -->
-              <base-input col="4" type="email" :placeholder="$t('PLACEHOLDERS.email')"
+              <base-input col="4" type="text" :placeholder="$t('PLACEHOLDERS.email')"
                 v-model.trim="filterOptions.email" />
               <!-- End:: Email Input -->
 

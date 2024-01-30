@@ -20,7 +20,7 @@
               <!-- End:: Name Input -->
 
               <!-- Start:: vehicle_type Input -->
-              <base-select-input col="4" :optionsList="departments" :placeholder="$t('PLACEHOLDERS.property_type')"
+              <base-select-input col="4" :optionsList="departments" :placeholder="$t('PLACEHOLDERS.property_section')"
                 v-model="filterOptions.depart_type" />
               <!-- End:: vehicle_type Input -->
 
@@ -272,7 +272,7 @@ export default {
           align: "center",
         },
         {
-          text: this.$t("PLACEHOLDERS.property_type"),
+          text: this.$t("PLACEHOLDERS.property_section"),
           value: "realEstateDepartments",
           sortable: false,
           align: "center",

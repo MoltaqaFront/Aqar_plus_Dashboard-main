@@ -165,3 +165,8 @@
 :root .dark_theme .multiselect--disabled {
   background: var(--theme_main_bg_clr);
 }
+
+
+.v-application--is-ltr .v-data-table > .v-data-table__wrapper > table > tbody > tr > th, .v-application--is-ltr .v-data-table > .v-data-table__wrapper > table > thead > tr > th, .v-application--is-ltr .v-data-table > .v-data-table__wrapper > table > tfoot > tr > th{
+  text-align: center !important;
+}

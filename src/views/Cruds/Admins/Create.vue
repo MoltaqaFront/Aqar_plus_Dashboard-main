@@ -118,14 +118,8 @@ export default {
     validateFormInputs() {
       this.isWaitingRequest = true;
 
-      // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      // this.isValidEmail = emailRegex.test(this.data.email);
-      // if (!this.isValidEmail) {
-      //   this.isWaitingRequest = false;
-      //   return;
-      // }
-      //this.$message.error(this.$t("VALIDATION.email_domain"));
-      //  
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      this.isValidEmail = emailRegex.test(this.data.email);
       if (!this.data.name) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.name"));
@@ -154,7 +148,12 @@ export default {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.password"));
         return;
-      } else if (this.data.passwordConfirmation.length < 6) {
+      } else if (!this.isValidEmail) {
+         this.isWaitingRequest = false;
+         this.$message.error(this.$t("VALIDATION.email_domain"));
+         return;
+      }  
+      else if (this.data.passwordConfirmation.length < 6) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.passwordLength"));
         return;

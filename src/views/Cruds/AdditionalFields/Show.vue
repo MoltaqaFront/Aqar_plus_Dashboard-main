@@ -25,7 +25,7 @@
           <!-- End:: Name Input -->
 
           <!-- Start:: estate_depart Input -->
-          <base-select-input col="6" :optionsList="allVehicleTypes" :placeholder="$t('PLACEHOLDERS.type_vechile')"
+          <base-select-input col="6" :optionsList="allVehicleTypes" :placeholder="$t('PLACEHOLDERS.property_section')"
             v-model="data.estate_depart" multiple disabled />
           <!-- End:: estate_depart Input -->
 
