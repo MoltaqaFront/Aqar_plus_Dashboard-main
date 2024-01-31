@@ -22,8 +22,9 @@
   },
 
   "SIDENAV": {
-    "dashboard": "Dashboard",
+    "dashboard": "Home",
     "Users": {
+      "control": "General Statistics",
       "title": "Users",
       "showAll": "All Users",
       "add": "Add New User"
@@ -997,8 +998,8 @@
 
     "new_requests_count": "Total number of app members.",
     "incomplete_requests_count": "Total number of ads.",
-    "completed_requests_count": "Total number of accepted ads.",
-    "canceled_requests_count": "Total number of disapproved ads.",
+    "completed_requests_count": "Total number of published ads.",
+    "canceled_requests_count": "Total number of blocked ads.",
     "ongoing_requests_count": "Number of packages available.",
     "rejected_requests_count": "Total package subscription price",
     "total_requests": "Total Orders",

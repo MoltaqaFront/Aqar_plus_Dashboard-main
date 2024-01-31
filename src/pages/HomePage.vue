@@ -5,7 +5,7 @@
       <!--  =========== Start:: Table Title =========== -->
       <div class="table_title_wrapper">
         <div class="title_text_wrapper">
-          <h5>{{ $t("SIDENAV.dashboard") }}</h5>
+          <h5>{{ $t("SIDENAV.Users.control") }}</h5>
         </div>
       </div>
       <!--  =========== End:: Table Title =========== -->

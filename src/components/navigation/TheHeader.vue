@@ -148,6 +148,7 @@ export default {
     ...mapActions({
       changeAppTheme: "AppThemeModule/changeAppTheme",
       changeAppLanguage: "AppLangModule/changeAppLanguage",
+      readAllNotifications: "NotificationsModule/readAllNotifications",
     }),
     // End:: Vuex Actions
 
@@ -161,30 +162,31 @@ export default {
     // End:: Toggle Notifications Menu
 
     // Start:: Notification Redirect
-    redirectNotification(notifyType, notificationId) {
+    redirectNotification(notifyType) {
     if (notifyType === "new_user_register") {
-      this.$router.push(`/clients/${notificationId}`);
+      this.$router.push(`/clients/all`);
     } else if (
       notifyType === "add_shipment_attach" ||
       notifyType === "update_shipment_request" ||
       notifyType === "new_shipment_request"
     ) {
-      this.$router.push(`/shipment/${notificationId}`);
+      this.$router.push(`/shipment/all`);
     } else if (notifyType === "new_authorization_for_user") {
-      this.$router.push(`/authorizations/${notificationId}`);
+      this.$router.push(`/authorizations/all`);
     }
   },
 
     // End:: Notification Redirect
-    
-     async getData() {
+    async getData() {
       try {
         let res = await this.$axios({
           method: "GET",
-          url: "notification/index"
+          url: "notification/get-sending-notifications"
         });
         console.log("All Data ==>", res.data.data);
         this.notificationCount = res.data.data.filter((item) => item.is_read == 0).length;
+        //this.notificationCount = res.data.data.unreadCount;
+
       } catch (error) {
         this.loading = false;
         console.log(error.response.data.message);
@@ -194,10 +196,11 @@ export default {
 
   created() {
 
-    this.getData();
+    // this.getData();
+    this.readAllNotifications();
 
     navigator.serviceWorker.addEventListener('message', event => {
-      this.notificationCount ++;
+      this.notificationCount++;
     });
 
     // Start:: Fire Methods
@@ -205,7 +208,7 @@ export default {
       this.notificationsMenuIsOpen = false;
     });
     // End:: Fire Methods
-  },
+    },
 };
 </script>
 

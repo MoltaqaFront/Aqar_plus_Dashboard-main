@@ -22,8 +22,9 @@
   },
 
   "SIDENAV": {
-    "dashboard": "لوحة التحكم",
+    "dashboard": "الرئيسية",
     "Users": {
+      "control" : "الاحصائيات العامة",
       "title": "المستخدمين",
       "showAll": "كل المستخدمين",
       "add": "إضافة مستخدم جديد"
@@ -1002,8 +1003,8 @@
 
     "new_requests_count": "العدد الإجمالي لأعضاء التطبيق.",
     "incomplete_requests_count": "إجمالي عدد الاعلانات.",
-    "completed_requests_count": "إجمالي عدد الإعلانات المقبولة.",
-    "canceled_requests_count": "إجمالي عدد الإعلانات المرفوضة.",
+    "completed_requests_count": "إجمالي عدد الإعلانات المنشورة.",
+    "canceled_requests_count": "إجمالي عدد الإعلانات المحجوبة.",
     "ongoing_requests_count": "عدد الباقات المتاحة.",
     "rejected_requests_count": "إجمالي سعر اشتراك الباقات",
     "total_requests": "مجموع الطلبات",

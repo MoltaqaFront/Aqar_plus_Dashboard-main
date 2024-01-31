@@ -6,19 +6,22 @@ export default {
   // START:: GET NOTIFICATIONS
   getNotifications(context) {
     // START:: SEND GET REQUEST
-     axios({
+    axios({
       method: "GET",
-      url: `notifications`,
+      url: `notification/get-sending-notifications`,
+      params: {
+        withPagination: 1,
+      },
     })
       .then((res) => {
         context.commit("setNotifications", {
-        notifications: res.data.data.notifications,
-           unreadNotificationsCount: res.data.data.unreadnotifications_count,
-         });
+          notifications: res.data.data.notifications,
+          unreadNotificationsCount: res.data.data.unreadCount,
+        });
       })
-    .catch((error) => {
+      .catch((error) => {
         console.log(error.response.data.message);
-       });
+      });
     // END:: SEND GET REQUEST
   },
   // END:: GET NOTIFICATIONS
@@ -28,7 +31,7 @@ export default {
     // START:: SEND GET REQUEST
     axios({
       method: "GET",
-      url: `notifications/${payload}`,
+      url: `notification/${payload}`,
     })
       .then(() => {
         context.dispatch("getNotifications");
@@ -45,12 +48,15 @@ export default {
     // START:: SEND GET REQUEST
     axios({
       method: "GET",
-      url: `notification/index`,
+      url: `notification/get-sending-notifications`,
+      params: {
+        withPagination: 1,
+      },
     })
       .then((res) => {
         context.commit("setAllReadiedNotifications", {
           notifications: res.data.data.notifications,
-          unreadNotificationsCount: res.data.data.unreadnotifications_count,
+          unreadNotificationsCount: res.data.data.unreadCount,
         });
       })
       .catch((error) => {
@@ -65,7 +71,7 @@ export default {
     // START:: SEND GET REQUEST
     axios({
       method: "DELETE",
-      url: `notifications/${payload.id}`,
+      url: `notification/${payload.id}`,
     }).then(() => {
       if (payload.notificationType == "readied_notification") {
         context.dispatch("readAllNotifications");

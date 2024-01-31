@@ -53,6 +53,7 @@ export default {
       // End:: Loader Control Data
 
       receivedMessages: [],
+      notificationCount: null ,
 
       // Start:: Pagination Data
       paginations: {
@@ -68,6 +69,7 @@ export default {
   computed: {
     ...mapGetters({
       getAppLocale: "AppLangModule/getAppLocale",
+      notificationsData: "NotificationsModule/notificationsData",
     }),
   },
 
@@ -90,7 +92,7 @@ export default {
       try {
         let res = await this.$axios({
           method: "GET",
-          url: "notification/index",
+          url: "notification/get-sending-notifications",
           params: {
             page: this.paginations.current_page
           },
@@ -160,6 +162,7 @@ export default {
 
     navigator.serviceWorker.addEventListener('message', event => {
       const receivedMessage = event.data.data;
+      receivedMessage.read = false;
 
       this.receivedMessages.unshift(receivedMessage);
 

@@ -1,8 +1,10 @@
 import AboutUs from "../views/Cruds/AppContent/AboutUs.vue";
 import AdditionalFieldsHome from "../views/Cruds/AdditionalFields/Home.vue";
 import AdminsHome from "../views/Cruds/Admins/Home.vue";
+import AdvertisementsHome from "../views/Cruds/Advertisements/Home.vue";
 import AllAdditionalFields from "../views/Cruds/AdditionalFields/ShowAll.vue";
 import AllAdmins from "../views/Cruds/Admins/ShowAll.vue";
+import AllAdvertisements from "../views/Cruds/Advertisements/ShowAll.vue";
 import AllAreas from "../views/Cruds/Areas/ShowAll.vue";
 import AllBankTransfer from "../views/Cruds/BankTransfer/ShowAll.vue";
 import AllBanks from "../views/Cruds/Banks/ShowAll.vue";
@@ -16,9 +18,11 @@ import AllDistricts from "../views/Cruds/Districts/ShowAll.vue";
 import AllEstateDepartments from "../views/Cruds/EstateDepartments/ShowAll.vue";
 import AllFinancialReports from "../views/Cruds/FinancialReports/ShowAll.vue";
 import AllNotifications from "../views/Cruds/Notifications/ShowAll.vue";
+import AllNotificationsHome from "../views/Notifications/AllNotifications.vue";
 import AllOffers from "../views/Cruds/Offers/ShowAll.vue";
 import AllPackages from "../views/Cruds/Packages/ShowAll.vue";
 import AllRates from "../views/Cruds/Rates/ShowAll.vue";
+import AllReports from "../views/Cruds/Reports/ShowAll.vue";
 import AllRoles from "../views/Cruds/Roles/ShowAll.vue";
 import AppContentHome from "../views/Cruds/AppContent/Home.vue";
 import AppContentWrapper from "../pages/AppContentWrapper.vue";
@@ -54,6 +58,7 @@ import CreateRole from "../views/Cruds/Roles/Create.vue";
 import DistrictsHome from "../views/Cruds/Districts/Home.vue";
 import EditAdditionalFields from "../views/Cruds/AdditionalFields/Edit.vue";
 import EditAdmin from "../views/Cruds/Admins/Edit.vue";
+import EditAdvertisements from "../views/Cruds/Advertisements/Edit.vue";
 import EditAreas from "../views/Cruds/Areas/Edit.vue";
 import EditBanks from "../views/Cruds/Banks/Edit.vue";
 import EditCategory from "../views/Cruds/Category/Edit.vue";
@@ -78,11 +83,13 @@ import OffersHome from "../views/Cruds/Offers/Home.vue";
 import PackagesHome from "../views/Cruds/Packages/Home.vue";
 import PrivacyPolicy from "../views/Cruds/AppContent/PrivacyPolicy.vue";
 import RatesHome from "../views/Cruds/Rates/Home.vue";
+import ReportsHome from "../views/Cruds/Reports/Home.vue";
 import ResetPasswordEmailForm from "../views/Auth/ResetPasswordEmailForm.vue";
 import ResetPasswordForm from "../views/Auth/ResetPasswordForm.vue";
 import RolesHome from "../views/Cruds/Roles/Home.vue";
 import ShowAdditionalFields from "../views/Cruds/AdditionalFields/Show.vue";
 import ShowAdmin from "../views/Cruds/Admins/Show.vue";
+import ShowAdvertisements from "../views/Cruds/Advertisements/Show.vue";
 import ShowAreas from "../views/Cruds/Areas/Show.vue";
 import ShowBankTransfer from "../views/Cruds/BankTransfer/Show.vue";
 import ShowBanks from "../views/Cruds/Banks/Show.vue";
@@ -98,6 +105,7 @@ import ShowNotifications from "../views/Cruds/Notifications/Show.vue";
 import ShowOffer from "../views/Cruds/Offers/Show.vue";
 import ShowPackages from "../views/Cruds/Packages/Show.vue";
 import ShowRates from "../views/Cruds/Rates/Show.vue";
+import ShowReports from "../views/Cruds/Reports/Show.vue";
 import Terms from "../views/Cruds/AppContent/Terms.vue";
 import Vue from "vue";
 import VueRouter from "vue-router";
@@ -129,16 +137,16 @@ import subscriptionsPackages from "../views/Cruds/Packages/subscriptions.vue";
 // ============== End:: Clients Routes
 
 // ============== Start:: Reports Routes
-import ReportsHome from "../views/Cruds/Reports/Home.vue";
-import ShowReports from "../views/Cruds/Reports/Show.vue";
-import AllReports from "../views/Cruds/Reports/ShowAll.vue";
+
+
+
 // ============== End:: Reports Routes
 
 // ============== Start:: Advertisements Routes
-import AdvertisementsHome from "../views/Cruds/Advertisements/Home.vue";
-import AllAdvertisements from "../views/Cruds/Advertisements/ShowAll.vue";
-import EditAdvertisements from "../views/Cruds/Advertisements/Edit.vue";
-import ShowAdvertisements from "../views/Cruds/Advertisements/Show.vue";
+
+
+
+
 // ============== End:: Advertisements Routes
 
 // ============== Start:: Offers Routes
@@ -331,7 +339,14 @@ const routes = [
     ],
   },
   // ***************** End:: Auth Routes Config
-
+  {
+    path: "/all-notifications-page",
+    name: "AllNotificationsHome",
+    component: AllNotificationsHome,
+    meta: {
+      middleware: [auth],
+    }
+  },
   // ***************** Start:: Content Routes Config
   {
     path: "/home",
