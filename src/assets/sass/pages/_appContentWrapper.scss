@@ -159,26 +159,78 @@
   color: #313131;
 }
 
-:root .light_theme .notification{
+:root .light_theme .notification {
   background: #f2f2f2;
 }
 :root .dark_theme .multiselect--disabled {
   background: var(--theme_main_bg_clr);
 }
 
-
-.v-application--is-ltr .v-data-table > .v-data-table__wrapper > table > tbody > tr > th, .v-application--is-ltr .v-data-table > .v-data-table__wrapper > table > thead > tr > th, .v-application--is-ltr .v-data-table > .v-data-table__wrapper > table > tfoot > tr > th{
+.v-application--is-ltr
+  .v-data-table
+  > .v-data-table__wrapper
+  > table
+  > tbody
+  > tr
+  > th,
+.v-application--is-ltr
+  .v-data-table
+  > .v-data-table__wrapper
+  > table
+  > thead
+  > tr
+  > th,
+.v-application--is-ltr
+  .v-data-table
+  > .v-data-table__wrapper
+  > table
+  > tfoot
+  > tr
+  > th {
   text-align: center !important;
 }
 
-@media (max-width: 850px){
+@media (max-width: 850px) {
   .app_structure_wrapper .side_nav_wrapper .logo_wrapper {
-      background:#FFF
+    background: #fff;
   }
-  .app_structure_wrapper .side_nav_wrapper .close_btn svg, .app_structure_wrapper .side_nav_wrapper .close_btn i{
-  color:red
+  .app_structure_wrapper .side_nav_wrapper .close_btn svg,
+  .app_structure_wrapper .side_nav_wrapper .close_btn i {
+    color: red;
   }
 }
-:root .dark_theme .app_structure_wrapper .side_nav_wrapper .side_nav_links_wrapper .side_routes_wrapper .ant-menu .ant-menu-submenu .ant-menu-submenu-title span span{
-  color: #FFF;
+:root
+  .dark_theme
+  .app_structure_wrapper
+  .side_nav_wrapper
+  .side_nav_links_wrapper
+  .side_routes_wrapper
+  .ant-menu
+  .ant-menu-submenu
+  .ant-menu-submenu-title
+  span
+  span {
+  color: #fff;
+}
+
+.side_nav_links_wrapper {
+  a.router-link-exact-active.router-link-active {
+    background-color: rgba($color: #49a956, $alpha: 0.5);
+    padding: 10px;
+  }
+}
+
+.app_structure_wrapper
+  .side_nav_wrapper
+  .side_nav_links_wrapper
+  .home_route
+  a.router-link-exact-active
+  .route_text,
+.app_structure_wrapper
+  .side_nav_wrapper
+  .side_nav_links_wrapper
+  .home_route
+  a:hover
+  .route_text {
+  color: #000;
 }
