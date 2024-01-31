@@ -31,7 +31,6 @@
           <base-select-input v-if="allRoles" col="6" :optionsList="allRoles" :placeholder="$t('PLACEHOLDERS.role')"
             v-model.trim="data.role" required />
 
-          {{ data.role }}
           <!-- End:: Roles Input -->
 
           <!-- Start:: Activate Edit Password Switch Input -->
