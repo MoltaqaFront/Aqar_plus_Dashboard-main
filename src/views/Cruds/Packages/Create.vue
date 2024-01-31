@@ -129,7 +129,21 @@ export default {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.price"));
         return;
-      } else if (!this.data.package_duration || this.data.package_duration === 'null') {
+      }  else if (!this.data.price || this.data.price <= 0){
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.price_validation"));
+        return;
+      }  else if (!this.data.number_of_ads) {
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.number_of_ads"));
+        return;
+      } 
+      else if (!this.data.number_of_ads || this.data.number_of_ads <= 0){
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.advertise_validaion"));
+        return;
+      } 
+      else if (!this.data.package_duration || this.data.package_duration === 'null') {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.package_duration_field"));
         return;
