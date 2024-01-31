@@ -129,11 +129,17 @@ export default {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.price"));
         return;
-      } else if (!this.data.package_duration || this.data.package_duration <= 0){
+      } else if (!this.data.package_duration || this.data.package_duration === 'null') {
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.package_duration_field"));
+        return;
+      }
+       else if (!this.data.package_duration || this.data.package_duration <= 0){
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.package_duration"));
         return;
-      } else if (!this.data.show_image){
+      }
+      else if (!this.data.show_image){
         this.isWaitingRequest = false; 
         this.$message.error(this.$t("VALIDATION.can_show_image"));
       } else {
