@@ -114,7 +114,7 @@
           </v-chip>
         </template>
 
-       
+
         <!-- Start:: Activation Status -->
         <template v-slot:[`item.is_active`]="{ item }">
           <span class="text-success text-h5" v-if="item.is_active">
@@ -165,7 +165,7 @@
                 </button>
               </a-tooltip>
             </template>
-            
+
             <template v-else>
               <i class="fal fa-lock-alt fs-5 blue-grey--text text--darken-1"></i>
             </template>
@@ -183,7 +183,7 @@
                 {{ $t("TITLES.DeactivateConfirmingMessage", { name: itemToChangeActivationStatus.name }) }}
               </v-card-title>
 
-              <form class="w-100" >
+              <form class="w-100">
                 <base-input col="12" rows="3" type="textarea" :placeholder="$t('PLACEHOLDERS.deactivateReason')"
                   v-model.trim="deactivateReason" required />
               </form>
@@ -369,7 +369,7 @@ export default {
       dialogBalance: false,
       itemToBalance: null,
       // Start:: Page Permissions
-       permissions: null,
+      permissions: null,
       // Start:: Page Permissions
 
     };
@@ -480,7 +480,7 @@ export default {
       let targetItem = this.itemToChangeActivationStatus ? this.itemToChangeActivationStatus : selectedItem;
       const REQUEST_DATA = {};
       // Start:: Append Request Data
-      REQUEST_DATA.message = this.deactivateReason; 
+      REQUEST_DATA.message = this.deactivateReason;
 
       // Start:: Append Request Data
       try {
@@ -508,7 +508,7 @@ export default {
       REQUEST_DATA.append("balance", this.balance_package);
       // REQUEST_DATA.append("_method", "PUT");
       this.isWaitingRequest = true;
-      if (isNaN(this.balance_package) || this.balance_package <= 0){
+      if (isNaN(this.balance_package) || this.balance_package <= 0) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.deactivateReason_word"));
         return;
