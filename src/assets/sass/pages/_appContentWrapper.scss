@@ -170,3 +170,12 @@
 .v-application--is-ltr .v-data-table > .v-data-table__wrapper > table > tbody > tr > th, .v-application--is-ltr .v-data-table > .v-data-table__wrapper > table > thead > tr > th, .v-application--is-ltr .v-data-table > .v-data-table__wrapper > table > tfoot > tr > th{
   text-align: center !important;
 }
+
+@media (max-width: 850px){
+  .app_structure_wrapper .side_nav_wrapper .logo_wrapper {
+      background:#FFF
+  }
+  .app_structure_wrapper .side_nav_wrapper .close_btn svg, .app_structure_wrapper .side_nav_wrapper .close_btn i{
+  color:red
+  }
+  }

@@ -28,7 +28,7 @@
               <!-- End:: Phone Input -->
 
               <!-- Start:: Phone Input -->
-              <base-select-input col="4" :optionsList="regions" :placeholder="$t('TABLES.Areas.name')"
+              <base-select-input col="4" :optionsList="regions" :placeholder="$t('TABLES.BankTransferManagement.bankTransfer')"
                 v-model="filterOptions.region_id" />
              <!--  <base-input col="4" type="tel" :placeholder="$t('TABLES.BankTransferManagement.bankTransfer')"
                 v-model.trim="filterOptions.transformer_name" /> -->
@@ -293,13 +293,14 @@ export default {
           text: this.$t("TABLES.BankTransferManagement.phone"),
           value: "user.mobile",
           align: "center",
+          width: "150",
           sortable: false
         },
         {
           text: this.$t("TABLES.BankTransferManagement.bank_name"),
           value: "bank.name",
           align: "center",
-          width: "120",
+          width: "150",
           sortable: false
         },
         {
@@ -320,7 +321,7 @@ export default {
           text: this.$t("TABLES.BankTransferManagement.money"),
           value: "transfer_amount",
           align: "center",
-          width: "100",
+          width: "150",
           sortable: false
         },
         {
@@ -341,6 +342,7 @@ export default {
           text: this.$t("TABLES.BankTransferManagement.status"),
           value: "is_active",
           align: "center",
+          width: "150",
           sortable: false
         },
         {

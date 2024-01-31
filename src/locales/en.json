@@ -401,13 +401,15 @@
       "serialNumber": "serial",
       "name": "customer name",
       "phone": "mobile number",
+      "bank_name" : "name of transferor",
       "bankTransfer": "the transfer bank",
-      "number": "the IBAN number to which it is transferred",
+      "number": "IBAN number",
       "money" : "transfer amount",
       "image": "receipt image",
       "data" : "creation date",
       "active": "activated",
-      "actions": "control"
+      "actions": "control",
+      "status": "transfer status"
     }
   },
 
@@ -512,7 +514,7 @@
     "editUser": "Edit User",
     "showUser": "User's ({name}) Data",
     "userAddresses": "User Addresses",
-
+    "managers" :"Managers",
     "drivers": "Drivers",
     "addDriver": "Add New Driver",
     "editDriver": "Edit Driver",
@@ -950,6 +952,7 @@
     "Commercial_register": "Commercial register",
     "Tax_registration": "Tax registration",
     "Company_logo": "Company logo",
+    "contact_admins": "Communicate with administration",
     "WhatsApp_contact": "WhatsApp contact",
 
     "phone_call": "Calling Phone",
@@ -1124,6 +1127,7 @@
     "transferrer_name": "Transferrer Name",
     "transferred_bank": "Transferred Bank",
     "transfer_status": "Transfer Status",
+    "transfer_wait": "Waiting for confirmation",
     "transfer_confirmed": "Transfer Confirmed",
     "transfer_not_confirmed": "Transfer Not Confirmed",
     "transferred_iban": "Transferred IBAN",
@@ -1132,7 +1136,7 @@
     "reason_not_confirmed": "Reason Not Confirmed",
     "transfer_done": "Transfer Done",
     "transfer_not_done": "Transfer Not Done",
-    "terms_of_use_in_akarplus_app": "Terms of Use in Akarplus App",
+    "terms_of_use_in_akarplus_app": "Terms of Use in AQARplus App",
     "regulations_of_general_authority_for_real_estate": "Regulations of General Authority for Real Estate",
     "ad_number": "Ad Number",
     "ad_section": "Ad Section",

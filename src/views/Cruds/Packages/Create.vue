@@ -116,14 +116,6 @@ export default {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.nameEn"));
         return;
-      } else if (!this.data.price) {
-        this.isWaitingRequest = false;
-        this.$message.error(this.$t("VALIDATION.price"));
-        return;
-      } else if (!this.data.package_duration || this.data.package_duration <= 0){
-        this.isWaitingRequest = false;
-        this.$message.error(this.$t("VALIDATION.package_duration"));
-        return;
       }else if (!arabicRegex.test(this.data.nameAr)) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.arabic_words"));
@@ -131,6 +123,15 @@ export default {
       } else if (!englishRegex.test(this.data.nameEn)) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.english_words"));
+        return;
+      }
+       else if (!this.data.price) {
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.price"));
+        return;
+      } else if (!this.data.package_duration || this.data.package_duration <= 0){
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.package_duration"));
         return;
       } else if (!this.data.show_image){
         this.isWaitingRequest = false; 
