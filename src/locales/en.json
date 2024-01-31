@@ -1258,6 +1258,7 @@
     "estate_depart": "Estate depart field is required",
     "is_show_map": "show map field not choose" ,
     "package_duration" : "The number of days must be positive" ,
+    "package_duration_field": "The package duration field in days is required",
     "deactivateReason_word" : "The current balance must be a number positive integer",
     "report_postive": "The number of reports must be correct and positive",
     "advertiste_positve": "The number of advertisements must be positive integer",
