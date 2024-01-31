@@ -2,7 +2,7 @@
   <div class="crud_form_wrapper">
     <!-- Start:: Title -->
     <div class="form_title_wrapper">
-      <h4>{{ $t("TITLES.editAdmin") }}</h4>
+      <h4>{{ $t("TITLES.showUser") }}</h4>
     </div>
     <!-- End:: Title -->
 

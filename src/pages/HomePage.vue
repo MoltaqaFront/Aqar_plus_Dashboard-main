@@ -17,33 +17,21 @@
         <div class="col-lg-6 col-md-6 col-12" v-for="(value, key) in statics" :key="'i' + key">
           <div class="box">
             <div class="icon">
-              <i v-if="key === 'advertisements_count'" class="fas fa-users"></i>
-
-              <i v-else-if="key === 'blocked_advertisements_count'" class="fas fa-image"></i>
-              <i v-else-if="key === 'packages_count'" class="fas fa-clipboard-check"></i>
-
-
-              <i v-else-if="key === 'published_advertisements_count'" class="fas fa-ban"></i>
-              <i v-else-if="key === 'total_subscribe_packages_price'" class="fas fa-toolbox"></i>
-              <i v-else-if="key === 'users_count'" class="fas fa-dollar-sign"></i>
-
-              <i v-else-if="key === 'total'" class="fas fa-dollar"></i>
-
+              <i v-if="key === 'users_count'" class="fas fa-users"></i>
+              <i v-else-if="key === 'advertisements_count'" class="fas fa-ad"></i>
+              <i v-else-if="key === 'blocked_advertisements_count'" class="fas fa-ban"></i>
+              <i v-else-if="key === 'packages_count'" class="fas fa-toolbox"></i>
+              <i v-else-if="key === 'total_subscribe_packages_price'" class="fas fa-dollar-sign"></i>
+              <i v-else-if="key === 'published_advertisements_count'" class="fas fa-plus"></i>
             </div>
             <div class="info_box">
-              <span v-if="key == 'advertisements_count'">{{ $t('PLACEHOLDERS.new_requests_count') }}</span>
-
-              <span v-else-if="key === 'blocked_advertisements_count'">{{ $t('PLACEHOLDERS.incomplete_requests_count')
+              <span v-if="key == 'users_count'">{{ $t('PLACEHOLDERS.new_requests_count') }}</span>
+              <span v-else-if="key === 'advertisements_count'">{{ $t('PLACEHOLDERS.incomplete_requests_count')
               }}</span>
-
-              <span v-else-if="key === 'packages_count'">{{ $t('PLACEHOLDERS.completed_requests_count') }}</span>
-
-              <span v-else-if="key === 'published_advertisements_count'">{{ $t('PLACEHOLDERS.canceled_requests_count') }}</span>
-              <span v-else-if="key === 'total_subscribe_packages_price'">{{ $t('PLACEHOLDERS.ongoing_requests_count') }}</span>
-              <span v-else-if="key === 'users_count'">{{ $t('PLACEHOLDERS.rejected_requests_count') }}</span>
-
-              <span v-else-if="key === 'total'">{{ $t('PLACEHOLDERS.total_requests') }}</span>
-
+             <span v-else-if="key === 'blocked_advertisements_count'">{{ $t('PLACEHOLDERS.canceled_requests_count') }}</span>
+             <span v-else-if="key === 'packages_count'">{{ $t('PLACEHOLDERS.ongoing_requests_count') }}</span>
+             <span v-else-if="key === 'total_subscribe_packages_price'">{{ $t('PLACEHOLDERS.rejected_requests_count') }}</span>
+             <span v-else-if="key === 'published_advertisements_count'">{{ $t('PLACEHOLDERS.completed_requests_count') }}</span>
               <p class="number_box">{{ value }}</p>
             </div>
           </div>
@@ -120,8 +108,9 @@ export default {
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 
         .icon {
-          background: #49a956;
-          color: #FFF
+          i{
+            color: #49a956;
+          }
         }
         .info_box {
 
@@ -144,7 +133,7 @@ export default {
 
         i {
           font-size: 25px ;
-          //color: #49a956;
+          color: #000;
         }
       }
 

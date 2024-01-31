@@ -132,24 +132,31 @@ export default {
     validateFormInputs() {
       this.isWaitingRequest = true;
 
-      if (!this.data.number_of_free_package_ads || this.data.number_of_free_package_ads === 'null') {
+       if (!this.data.VAT_percentage) {
         this.isWaitingRequest = false;
-        this.$message.error(this.$t("VALIDATION.free_package_ads_field_required"));
+        this.$message.error(this.$t("VALIDATION.VAT_percentage_field"));
         return;
-      } else if (!this.data.number_of_free_package_ads || this.data.number_of_free_package_ads <= 0) {
+      }
+      else if (this.data.VAT_percentage < 1 || this.data.VAT_percentage > 100) {
         this.isWaitingRequest = false;
-        this.$message.error(this.$t("VALIDATION.advertiste_positve"));
-        return;
-      } else if (this.data.VAT_percentage < 1 || this.data.VAT_percentage > 100) {
-        this.isWaitingRequest = false;
-        this.$message.error(this.$t("VALIDATION.advertiste_positve"));
-        } else if (!this.data.number_of_reports_to_block_auto_ad || this.data.number_of_reports_to_block_auto_ad === 'null') {
+        this.$message.error(this.$t("VALIDATION.VAT_percentage_required"));
+      }
+      else if (!this.data.number_of_reports_to_block_auto_ad || this.data.number_of_reports_to_block_auto_ad === 'null') {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.reports_to_block_auto_ad_required"));
         return;
       } else if (!this.data.number_of_reports_to_block_auto_ad || this.data.number_of_reports_to_block_auto_ad <= 0) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.report_postive"));
+        return;
+      }
+      else if (!this.data.number_of_free_package_ads || this.data.number_of_free_package_ads === 'null') {
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.free_package_ads_field_required"));
+        return;
+      } else if (!this.data.number_of_free_package_ads || this.data.number_of_free_package_ads <= 0) {
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.advertiste_positve"));
         return;
       }else if (!this.data.free_package_expiry_duration || this.data.free_package_expiry_duration === 'null') {
         this.isWaitingRequest = false;

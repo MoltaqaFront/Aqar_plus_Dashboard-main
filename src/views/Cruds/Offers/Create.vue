@@ -117,6 +117,15 @@ export default {
         this.$message.error(this.$t("VALIDATION.nameEn"));
         return;
       }
+      else if (!arabicRegex.test(this.data.name_ar)) {
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.arabic_words"));
+        return;
+      } else if (!englishRegex.test(this.data.name_en)) {
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.english_words"));
+        return;
+      }
       else if(!this.data.discount){
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.discount_field"));
@@ -136,13 +145,7 @@ export default {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.endDate"));
         return;
-      } else if (!arabicRegex.test(this.data.name_ar)) {
-        this.$message.error(this.$t("VALIDATION.arabic_words"));
-        return;
-      } else if (!englishRegex.test(this.data.name_en)) {
-        this.$message.error(this.$t("VALIDATION.english_words"));
-        return;
-      }
+      } 
       else {
         this.submitForm();
         return;

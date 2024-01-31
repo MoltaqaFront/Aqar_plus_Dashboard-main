@@ -21,7 +21,7 @@
 
           <!-- Start:: Name Input -->
           <base-select-input col="6" :placeholder="$t('TABLES.Areas.name')" :optionsList="getAreasData"
-            v-model.trim="data.area_id" @input="getCountries" required />
+            v-model.trim="data.area_id"  required />
           <!-- End:: Name Input -->
 
           <!-- {{ getCountriesData }} -->
@@ -153,7 +153,7 @@ export default {
           method: "GET",
           url: `countries`,
           params: {
-            area_id: `${this.data.area_id?.id}`,
+            //area_id: `${this.data.area_id?.id}`,
             "status": 1
           }
         });
@@ -170,6 +170,7 @@ export default {
 
   created() {
     this.getAreas();
+    this.getCountries();
   },
 };
 </script>
