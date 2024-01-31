@@ -101,7 +101,7 @@ export default {
         this.submitForm();
         return;
       }
-    },
+    }, 
     // End:: validate Form Inputs
 
     // Start:: Submit Form
