@@ -10,22 +10,12 @@
     <div class="single_step_form_content_wrapper">
       <form @submit.prevent="validateFormInputs">
         <div class="row">
-
-          <!-- Start:: Name Input -->
-          <!-- <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.titleAr')" v-model.trim="data.nameAr" required /> -->
-          <!-- End:: Name Input -->
-
-          <!-- Start:: Name Input -->
-          <!-- <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.titleEn')" v-model.trim="data.nameEn" required /> -->
-
-          <!-- End:: Name Input -->
-
           <!-- Start:: Ar Content Text Editor -->
-          <base-text-editor col="6" :placeholder="$t('PLACEHOLDERS.contentAr')" v-model.trim="data.contentAr" required />
+          <base-text-editor col="6" :placeholder="$t('PLACEHOLDERS.contentAr')" v-model.trim="data.contentAr"  required />
           <!-- End:: Ar Content Text Editor -->
 
           <!-- Start:: En Content Text Editor -->
-          <base-text-editor col="6" :placeholder="$t('PLACEHOLDERS.contentEn')" v-model.trim="data.contentEn" required />
+          <base-text-editor col="6" :placeholder="$t('PLACEHOLDERS.contentEn')" v-model.trim="data.contentEn"  required />
           <!-- Start:: En Content Text Editor -->
 
           <!-- Start:: Submit Button Wrapper -->
@@ -54,9 +44,7 @@ export default {
       // Start:: Data Collection To Send
       data: {
         contentAr: null,
-        contentEn: null,
-        nameAr: null,
-        nameEn: null
+        contentEn: null
       },
       // End:: Data Collection To Send
     };
@@ -73,8 +61,6 @@ export default {
         // Start:: Set Data
         this.data.contentAr = res.data.data[0].value_ar;
         this.data.contentEn = res.data.data[0].value_en;
-        // this.data.nameAr = res.data.data[0].name_ar;
-        // this.data.nameEn = res.data.data[0].name_en;
         // End:: Set Data
       } catch (error) {
         console.log(error.response.data.message);
@@ -85,7 +71,8 @@ export default {
     // Start:: validate Form Inputs
     validateFormInputs() {
       this.isWaitingRequest = true;
-
+      // const arabicRegex = /^[\u0600-\u06FF\s]+$/;
+      // const englishRegex = /^[a-zA-Z\s]+$/;
       if (!this.data.contentAr) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.contentAr"));
@@ -94,7 +81,8 @@ export default {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.contentEn"));
         return;
-      } else {
+      }
+      else {
         this.submitForm();
         return;
       }

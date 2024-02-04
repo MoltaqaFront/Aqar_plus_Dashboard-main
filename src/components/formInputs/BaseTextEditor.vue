@@ -73,7 +73,8 @@ export default {
         [{color: []}, {background: []},],
         ["image", "link"],
         ["clean"],
-      ]
+      ] ,
+
     };
   },
 

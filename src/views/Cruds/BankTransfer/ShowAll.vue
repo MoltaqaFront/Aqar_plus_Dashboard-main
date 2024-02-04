@@ -520,18 +520,6 @@ export default {
     },
     // ===== End:: Delete
 
-    async getRegions() {
-      try {
-        let res = await this.$axios({
-          method: "GET",
-          url: `users`,
-        });
-        // console.log("Cities =>", res.data.data);
-        this.regions = res.data.data;
-      } catch (error) {
-        console.log(error.response.data.message);
-      }
-    },
     // ==================== End:: Crud ====================
   },
 
@@ -543,8 +531,7 @@ export default {
     if (this.$route.query.page) {
       this.paginations.current_page = +this.$route.query.page;
     }
-    this.setTableRows();
-    this.getRegions()
+    this.setTableRows()
     // End:: Fire Methods
   },
 };

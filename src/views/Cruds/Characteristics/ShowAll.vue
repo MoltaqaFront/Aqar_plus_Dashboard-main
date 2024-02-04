@@ -85,9 +85,8 @@
         </template>
 
         <!-- Start:: Name -->
-        <template v-slot:[`item.name`]="{ item }">
-          <h6 class="text-danger" v-if="!item.name"> {{ $t("TABLES.noData") }} </h6>
-          <h6 v-else> {{ item.name }} </h6>
+        <template v-slot:[`item.is_required_fal_license`]="{ item }">
+          <h6 > {{ item.is_required_fal_license == 0 ? 'لا' : 'نعم' }} </h6>
         </template>
         <!-- End:: Name -->
 
@@ -316,7 +315,7 @@ export default {
         },
         {
           text: this.$t("PLACEHOLDERS.broker_license_required"),
-          value: "is_required_fal_license",
+          value: "is_required_fal_license" ,
           align: "center",
           sortable: false,
         },
@@ -356,6 +355,7 @@ export default {
       deactivateReason: null,
       dialogDelete: false,
       itemToDelete: null,
+      licence : null
 
     };
   },
@@ -386,7 +386,6 @@ export default {
       this.setTableRows();
     },
     // End:: Handel Filter
-
     // Start:: Set Table Rows
     updateRouterQueryParam(pagenationValue) {
       this.$router.push({
@@ -421,6 +420,7 @@ export default {
         this.loading = false;
         // console.log("All Data ==>", res.data.data);
         this.tableRows = res.data.data;
+        this.licence = res.data.data.is_required_fal_license == 0 ? 'نعم' : 'لا';
         this.paginations.last_page = res.data.meta.last_page;
         this.paginations.items_per_page = res.data.meta.per_page;
       } catch (error) {

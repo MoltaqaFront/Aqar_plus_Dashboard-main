@@ -84,9 +84,9 @@
       "add": "Add New Role"
     },
     "Admins": {
-      "title": "Admins",
-      "showAll": "All Admins",
-      "add": "Add New Admin"
+      "title": "Managers",
+      "showAll": "All Managers",
+      "add": "Add New Manager"
     },
     "ImagesSpaces": {
       "title": "Ads Spaces",

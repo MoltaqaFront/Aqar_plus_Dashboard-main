@@ -313,7 +313,7 @@
       <!-- End:: roles Route -->
 
       <div class="side_routes_wrapper">
-        <a-menu style="width: 100%" mode="inline">
+        <a-menu  mode="inline">
           <!-- Start:: Logout Tab -->
           <a-sub-menu key="logout" @titleClick="logoutConfirmationModalIsOpen = true">
             <!-- ========= Start:: Main Tab -->
@@ -331,7 +331,7 @@
       <!-- End:: Side Nav Routes -->
 
       <!-- Start:: Logout Confirmation Modal -->
-      <v-dialog v-model="logoutConfirmationModalIsOpen">
+      <v-dialog v-model="logoutConfirmationModalIsOpen" >
         <v-card>
           <v-card-title class="text-h5 justify-center">
             {{ $t("TITLES.logoutConfirmingMessage") }}
