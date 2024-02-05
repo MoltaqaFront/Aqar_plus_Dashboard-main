@@ -286,6 +286,19 @@
       </div>
       <!-- End:: settings Route -->
 
+        <!-- Start:: Bank Account Route -->
+        <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')" >
+          <router-link to="/banks-account/all">
+            <span class="route_icon">
+              <img src="@/assets/media/icons/ui_icons/accounting.png" alt="icon" width="40" height="40" />
+            </span>
+            <span class="route_text">
+              {{ $t("PLACEHOLDERS.bank_accounts_settings") }}
+            </span>
+          </router-link>
+        </div>
+        <!-- End:: Bank Account Route -->
+
       <!-- Start:: users Route -->
       <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')" v-if="$can('users index', 'users')">
         <router-link to="/admins/all">
@@ -435,12 +448,6 @@ export default {
               key: "contact",
               title: this.$t("PLACEHOLDERS.contact_admins"),
               route: "/contact_settings",
-              hasPermission: this.$can('settings create', 'settings'),
-            },
-            {
-              key: "bank-accounts",
-              title: this.$t("PLACEHOLDERS.bank_accounts_settings"),
-              route: "/app-content/bank-accounts",
               hasPermission: this.$can('settings create', 'settings'),
             },
           ],

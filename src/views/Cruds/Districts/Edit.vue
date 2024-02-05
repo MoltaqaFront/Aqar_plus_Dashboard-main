@@ -162,7 +162,7 @@ export default {
           method: "GET",
           url: `countries`,
           params: {
-            area_id: `${this.data.area_id?.id}`,
+            area_id: `${this.data.area_id.id}`,
             "status": 1
           }
         });

@@ -284,6 +284,7 @@ export default {
           text: this.$t("TABLES.Products.created_at"),
           value: "created_at",
           sortable: false,
+          width: "120",
           align: "center",
         },
 
@@ -379,6 +380,7 @@ export default {
             page: this.paginations.current_page,
             name: this.filterOptions.title,
             status: this.filterOptions.active?.value,
+            notFreePackage: 1
           },
         });
         this.loading = false;

@@ -30,7 +30,7 @@
 
               <!-- Start:: Status Input -->
               <base-select-input col="3" :optionsList="activeStatuses" :placeholder="$t('PLACEHOLDERS.status')"
-                v-model="filterOptions.status" />
+                v-model="filterOptions.is_active" />
               <!-- End:: Status Input -->
 
               <!-- Start:: Rate Input -->
@@ -118,12 +118,12 @@
         <!-- Start:: Activation -->
         <template v-slot:[`item.is_active`]="{ item }">
           <div class="activation" dir="ltr" style="z-index: 1" v-if="$can('rates activate', 'rates')">
-            <v-switch class="mt-2" color="success" v-model="item.status" hide-details
+            <v-switch class="mt-2" color="success" v-model="item.is_active" hide-details
               @change="changeActivationStatus(item)"></v-switch>
           </div>
 
           <template v-else>
-            <span class="text-success text-h5" v-if="item.status">
+            <span class="text-success text-h5" v-if="item.is_active">
               <i class="far fa-check"></i>
             </span>
             <span class="text-danger text-h5" v-else>
@@ -192,17 +192,17 @@ export default {
         {
           id: 1,
           name: this.$t("STATUS.published"),
-          value: "1",
+          value: "published",
         },
         {
           id: 2,
           name: this.$t("STATUS.notPublished"),
-          value: 0,
+          value: "unpublished",
         },
         {
           id: null,
           name: this.$t("STATUS.new"),
-          value: null,
+          value: "new",
         },
       ];
     },

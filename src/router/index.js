@@ -8,6 +8,7 @@ import AllAdvertisements from "../views/Cruds/Advertisements/ShowAll.vue";
 import AllAreas from "../views/Cruds/Areas/ShowAll.vue";
 import AllBankTransfer from "../views/Cruds/BankTransfer/ShowAll.vue";
 import AllBanks from "../views/Cruds/Banks/ShowAll.vue";
+import AllBanksAccount from "../views/Cruds/BankAccount/ShowAll.vue";
 import AllCategory from "../views/Cruds/Category/ShowAll.vue";
 import AllCharacteristics from "../views/Cruds/Characteristics/ShowAll.vue";
 import AllCities from "../views/Cruds/Cities/ShowAll.vue";
@@ -32,7 +33,7 @@ import AqarConditions from "../views/Cruds/AppContent/AqarConditions.vue";
 import AqarUses from "../views/Cruds/AppContent/AqarUses.vue";
 import AreasHome from "../views/Cruds/Areas/Home.vue";
 import Authentication from "../pages/Authentication.vue";
-import BankAccounts from "../views/Cruds/AppContent/BankAccounts.vue";
+import BanksAccountHome from "../views/Cruds/BankAccount/Home.vue";
 import BanksHome from "../views/Cruds/Banks/Home.vue";
 import CategoryHome from "../views/Cruds/Category/Home.vue";
 import ChangePhoneNumberForm from "../views/Auth/ChangePhoneNumber.vue";
@@ -113,18 +114,93 @@ import auth from "../middleware/auth.js";
 import bankTransferHome from "../views/Cruds/BankTransfer/Home.vue";
 import subscriptionsPackages from "../views/Cruds/Packages/subscriptions.vue";
 
+// import BankAccounts from "../views/Cruds/AppContent/BankAccounts.vue";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Start:: Importing Middleware
 
 // End:: Importing Middleware
 
 // Start:: Importing Router Components
-
-
-
-
-
-
-
 
 // ============== Start:: Home Page Route
 
@@ -132,166 +208,89 @@ import subscriptionsPackages from "../views/Cruds/Packages/subscriptions.vue";
 
 // ============== Start:: Clients Routes
 
-
-
 // ============== End:: Clients Routes
 
 // ============== Start:: Reports Routes
-
-
 
 // ============== End:: Reports Routes
 
 // ============== Start:: Advertisements Routes
 
-
-
-
 // ============== End:: Advertisements Routes
 
 // ============== Start:: Offers Routes
-
-
-
-
 
 // ============== End:: Offers Routes
 
 // ============== Start:: Packages Routes
 
-
-
-
-
-
-
-
 // ============== End:: Packages Routess
 
 // ============== Start:: Category Routes
-
-
-
-
 
 // ============== End:: Category Routes
 
 // ============== Start:: Rates Routes
 
-
-
 // ============== End:: Rates Routes
 
 // ============== Start:: Financial Reports Routes
-
-
 
 // ============== End:: Financial Reports Routes
 
 // ============== Start:: Contact Messages Routes
 
-
 // ============== End:: Contact Messages Routes
 
 // ============== Start:: App Content Routes
-
-
-
-
-
-
 
 // ============== End:: App Content Routes
 
 // ============== Start:: App Settings Routes
 
-
-
 // ============== End:: App Settings Routes
 
 // ============== Start:: Countries Routes
-
-
-
-
 
 // ============== End:: Countries Routes
 
 // ============== Start:: Cities Routes
 
-
-
-
-
 // ============== End:: Cities Routes
 
 // ============== Start:: Areas Routes
-
-
-
-
 
 // ============== End:: Areas Routes
 
 // ============== Start:: Districts Routes
 
-
-
-
-
 // ============== End:: Districts Routes
 
 // ============== Start:: Roles Routes
-
-
-
 
 // ============== End:: Roles Routes
 
 // ============== Start:: Admins Routes
 
-
-
-
-
 // ============== End:: Admins Routes
 
 // ============== Start:: Characteristics Routes
-
-
-
-
 
 // ============== End:: Characteristics Routes
 
 // ============== Start:: All Notifications Routes
 
-
-
-
 // ============== End:: All Notifications Routes
 
 // ============== Start:: EstateDepartments Routes
-
-
-
-
 
 // ============== End:: EstateDepartments Routes
 
 // ============== Start:: Banks Routes
 
-
-
-
-
 // ============== End:: Banks Routes
 
 // ============== Start:: additionalFields Routes
-
-
-
-
 
 // ============== End:: additionalFields Routes
 
@@ -345,7 +344,7 @@ const routes = [
     component: AllNotificationsHome,
     meta: {
       middleware: [auth],
-    }
+    },
   },
   // ***************** Start:: Content Routes Config
   {
@@ -1299,6 +1298,30 @@ const routes = [
       },
       // End:: banks Routes Config
 
+      // Start:: Bank Account Routes Config
+      {
+        path: "/banks-account",
+        name: "BanksAccountHome",
+        component: BanksAccountHome,
+        meta: {
+          middleware: [auth],
+        },
+        children: [
+          {
+            path: "all",
+            name: "AllBanksAccount",
+            component: AllBanksAccount,
+            meta: {
+              middleware: [auth],
+              requiresPermission: {
+                action: "banksAccount index",
+                subject: "banksAccount",
+              },
+            },
+          },
+        ],
+      },
+      // End:: End Bank Account Routes Config
       // Start:: Contact Messages Routes Config
       {
         path: "/contact-messages",
@@ -1393,18 +1416,18 @@ const routes = [
               },
             },
           },
-          {
-            path: "bank-accounts",
-            name: "BankAccounts",
-            component: BankAccounts,
-            meta: {
-              middleware: [auth],
-              requiresPermission: {
-                action: "settings create",
-                subject: "settings",
-              },
-            },
-          },
+          // {
+          //   path: "bank-accounts",
+          //   name: "BankAccounts",
+          //   component: BankAccounts,
+          //   meta: {
+          //     middleware: [auth],
+          //     requiresPermission: {
+          //       action: "settings create",
+          //       subject: "settings",
+          //     },
+          //   },
+          // },
         ],
       },
       // End:: App Content Routes Config

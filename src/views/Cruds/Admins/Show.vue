@@ -94,7 +94,7 @@ export default {
         this.data.name = res.data.data.user.name;
         this.data.email = res.data.data.user.email;
         this.data.phone = res.data.data.user.mobile;
-        this.data.role = res.data.data.user.roles[0];
+        this.data.role = res.data.data.user.roles.name;
         this.data.active = res.data.data.user.is_active;
         // End:: Set Data
       } catch (error) {

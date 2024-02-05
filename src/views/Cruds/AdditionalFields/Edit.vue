@@ -229,8 +229,20 @@ export default {
       )
     },
 
-    removeRow(index) {
-      this.field_values.splice(index, 1)
+   async removeRow(index) {
+      this.field_values.splice(index, 1);
+
+      // Remove duplicates from field_values array
+      try {
+        await this.$axios({
+          method: "GET",
+          url: `additionalFields/${this.$route.params.id}/delete-additional-field-value/${this.$route.params.id}`,
+        });
+        this.$message.success(this.$t("MESSAGES.deletedSuccessfully"));
+      } catch (error) {
+        this.dialogDelete = false;
+        this.$message.error(error.response.data.message);
+      }
     },
 
     validateInput() {
@@ -288,6 +300,10 @@ export default {
 
       if (this.field_values) {
         this.field_values.forEach((element, index) => {
+
+          if (element.id) {
+             REQUEST_DATA.append(`value[${index}][id]`, element.id);
+          }
 
           if (element.value_ar) {
             REQUEST_DATA.append(`value[${index}][ar]`, element.value_ar);

@@ -193,7 +193,7 @@ export default {
       try {
         let res = await this.$axios({
           method: "GET",
-          url: `additionalFields/${this.$route.params.id}`,
+          url: `additionalFields/${this.$route.params.id}/delete-additional-field-value/${this.$route.params.id}`,
         });
         this.data.image.path = res.data.data.additionalField.icon;
         this.data.nameAr = res.data.data.additionalField.name_ar;

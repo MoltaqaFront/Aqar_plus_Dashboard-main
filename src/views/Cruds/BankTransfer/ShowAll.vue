@@ -160,11 +160,11 @@
           <v-dialog v-model="dialogDeactivate">
             <v-card>
               <v-card-title class="text-h5 justify-center" v-if="itemToChangeActivationStatus">
-                {{ $t("TITLES.DeactivateConfirmingMessage", { name: itemToChangeActivationStatus.name }) }}
+                {{ $t("TITLES.convert_Message", { name: itemToChangeActivationStatus.name }) }}
               </v-card-title>
 
               <form class="w-100">
-                <base-input col="12" rows="3" type="textarea" :placeholder="$t('PLACEHOLDERS.deactivateReason')"
+                <base-input col="12" rows="3" type="textarea" :placeholder="$t('PLACEHOLDERS.reasonmessage')"
                   v-model.trim="deactivateReason" required />
               </form>
 
@@ -238,12 +238,12 @@ export default {
         {
           id: 2,
           name: this.$t("PLACEHOLDERS.transfer_confirmed"),
-          value: 0,
+          value: "approval",
         },
         {
           id: 1,
           name: this.$t("PLACEHOLDERS.transfer_not_confirmed"),
-          value: null,
+          value: "notApproved",
         },
       ];
     },
@@ -438,7 +438,7 @@ export default {
             phone: this.filterOptions.mobile,
             bank_name: this.filterOptions.bankname,
             area_id: this.filterOptions.region_id?.id,
-            is_active: this.filterOptions.status?.value,
+            status: this.filterOptions.status?.value,
           },
         });
         this.loading = false;
@@ -479,7 +479,7 @@ export default {
       try {
         await this.$axios({
           method: "POST",
-          url: `users/active/${targetItem.id}`,
+          url: `bank-transfers/${targetItem.id}/change-status`,
           data: targetItem.is_active ? REQUEST_DATA : null,
         });
         this.$message.success(this.$t("MESSAGES.changeActivation"));

@@ -146,6 +146,7 @@ export default {
           method: "GET",
           url: `areas`,
           params: {
+            country_id: `${this.data.country_id?.id}`,
             "status": 1
           }
         });
