@@ -83,6 +83,7 @@ export default {
         this.$message.error(this.$t("VALIDATION.nameEn"));
         return;
       } else if (!arabicRegex.test(this.data.nameAr)) {
+        this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.arabic_words"));
         return;
       }
