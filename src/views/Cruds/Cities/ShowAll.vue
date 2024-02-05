@@ -354,7 +354,6 @@ export default {
             name: this.filterOptions.title,
             area_id: this.filterOptions.region_id?.id,
             status: this.filterOptions.is_active?.value,
-            "status": 1
           },
         });
         this.loading = false;

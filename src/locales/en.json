@@ -84,9 +84,9 @@
       "add": "Add New Role"
     },
     "Admins": {
-      "title": "Admins",
-      "showAll": "All Admins",
-      "add": "Add New Admin"
+      "title": "Managers",
+      "showAll": "All Managers",
+      "add": "Add New Manager"
     },
     "ImagesSpaces": {
       "title": "Ads Spaces",
@@ -506,6 +506,7 @@
     "searchBy": "Search By",
     "DeleteConfirmingMessage": "Are You Sure?! ({name}) Will Be Deleted",
     "DeactivateConfirmingMessage": "Are You Sure?! ({name}) Will Be Deactivated",
+    "convert_Message": "Reason for rejection of bank transfer",
     "rejectConfirmingMessage": "Are You Sure?! ({name}) Will Be Rejected",
     "logoutConfirmingMessage": "Are You Sure?! You Want To Logout",
     "users": "Users",
@@ -725,6 +726,7 @@
     "personalImage": "Personal Image",
     "serviceTypeImage": "Service Type Image",
     "deactivateReason": "Deactivate Reason",
+    "reasonmessage": "Reason",
     "joiningDate": "Joining Date",
     "deactivate": "Deactivate",
     "active": "Active",
@@ -1218,6 +1220,8 @@
     "serviceType": "You Must Select An Service Type",
     "expectedTime": "Expected Time Field Cant Be Empty",
     "price": "Price Field Cant Be Empty",
+    "price_validation": "Price must be a positive integer",
+    "advertise_validaion": "The number of ads must be a positive integer",
     "image": "You Must Select An Image",
     "startDate": "You Must Select A Start Date",
     "endDate": "You Must Select An End Date",
@@ -1244,6 +1248,7 @@
     "free_package_ads_field_required": "Field Number of Free Package Ads is required",
     "free_package_duration_field_required": "Field Free Package Duration is required",
     "reports_to_block_auto_ad_required": "Field Number of reports to blockauto is required",
+    "number_of_ads": "The number of ads field is required",
     "custom_positive_value_required": "custom_positive_value_required",
     "custom_value_range_required": "custom_value_range_required",
     "city_field": "The city field is required",

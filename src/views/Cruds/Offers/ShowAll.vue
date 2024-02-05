@@ -241,30 +241,36 @@ export default {
           value: "package.name",
           align: "center",
           sortable: false,
+          width: "120"
         },
         {
           text: this.$t("PLACEHOLDERS.discount_percentage_on_booking"),
           value: "offer_value",
           align: "center",
           sortable: false,
+          width: "100"
+
         },
         {
           text: this.$t("TABLES.Offers.startDate"),
           value: "offer_date_from",
           align: " center",
           sortable: false,
+          width: "120"
         },
         {
           text: this.$t("TABLES.Offers.endDate"),
           value: "offer_date_to",
           align: "center",
           sortable: false,
+          width: "120"
         },
         {
           text: this.$t("TABLES.Products.created_at"),
           value: "created_at",
           align: "center",
           sortable: false,
+          width: "120"
         },
         {
           text: this.$t("PLACEHOLDERS.status"),

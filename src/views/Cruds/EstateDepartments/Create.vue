@@ -73,7 +73,7 @@ export default {
     validateFormInputs() {
       this.isWaitingRequest = true;
       const arabicRegex = /^[\u0600-\u06FF\s]+$/;
-
+      const englishRegex = /^[a-zA-Z\s]+$/;
       if (!this.data.nameAr) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.nameAr"));
@@ -82,10 +82,14 @@ export default {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.nameEn"));
         return;
-      } else if (!arabicRegex.test(this.data.nameAr)) {
+      }else if (!arabicRegex.test(this.data.nameAr)) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.arabic_words"));
         return;
+      } else if (!englishRegex.test(this.data.nameEn)) {
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.english_words"));
+          return;
       }
       else {
         this.submitForm();

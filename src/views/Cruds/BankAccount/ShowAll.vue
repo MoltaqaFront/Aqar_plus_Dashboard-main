@@ -62,12 +62,16 @@ export default {
         bank_id: null
 
       },
-      banks: [],
+      banks: [
+        {
+          name: ''
+        }
+      ],
       // End:: Data Collection To Send
 
       ibans: [
         {
-          iban: ''
+          iban: '',
         }
       ]
     };
@@ -77,6 +81,7 @@ export default {
 
     addRow() {
       this.ibans.push({ phone: "" })
+      // this.banks.push({name: ""})
     },
 
     removeRow(index) {

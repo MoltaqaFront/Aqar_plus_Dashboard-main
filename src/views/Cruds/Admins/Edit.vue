@@ -31,7 +31,6 @@
           <base-select-input v-if="allRoles" col="6" :optionsList="allRoles" :placeholder="$t('PLACEHOLDERS.role')"
             v-model.trim="data.role" required />
 
-          {{ data.role }}
           <!-- End:: Roles Input -->
 
           <!-- Start:: Activate Edit Password Switch Input -->
@@ -143,9 +142,11 @@ export default {
         this.data.name = res.data.data.user.name;
         this.data.email = res.data.data.user.email;
         this.data.phone = res.data.data.user.mobile;
-        this.data.role = res.data.data.user.roles.map((item) => ({ name: item }));
+        this.data.role = res.data.data.user.roles;
         this.data.active = res.data.data.user.is_active;
         // End:: Set Data
+        //console.log(this.data.role);
+
       } catch (error) {
         console.log(error.response.data.message);
       }
@@ -226,7 +227,7 @@ export default {
       REQUEST_DATA.append("name", this.data.name);
       REQUEST_DATA.append("email", this.data.email);
       REQUEST_DATA.append("mobile", this.data.phone);
-      REQUEST_DATA.append("role_id", this.data.role);
+      REQUEST_DATA.append("role_id", this.data.role.id);
       if (this.data.enableEditPassword) {
         REQUEST_DATA.append("password", this.data.password);
         REQUEST_DATA.append("password_confirmation", this.data.passwordConfirmation);

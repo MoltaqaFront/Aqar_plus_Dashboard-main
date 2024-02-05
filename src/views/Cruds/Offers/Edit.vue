@@ -2,7 +2,7 @@
   <div class="crud_form_wrapper">
     <!-- Start:: Title -->
     <div class="form_title_wrapper">
-      <h4>{{ $t("BUTTONS.addOffer") }}</h4>
+      <h4>{{ $t("BUTTONS.editOffer") }}</h4>
     </div>
     <!-- End:: Title -->
 
@@ -104,7 +104,8 @@ export default {
     // Start:: validate Form Inputs
     validateFormInputs() {
       this.isWaitingRequest = true;
-
+      const arabicRegex = /^[\u0600-\u06FF\s]+$/;
+      const englishRegex = /^[a-zA-Z\s]+$/;
       if (!this.data.name_ar) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.nameAr"));
@@ -114,10 +115,28 @@ export default {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.nameEn"));
         return;
+      } else if (!arabicRegex.test(this.data.name_ar)) {
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.arabic_words"));
+        return;
+      } else if (!englishRegex.test(this.data.name_en)) {
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.english_words"));
+          return;
       }
       else if (!this.data.publish_start_date) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.startDate"));
+        return;
+      }
+      else if(!this.data.discount){
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.discount_field"));
+        return;
+      }
+      else if(this.data.discount < 1 || this.data.discount > 100){
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.dissount"));
         return;
       }
       else if (!this.data.publish_end_date) {

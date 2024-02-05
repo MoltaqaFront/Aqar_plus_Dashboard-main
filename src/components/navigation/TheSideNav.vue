@@ -286,6 +286,19 @@
       </div>
       <!-- End:: settings Route -->
 
+        <!-- Start:: Bank Account Route -->
+        <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')" >
+          <router-link to="/banks-account/all">
+            <span class="route_icon">
+              <img src="@/assets/media/icons/ui_icons/accounting.png" alt="icon" width="40" height="40" />
+            </span>
+            <span class="route_text">
+              {{ $t("PLACEHOLDERS.bank_accounts_settings") }}
+            </span>
+          </router-link>
+        </div>
+        <!-- End:: Bank Account Route -->
+
       <!-- Start:: users Route -->
       <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')" v-if="$can('users index', 'users')">
         <router-link to="/admins/all">
@@ -313,7 +326,7 @@
       <!-- End:: roles Route -->
 
       <div class="side_routes_wrapper">
-        <a-menu style="width: 100%" mode="inline">
+        <a-menu  mode="inline">
           <!-- Start:: Logout Tab -->
           <a-sub-menu key="logout" @titleClick="logoutConfirmationModalIsOpen = true">
             <!-- ========= Start:: Main Tab -->
@@ -331,7 +344,7 @@
       <!-- End:: Side Nav Routes -->
 
       <!-- Start:: Logout Confirmation Modal -->
-      <v-dialog v-model="logoutConfirmationModalIsOpen">
+      <v-dialog v-model="logoutConfirmationModalIsOpen" >
         <v-card>
           <v-card-title class="text-h5 justify-center">
             {{ $t("TITLES.logoutConfirmingMessage") }}
@@ -435,12 +448,6 @@ export default {
               key: "contact",
               title: this.$t("PLACEHOLDERS.contact_admins"),
               route: "/contact_settings",
-              hasPermission: this.$can('settings create', 'settings'),
-            },
-            {
-              key: "bank-accounts",
-              title: this.$t("PLACEHOLDERS.bank_accounts_settings"),
-              route: "/app-content/bank-accounts",
               hasPermission: this.$can('settings create', 'settings'),
             },
           ],

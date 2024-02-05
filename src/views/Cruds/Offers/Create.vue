@@ -191,7 +191,8 @@ export default {
           method: "GET",
           url: `packages`,
           params: {
-            "status": 1
+            "status": 1,
+            notFreePackage: 1
           }
         });
         this.allPackages = res.data.data;

@@ -26,7 +26,7 @@
 
               <!-- Start:: vehicle_type Input -->
               <base-select-input col="4" :optionsList="activeStatuses" :placeholder="$t('PLACEHOLDERS.status')"
-                v-model="filterOptions.status" />
+                v-model="filterOptions.is_active" />
               <!-- End:: vehicle_type Input -->
             </div>
 
@@ -221,11 +221,6 @@ export default {
     activeStatuses() {
       return [
         {
-          id: null,
-          name: this.$t("STATUS.all"),
-          value: null,
-        },
-        {
           id: 1,
           name: this.$t("STATUS.active"),
           value: 1,
@@ -234,6 +229,11 @@ export default {
           id: 2,
           name: this.$t("STATUS.notActive"),
           value: 0,
+        },
+        {
+          id: null,
+          name: this.$t("STATUS.all"),
+          value: null,
         },
       ];
     },
@@ -251,7 +251,7 @@ export default {
       filterOptions: {
         title: null,
         vehicle_type: null,
-        status: null,
+        is_active: null,
       },
       // End:: Filter Data
 
@@ -350,7 +350,7 @@ export default {
     async resetFilter() {
       this.filterOptions.title = null;
       this.filterOptions.depart_type = null;
-      this.filterOptions.status = null;
+      this.filterOptions.is_active = null;
       if (this.$route.query.page !== '1') {
         await this.$router.push({ path: '/additionalFields/all', query: { page: 1 } });
       }
@@ -381,7 +381,7 @@ export default {
             page: this.paginations.current_page,
             name: this.filterOptions.title,
             real_estate_department_id: this.filterOptions.depart_type?.id,
-            status: this.filterOptions.status?.id,
+            status: this.filterOptions.is_active?.value,
           },
         });
         this.loading = false;
