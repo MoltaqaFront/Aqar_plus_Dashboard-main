@@ -587,6 +587,8 @@
     "login": "Login",
     "register": "Register",
     "confirm": "Confirm ",
+    "Share": "Publish an ad",
+    "Block": "Block an advertisement",
     "haveAccount": "Already Have An Account?",
     "dontHaveAccount": "Don't Have Account Yet?",
     "submit": "Submit",
@@ -686,6 +688,7 @@
   "PLACEHOLDERS": {
     "image": "Image",
     "status": "Status",
+    "status_share" : "post status",
     "messageType": "Message Type",
     "date": "Date",
     "name": "Name",
@@ -1294,7 +1297,7 @@
     "accept_join": "Accept Join",
     "reject_join": "Reject Join",
     "reject_join_message": "Join Rejected",
-
+    "share_ad": "Ad status has changed",
     "accept_admin": "Accept Join Request",
     "reject_admin": "Reject Join Request",
     "reject_join_request": "Join Request Has Been Rejected",

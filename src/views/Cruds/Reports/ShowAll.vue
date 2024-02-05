@@ -12,26 +12,39 @@
         </div>
         <div class="filter_form_wrapper">
           <form @submit.prevent="submitFilterForm">
-            <div class="row justify-content-center align-items-center w-100">
+           <div class="row justify-content-center align-items-center w-100">
 
-              <!-- Start:: Name Input -->
-              <base-input col="6" type="number" :placeholder="$t('PLACEHOLDERS.ad_number_in_report')"
-                v-model.trim="filterOptions.ad_number_in_report" />
-              <!-- End:: Name Input -->
+                <!-- Start:: Name Input -->
+                <base-input col="6" type="number" :placeholder="$t('PLACEHOLDERS.ad_number_in_report')"
+                  v-model.trim="filterOptions.ad_number_in_report" />
+                <!-- End:: Name Input -->
 
-              <!-- Start:: Status Input -->
-              <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.advertiser_name')"
-                v-model.trim="filterOptions.advertiser_name" />
-              <!-- End:: Status Input -->
-            </div>
+                <!-- Start:: Status Input -->
+                <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.advertiser_name')"
+                  v-model.trim="filterOptions.advertiser_name" />
+                <!-- End:: Status Input -->
+              </div>
 
             <div class="btns_wrapper">
-              <button class="submit_btn" :disabled="isWaitingRequest">
-                <i class="fal fa-search"></i>
-              </button>
-              <button class="reset_btn" type="button" :disabled="isWaitingRequest" @click="resetFilter">
-                <i class="fal fa-redo"></i>
-              </button>
+
+              <a-tooltip placement="bottom">
+                <template slot="title">
+                  <span>{{ $t("BUTTONS.search") }}</span>
+                </template>
+                <span class="submit_btn" @click="submitFilterForm" :disabled="isWaitingRequest">
+                  <i class="fal fa-search"></i>
+                </span>
+              </a-tooltip>
+
+              <a-tooltip placement="bottom">
+                <template slot="title">
+                  <span>{{ $t("BUTTONS.rseet_search") }}</span>
+                </template>
+                <span class="reset_btn" :disabled="isWaitingRequest" @click="resetFilter">
+                  <i class="fal fa-redo"></i>
+                </span>
+              </a-tooltip>
+
             </div>
           </form>
         </div>
@@ -60,15 +73,10 @@
         </template>
         <!-- Start:: No Data State -->
 
-        <template v-slot:[`item.serialNumber`]="{ item }">
-          <p class="blue-grey--text text--darken-1 fs-3" v-if="!item.serialNumber">-</p>
-          <p v-else>{{ item.serialNumber }}</p>
-        </template>
-
-        <template v-slot:[`item.id`]="{ item }">
+        <template v-slot:[`item.id`]="{ item, index }">
           <div class="table_image_wrapper">
             <h6 class="text-danger" v-if="!item.id"> {{ $t("TABLES.noData") }} </h6>
-            <p v-else>{{ item.id }}</p>
+            <p v-else>{{ (paginations.current_page - 1) * paginations.items_per_page + index + 1 }}</p>
           </div>
         </template>
 
@@ -79,45 +87,18 @@
         </template>
         <!-- End:: Name -->
 
-        <!-- Start:: email -->
-        <template v-slot:[`item.email`]="{ item }">
-          <h6 class="text-danger" v-if="!item.email"> - </h6>
-          <h6 v-else> {{ item.email }} </h6>
-        </template>
-        <!-- End:: email -->
-
-        <template v-slot:[`item.is_verified`]="{ item }">
-          <v-chip :color="item.is_verified ? 'green' : 'red'" text-color="white" small>
-            <template v-if="item.is_verified">
-              {{ $t("STATUS.active") }}
-            </template>
-            <template v-else>
-              {{ $t("STATUS.notActive") }}
-            </template>
-          </v-chip>
-        </template>
-
-        
-        <!-- Start:: Message Reply -->
-        <template v-slot:[`item.reply_message`]="{ item }">
-          <template v-if="$can('contactuses reply', 'contactuses')">
-            <h6 class="text-danger" v-if="!item.reply_message"> {{ $t("TABLES.noData") }} </h6>
-            <div class="actions" v-else>
-              <button class="btn_show" @click="showReplayModal(item.reply_message)">
-                <i class="fal fa-file-alt"></i>
-              </button>
-            </div>
+        <!-- Start:: status Type -->
+          <template v-slot:[`item.ad_status`]="{ item }">
+            <h6 class="text-danger" v-if="!item.ad_status"> {{ $t("TABLES.noData") }} </h6>
+            <v-chip v-else color="blue-grey darken-3" text-color="white" small>
+              {{ item.ad_status }}
+            </v-chip>
           </template>
-
-          <template v-else>
-            <i class="fal fa-lock-alt fs-5 blue-grey--text text--darken-1"></i>
-          </template>
-          </template>
-          <!-- End:: Message Reply -->
+          <!-- End:: status Type -->
 
         <!-- Start:: Activation Status -->
-        <template v-slot:[`item.is_active`]="{ item }">
-          <span class="text-success text-h5" v-if="item.is_active">
+        <template v-slot:[`item.user.is_active`]="{ item }">
+          <span class="text-success text-h5" v-if="item.user.is_active">
             <i class="far fa-check"></i>
           </span>
           <span class="text-danger text-h5" v-else>
@@ -138,26 +119,18 @@
               </button>
             </a-tooltip>
 
-            <template v-if="$can('contactuses reply', 'contactuses')">
-              <span class="blue-grey--text text--darken-1" v-if="item.is_reply">
-                <i class="far fa-horizontal-rule"></i>
-              </span>
-              <a-tooltip placement="bottom" v-else>
+            <a-tooltip placement="bottom">
                 <template slot="title">
-                  <span>{{ $t("BUTTONS.share") }}</span>
+                  <span>{{ $t("PLACEHOLDERS.change_status") }}</span>
                 </template>
-                <button class="btn_show" @click="selectItemToSendReplay(item)">
-                  <i class="fal fa-reply"></i>
+
+                <button class="btn_edit" @click="selectUpdateItem(item)">
+                  <i class="fas fa-exchange-alt"></i>
                 </button>
               </a-tooltip>
-            </template>
-            
-            <template v-else>
-              <i class="fal fa-lock-alt fs-5 blue-grey--text text--darken-1"></i>
-            </template>
 
-            <template v-if="$can('users activate', 'users') && item.id !== 1">
-              <a-tooltip placement="bottom" v-if="!item.is_active">
+            <template v-if="$can('clients activate', 'clients') && item.user.id !== 1">
+              <a-tooltip placement="bottom" v-if="!item.user.is_active">
                 <template slot="title">
                   <span>{{ $t("BUTTONS.activate") }}</span>
                 </template>
@@ -165,7 +138,7 @@
                   <i class="fad fa-check-circle"></i>
                 </button>
               </a-tooltip>
-              <a-tooltip placement="bottom" v-if="item.is_active">
+              <a-tooltip placement="bottom" v-if="item.user.is_active">
                 <template slot="title">
                   <span>{{ $t("BUTTONS.deactivate") }}</span>
                 </template>
@@ -189,7 +162,7 @@
           <v-dialog v-model="dialogDeactivate">
             <v-card>
               <v-card-title class="text-h5 justify-center" v-if="itemToChangeActivationStatus">
-                {{ $t("TITLES.DeactivateConfirmingMessage", { name: itemToChangeActivationStatus.name }) }}
+                {{ $t("TITLES.DeactivateConfirmingMessage", { name: itemToChangeActivationStatus.user.name }) }}
               </v-card-title>
 
               <form class="w-100">
@@ -209,60 +182,37 @@
           </v-dialog>
           <!-- End:: Deactivate Modal -->
 
+           <!-- Start:: Update Modal -->
+            <v-dialog v-model="dialogUpdate">
+              <v-card>
+                <v-card-title class="text-h5 justify-center w-100" v-if="itemToUpdate">
+                  {{ $t("MESSAGES.changeItem", { name: itemToUpdate.id }) }}
 
-           <!-- Start:: Replay Modal -->
-           <description-modal v-if="dialogReplay" :modalIsOpen="dialogReplay" :modalDesc="selectedReplayTextToShow"
-            @toggleModal="dialogReplay = !dialogReplay" />
-          <!-- End:: Replay Modal -->
+                  <div class="filter_form_wrapper w-100">
+                    <form class="w-100">
+                      <base-select-input col="12" :optionsList="activeStatus_modal" :placeholder="$t('PLACEHOLDERS.status')"
+                        v-model="status_modal" />
 
-          <!-- Start:: Replay Modal -->
-          <v-dialog v-model="dialogSendReplay">
-            <v-card>
-              <v-card-title class="text-h5 justify-center">
-                {{ $t("TITLES.sendReplay") }}
-              </v-card-title>
+                      <div class="form-group" v-if="(status_modal && status_modal.value === 'blocked')">
+                        <base-input col="12" rows="3" type="textarea" :placeholder="$t('PLACEHOLDERS.reason')"
+                          v-model="reason" required />
+                      </div>
 
-              <form class="w-100">
-                <base-input col="12" rows="3" type="textarea" :placeholder="$t('PLACEHOLDERS.messageReplay')"
-                  v-model.trim="messageReplay" required />
-              </form>
+                    </form>
+                  </div>
 
-              <v-card-actions>
-                <v-btn class="modal_confirm_btn" @click="sendReplay" :disabled="!(!!messageReplay)">
-                  {{ $t("BUTTONS.replay") }}
-                </v-btn>
+                </v-card-title>
+                <v-card-actions>
+                  <v-btn class="modal_confirm_btn" @click="confirmChangeStatus">{{
+                    $t("BUTTONS.ok")
+                  }}</v-btn>
 
-                <v-btn class="modal_cancel_btn" @click="dialogSendReplay = false">{{ $t("BUTTONS.cancel") }}</v-btn>
-                <v-spacer></v-spacer>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-          <!-- End:: Replay Modal -->
-          <!-- Start:: Balance Modal -->
-          <!-- <v-dialog v-model="dialogBalance">
-            <v-card>
-              <v-card-title class="text-h5 justify-center" v-if="itemToBalance">
-                <span>{{ $t('PLACEHOLDERS.current_balance') }} : </span>
-                <span>{{ itemToBalance.balance }}</span>
-              </v-card-title>
-
-              <form class="w-100">
-
-                <base-input col="12" type="text" :placeholder="$t('PLACEHOLDERS.current_balance')"
-                  v-model.trim="balance_package" required />
-              </form>
-
-              <v-card-actions>
-                <v-btn class="modal_confirm_btn" @click="confirmAcceptItem">{{
-                  $t("BUTTONS.ok")
-                }}</v-btn>
-
-                <v-btn class="modal_cancel_btn" @click="dialogBalance = false">{{ $t("BUTTONS.cancel") }}</v-btn>
-                <v-spacer></v-spacer>
-              </v-card-actions>
-            </v-card>
-          </v-dialog> -->
-          <!-- End:: Balance Modal -->
+                  <v-btn class="modal_cancel_btn" @click="dialogUpdate = false">{{ $t("BUTTONS.cancel") }}</v-btn>
+                  <v-spacer></v-spacer>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+            <!-- End:: Update Modal -->
 
         </template>
         <!-- ======================== End:: Dialogs ======================== -->
@@ -315,6 +265,21 @@ export default {
         },
       ];
     },
+
+    activeStatus_modal() {
+      return [
+        {
+          id: 1,
+          name: this.$t("STATUS.published"),
+          value: "published",
+        },
+        {
+          id: 2,
+          name: this.$t("STATUS.notPublished"),
+          value: "blocked",
+        }
+      ];
+    },
   },
 
   data() {
@@ -327,8 +292,9 @@ export default {
       // Start:: Filter Data
       filterFormIsActive: false,
       filterOptions: {
-        ad_number_in_report: null,
-        advertiser_name: null,
+        name: null,
+        phone: null,
+        email: null,
         isActive: null,
       },
       // End:: Filter Data
@@ -347,28 +313,39 @@ export default {
           value: "id",
           align: "center",
           sortable: false,
+          width: "100"
         },
         {
           text: this.$t("PLACEHOLDERS.advertiser_name"),
           value: "user.name",
           align: "center",
           sortable: false,
+          width:"120"
         },
         {
           text: this.$t("PLACEHOLDERS.ad_phone_advertiser"),
           value: "user.mobile",
           align: "center",
           sortable: false,
+          width: "120"
         },
         {
           text: this.$t("PLACEHOLDERS.number_of_reports"),
           value: "report_count",
           align: "center",
           sortable: false,
+          width: "100"
         },
         {
           text: this.$t("TABLES.Clients.active"),
-          value: "is_active",
+          value: "user.is_active",
+          align: "center",
+          width: "120",
+          sortable: false,
+        },
+         {
+          text: this.$t("PLACEHOLDERS.status_share"),
+          value: "ad_status",
           align: "center",
           width: "120",
           sortable: false,
@@ -395,9 +372,12 @@ export default {
       itemToChangeActivationStatus: null,
       deactivateReason: null,
 
-      dialogBalance: false,
-      itemToBalance: null,
       // Start:: Page Permissions
+     dialogUpdate: false,
+      itemToUpdate: null,
+      status_modal: '',
+      reason: '',
+
       permissions: null,
       // Start:: Page Permissions
 
@@ -422,15 +402,16 @@ export default {
       this.setTableRows();
     },
     async resetFilter() {
-      this.filterOptions.ad_number_in_report = null;
-      this.filterOptions.advertiser_name = null;
+      this.filterOptions.name = null;
+      this.filterOptions.phone = null;
+      this.filterOptions.email = null;
+      this.filterOptions.isActive = null;
       if (this.$route.query.page !== '1') {
         await this.$router.push({ path: '/reports/all', query: { page: 1 } });
       }
       this.setTableRows();
     },
     // End:: Handel Filter
-
     // Start:: Set Table Rows
     updateRouterQueryParam(pagenationValue) {
       this.$router.push({
@@ -447,6 +428,12 @@ export default {
     async setTableRows() {
       this.loading = true;
       try {
+
+        let nameParam = this.filterOptions.name;
+        if (!nameParam) {
+          nameParam = null;
+        }
+
         let res = await this.$axios({
           method: "GET",
           url: "advertisements",
@@ -454,12 +441,12 @@ export default {
             page: this.paginations.current_page,
             id: this.filterOptions.ad_number_in_report,
             user_name: this.filterOptions.advertiser_name,
-            "hasPeport" : 1
+            "hasReport": 1
           },
         });
         this.loading = false;
         // console.log("All Data ==>", res.data.data);
-        res.data.data.forEach((item, index) => {
+         res.data.data.forEach((item, index) => {
           item.serialNumber = (this.paginations.current_page - 1) * this.paginations.items_per_page + index + 1;
         });
         this.tableRows = res.data.data;
@@ -487,20 +474,20 @@ export default {
     async HandlingItemActivationStatus(selectedItem) {
       this.dialogDeactivate = false;
       let targetItem = this.itemToChangeActivationStatus ? this.itemToChangeActivationStatus : selectedItem;
-      const REQUEST_DATA = {};
       // Start:: Append Request Data
-      REQUEST_DATA.message = this.deactivateReason;
-      // Start:: Append Request Data
+      
+        const REQUEST_DATA = {};
+        REQUEST_DATA.message = this.deactivateReason;  
 
+      // Start:: Append Request Data
       try {
         await this.$axios({
           method: "POST",
-          url: `bank-transfers/${targetItem.id}/change-status`,
-          data: targetItem.is_active ? REQUEST_DATA : null,
+          url: `clients/active/${targetItem.user.id}`,
+          data: targetItem.user.is_active ? REQUEST_DATA : null,
         });
         this.$message.success(this.$t("MESSAGES.changeActivation"));
-        let filteredElemet = this.tableRows.find(element => element.id === targetItem.id);
-        filteredElemet.is_active = !filteredElemet.is_active;
+        this.setTableRows();
         this.itemToChangeActivationStatus = null;
         this.deactivateReason = null;
       } catch (error) {
@@ -509,31 +496,40 @@ export default {
     },
     // ===== End:: Handling Activation & Deactivation
 
-    selectAcceptItem(item) {
-      this.dialogBalance = true;
-      this.itemToBalance = item;
+    selectUpdateItem(item) {
+      this.dialogUpdate = true;
+      this.itemToUpdate = item;
+      // console.log(item);
     },
-    async confirmAcceptItem(item) {
 
-      const REQUEST_DATA = new FormData();
-      REQUEST_DATA.append("balance", this.balance_package);
-      // REQUEST_DATA.append("_method", "PUT");
-
+    async confirmChangeStatus() {
       try {
-        await this.$axios({
+
+        const requestData = {
+          status: this.status_modal.value
+        };
+
+        if (this.reason.trim() !== '') {
+          requestData.status_reason = this.reason.trim();
+        }
+        let res = await this.$axios({
           method: "POST",
-          url: `change-client-balance/${this.itemToBalance.id}`,
-          data: REQUEST_DATA,
+          url: `advertisements/${this.itemToUpdate.id}/change-status`,
+          data: requestData // Put the data in the 'data' property
         });
-        this.dialogBalance = false;
-        this.balance_package = null,
-          this.setTableRows();
-        this.$message.success(this.$t("MESSAGES.verifiedSuccessfully"));
+        this.$message.success(res.data.message);
+        this.$message.success(this.$t("MESSAGES.share_ad"));
+        this.dialogUpdate = false;
+        this.setTableRows();
+        this.status_modal = null;
       } catch (error) {
-        this.dialogBalance = false;
+        this.dialogUpdate = false;
+        this.status_modal = null;
         this.$message.error(error.response.data.message);
       }
     },
+
+
     // ==================== End:: Crud ====================
   },
 

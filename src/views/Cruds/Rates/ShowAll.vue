@@ -241,7 +241,13 @@ export default {
           text: this.$t("PLACEHOLDERS.user_name"),
           value: "user.name",
           align: "center",
-          width: "220",
+          width: "120",
+          sortable: false
+        },
+        {
+          text: this.$t("TABLES.Users.phone"),
+          value: "user.mobile",
+          align: "center",
           sortable: false
         },
         {

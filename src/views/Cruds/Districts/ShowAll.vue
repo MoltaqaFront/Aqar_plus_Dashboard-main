@@ -398,6 +398,7 @@ export default {
           method: "GET",
           url: `districts/active/${item.id}`,
         });
+        this.setTableRows();
         this.$message.success(this.$t("MESSAGES.changeActivation"));
       } catch (error) {
         this.$message.error(error.response.data.message);

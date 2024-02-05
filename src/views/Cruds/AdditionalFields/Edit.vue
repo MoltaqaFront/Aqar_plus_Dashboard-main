@@ -57,7 +57,7 @@
 
               <div class="col-2">
                 <div class="all_actions">
-                  <span class="add_another" @click="removeRow(index)">
+                  <span class="add_another" @click="removeRow(index,item)">
                     <i class="fas fa-minus"></i>
                   </span>
 
@@ -229,14 +229,14 @@ export default {
       )
     },
 
-   async removeRow(index) {
+   async removeRow(index,item) {
       this.field_values.splice(index, 1);
 
       // Remove duplicates from field_values array
       try {
         await this.$axios({
           method: "GET",
-          url: `additionalFields/${this.$route.params.id}/delete-additional-field-value/${this.$route.params.id}`,
+          url: `additionalFields/${this.$route.params.id}/delete-additional-field-value/${item.id}`,
         });
         this.$message.success(this.$t("MESSAGES.deletedSuccessfully"));
       } catch (error) {

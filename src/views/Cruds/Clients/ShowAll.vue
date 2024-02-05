@@ -311,6 +311,7 @@ export default {
           value: "name",
           align: "center",
           sortable: false,
+          width: "150"
         },
         {
           text: this.$t("TABLES.Clients.phone"),

@@ -590,6 +590,8 @@
     "login": "تسجيل دخول",
     "register": "إنشاء حساب",
     "confirm": "تأكيد ",
+    "Share": "نشر اعلان",
+    "Block": "حجب اعلان",
     "haveAccount": "لديك حساب بالفعل؟",
     "dontHaveAccount": "ليس لديك حساب؟",
     "submit": "تسجيل",
@@ -693,6 +695,7 @@
   "PLACEHOLDERS": {
     "image": "الصورة",
     "status": "الحالة",
+    "status_share" : "حالة النشر",
     "messageType": "نوع الرسالة",
     "date": "التاريخ",
     "name": "الإسم",
@@ -1302,7 +1305,7 @@
     "accept_join": "قبول الانضمام",
     "reject_join": "رفض الانضمام",
     "reject_join_message": " تم رفض الانضمام",
-
+    "share_ad" : "تم تغير حاله الاعلان",
     "accept_admin": "قبول طلب الانضمام",
     "reject_admin": "رفض طلب الانضمام",
     "reject_join_request": " تم رفض  طلب الانضمام",
