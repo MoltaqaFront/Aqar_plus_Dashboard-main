@@ -55,7 +55,7 @@
                   @input="removeArabicCharacters" @copy="onCopy" @paste="onPaste" required />
               </div>
 
-              <div class="col-2">
+              <div class="col-2" v-if="field_values.length > 2">
                 <div class="all_actions">
                   <span class="add_another" @click="removeRow(index,item)">
                     <i class="fas fa-minus"></i>

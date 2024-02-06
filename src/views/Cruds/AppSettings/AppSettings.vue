@@ -28,6 +28,7 @@
 
           <base-input col="6" type="number" :placeholder="$t('PLACEHOLDERS.search_scope')" v-model="data.Search_scope" />
 
+          <base-input col="6" type="number" :placeholder="$t('PLACEHOLDERS.before_package')" v-model="data.before_the_package_expires" />
           <!-- Start:: Submit Button Wrapper -->
           <div class="btn_wrapper">
             <base-button class="mt-2" styleType="primary_btn" :btnText="$t('BUTTONS.save')" :isLoading="isWaitingRequest"
@@ -60,6 +61,7 @@ export default {
         number_of_free_package_ads: '',
         free_package_expiry_duration: null,
         Search_scope: null,
+        before_the_package_expires: null
       },
       // End:: Data
 
@@ -82,14 +84,15 @@ export default {
       try {
         let res = await this.$axios({
           method: "GET",
-          url: `settings?key=dashboard-admin-setting`,
+          url: `settings?key=dashboard_admin_setting`,
         });
-        // console.log("DATA =>", res.data.data);
+        console.log("DATA =>", res.data);
         this.data.VAT_percentage = res.data.data[0].value.Value_added_tax_rate;
         this.data.number_of_reports_to_block_auto_ad = res.data.data[0].value.Number_of_reports_to_block_an_automatic_ad;
         this.data.number_of_free_package_ads = res.data.data[0].value.Number_of_ads_for_the_free_package;
         this.data.free_package_expiry_duration = res.data.data[0].value.The_expiration_period_of_the_free_package;
         this.data.Search_scope = res.data.data[0].value.Search_scope;
+        this.data.before_the_package_expires = res.data.data[0].value.Number_of_days_to_remind_before_the_package_expires;
 
       } catch (error) {
         console.log(error.response.data.message);
@@ -103,12 +106,13 @@ export default {
 
       const REQUEST_DATA = new FormData();
       // Start:: Append Request Data
-      REQUEST_DATA.append("key", "dashboard-admin-setting");
+      REQUEST_DATA.append("key", "dashboard_admin_setting");
       REQUEST_DATA.append("value[Value_added_tax_rate]", this.data.VAT_percentage);
       REQUEST_DATA.append("value[Number_of_reports_to_block_an_automatic_ad]", this.data.number_of_reports_to_block_auto_ad);
       REQUEST_DATA.append("value[Number_of_ads_for_the_free_package]", this.data.number_of_free_package_ads);
       REQUEST_DATA.append("value[The_expiration_period_of_the_free_package]", this.data.free_package_expiry_duration);
       REQUEST_DATA.append("value[Search_scope]", this.data.Search_scope);
+      REQUEST_DATA.append("value[Number_of_days_to_remind_before_the_package_expires]", this.data.before_the_package_expires);
 
       // Start:: Append Request Data
 
@@ -169,6 +173,14 @@ export default {
       }  else if (!this.data.Search_scope || this.data.Search_scope <= 0) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.Search_scope"));
+        return;
+      } else if (!this.data.before_the_package_expires || this.data.before_the_package_expires === 'null') {
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.before_the_package_expires_required"));
+        return;
+      } else if (!this.data.before_the_package_expires || this.data.before_the_package_expires <= 0) {
+        this.isWaitingRequest = false;
+        this.$message.error(this.$t("VALIDATION.before_the_package_expires"));
         return;
       }
       else {

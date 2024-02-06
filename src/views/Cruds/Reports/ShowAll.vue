@@ -73,9 +73,9 @@
         </template>
         <!-- Start:: No Data State -->
 
-        <template v-slot:[`item.id`]="{ item, index }">
+        <template v-slot:[`item.serialNumber`]="{ item, index }">
           <div class="table_image_wrapper">
-            <h6 class="text-danger" v-if="!item.id"> {{ $t("TABLES.noData") }} </h6>
+            <h6 class="text-danger" v-if="!item.serialNumber"> {{ $t("TABLES.noData") }} </h6>
             <p v-else>{{ (paginations.current_page - 1) * paginations.items_per_page + index + 1 }}</p>
           </div>
         </template>
@@ -121,18 +121,18 @@
 
             <a-tooltip placement="bottom">
                 <template slot="title">
-                  <span>{{ $t("PLACEHOLDERS.change_status") }}</span>
+                  <span>{{ $t("PLACEHOLDERS.status_share_change") }}</span>
                 </template>
 
                 <button class="btn_edit" @click="selectUpdateItem(item)">
                   <i class="fas fa-exchange-alt"></i>
                 </button>
-              </a-tooltip>
+            </a-tooltip>
 
             <template v-if="$can('clients activate', 'clients') && item.user.id !== 1">
               <a-tooltip placement="bottom" v-if="!item.user.is_active">
                 <template slot="title">
-                  <span>{{ $t("BUTTONS.activate") }}</span>
+                  <span>{{ $t("BUTTONS.active_cli") }}</span>
                 </template>
                 <button class="btn_activate" @click="HandlingItemActivationStatus(item)">
                   <i class="fad fa-check-circle"></i>
@@ -140,7 +140,7 @@
               </a-tooltip>
               <a-tooltip placement="bottom" v-if="item.user.is_active">
                 <template slot="title">
-                  <span>{{ $t("BUTTONS.deactivate") }}</span>
+                  <span>{{ $t("BUTTONS.block_cli") }}</span>
                 </template>
                 <button class="btn_deactivate" @click="selectDeactivateItem(item)">
                   <i class="fad fa-times-circle"></i>
@@ -292,10 +292,8 @@ export default {
       // Start:: Filter Data
       filterFormIsActive: false,
       filterOptions: {
-        name: null,
-        phone: null,
-        email: null,
-        isActive: null,
+        ad_number_in_report: null,
+        advertiser_name: null
       },
       // End:: Filter Data
 
@@ -402,10 +400,8 @@ export default {
       this.setTableRows();
     },
     async resetFilter() {
-      this.filterOptions.name = null;
-      this.filterOptions.phone = null;
-      this.filterOptions.email = null;
-      this.filterOptions.isActive = null;
+      this.filterOptions.ad_number_in_report = null;
+      this.filterOptions.advertiser_name = null;
       if (this.$route.query.page !== '1') {
         await this.$router.push({ path: '/reports/all', query: { page: 1 } });
       }
@@ -429,10 +425,6 @@ export default {
       this.loading = true;
       try {
 
-        let nameParam = this.filterOptions.name;
-        if (!nameParam) {
-          nameParam = null;
-        }
 
         let res = await this.$axios({
           method: "GET",
@@ -509,15 +501,22 @@ export default {
           status: this.status_modal.value
         };
 
-        if (this.reason.trim() !== '') {
+       
+
+        if (this.itemToUpdate.ad_status == 'published') {
+          requestData.status = "blocked";
+           if (this.reason.trim() !== '') {
           requestData.status_reason = this.reason.trim();
         }
-        let res = await this.$axios({
+        } else {
+          requestData.status = "published";
+        }
+
+       await this.$axios({
           method: "POST",
           url: `advertisements/${this.itemToUpdate.id}/change-status`,
           data: requestData // Put the data in the 'data' property
         });
-        this.$message.success(res.data.message);
         this.$message.success(this.$t("MESSAGES.share_ad"));
         this.dialogUpdate = false;
         this.setTableRows();

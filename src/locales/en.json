@@ -667,7 +667,9 @@
     "show_offer": "Show Offer",
     "download_invoice": "Download invoice",
     "addStore": "Add Store",
-    "subscriptions": "Package subscribers" 
+    "subscriptions": "Package subscribers" ,
+    "active_cli": "Activate the advertiser",
+    "block_cli": "disable the advertiser"
   },
 
   "TABS": {
@@ -689,6 +691,7 @@
     "image": "Image",
     "status": "Status",
     "status_share" : "post status",
+    "status_share_change" : "change post status",
     "messageType": "Message Type",
     "date": "Date",
     "name": "Name",
@@ -1106,6 +1109,7 @@
     "free_package_expiry_duration": "Free Package Expiry Duration in (Days)",
 
     "search_scope": "Search Scope (km)",
+    "before_package": "A reminder before the package expires (in days) ",
 
     "bank_management": "Bank Management",
     "bank_name": "Bank Name",
@@ -1250,6 +1254,7 @@
     "taxProfile": "You Must Select tax Profile Image",
     "free_package_ads_field_required": "Field Number of Free Package Ads is required",
     "free_package_duration_field_required": "Field Free Package Duration is required",
+    "before_the_package_expires_required" : "Reminder field (in days) before the package expires is required",
     "reports_to_block_auto_ad_required": "Field Number of reports to blockauto is required",
     "number_of_ads": "The number of ads field is required",
     "custom_positive_value_required": "custom_positive_value_required",
@@ -1275,6 +1280,7 @@
     "VAT_percentage_field": "The tax percentage field is required",
     "Search_scope": "The search scope must be true positive",
     "days_positive": "The number of days must be positive integers.",
+    "before_the_package_expires": "The reminder days before the package expires must be a positive integer",
     "dissount" : "The discount percentage must be positive and not exceed 100." ,
     "discount_field" : "The discount percentage field is required"
   },

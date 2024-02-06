@@ -369,7 +369,7 @@
       "actions": "التحكم"
     },
     "Rates": {
-      "rates": "التعليقات",
+      "rates": "التقيمات",
       "serialNumber": "المسلسل",
       "clientName": "إسم العميل",
       "rate": "التقييم",
@@ -666,7 +666,8 @@
     "showNationality": "عرض الجنسية",
     "additions": "الاضافات",
     "components": "المكونات",
-
+    "active_cli" : "تغعيل المعلن",
+    "block_cli" : "تعطيل المعلن ",
     "showOrder": " عرض الطلب",
     "addOffer": "إضافة عرض جديد",
     "editOffer": "تعديل العرض",
@@ -696,6 +697,7 @@
     "image": "الصورة",
     "status": "الحالة",
     "status_share" : "حالة النشر",
+    "status_share_change" : "تغير حالة النشر",
     "messageType": "نوع الرسالة",
     "date": "التاريخ",
     "name": "الإسم",
@@ -1111,6 +1113,7 @@
     "number_of_free_package_ads": "عدد إعلانات الباقة المجانية",
     "free_package_expiry_duration": "مدة انتهاء الباقة المجانية (بالايام)",
     "search_scope": "نطاق البحث (كم)",
+    "before_package": "تذكير قبل انتهاء الباقة بمدة (بالأيام)",
 
     "bank_management": "إدارة البنوك",
     "bank_name": "اسم البنك",
@@ -1256,6 +1259,7 @@
     "taxProfile": "يجب اختيار صورة الملف الضريبي",
     "free_package_ads_field_required": "حقل عدد إعلانات الباقة المجانية مطلوب",
     "free_package_duration_field_required": "حقل مدة انتهاء الباقة المجانية مطلوب",
+    "before_the_package_expires_required" : "حقل تذكير قبل انتهاء الباقة بمدة (بالأيام) مطلوب",
     "reports_to_block_auto_ad_required": "حقل عدد البلاغات لحجب إعلان تلقائي مطلوب",
     "custom_positive_value_required" : "القيمة الإيجابية المخصصة المطلوبة" ,
     "number_of_ads" : "حقل عدد الاعلانات مطلوب" ,
@@ -1282,7 +1286,8 @@
     "VAT_percentage_required" : "يجب ان تكون نسبه الضريبة موجبة ولاتزيد عن 100",
     "VAT_percentage_field" : "حقل نسبة الضريبة مطلوب",
     "Search_scope" : "يجب ان يكون نطاق البحث رقم صحيح موجب",
-    "days_positive" : "يجب ان يكون عدد الايام رقم صحيح موجب ",
+    "days_positive" : "يجب ان يكون مدة انتهاء الباقة الايام رقم صحيح موجب ",
+    "before_the_package_expires" : "يجب ان يكون تذكير قبل انتهاءالباقة بالايام رقم صحيح موجب",
     "dissount" : "يجب أن تكون نسبة الخصم صحيحة موجبة ولاتزيد عن 100" ,
     "discount_field" : "حقل نسبة الخصم مطلوب "
   },

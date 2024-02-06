@@ -38,16 +38,17 @@
               <base-select-input col="3" v-if="Districts" :optionsList="Districts"
                 :placeholder="$t('PLACEHOLDERS.neighborhood_name')" v-model.trim="filterOptions.district_id" />
 
+                 <!-- Start:: Status Input -->
+                <base-select-input col="3" :optionsList="activeStatuses" :placeholder="$t('PLACEHOLDERS.status')"
+                  v-model="filterOptions.is_active" />
+                <!-- End:: Status Input -->
+
               <base-input col="3" type="date" :placeholder="$t('PLACEHOLDERS.startDate')"
                 v-model.trim="filterOptions.startDate" />
 
               <base-input col="3" type="date" :placeholder="$t('PLACEHOLDERS.endDate')"
                 v-model.trim="filterOptions.endDate" />
 
-              <!-- Start:: Status Input -->
-              <base-select-input col="3" :optionsList="activeStatuses" :placeholder="$t('PLACEHOLDERS.status')"
-                v-model="filterOptions.is_active" />
-              <!-- End:: Status Input -->
             </div>
 
             <div class="btns_wrapper">

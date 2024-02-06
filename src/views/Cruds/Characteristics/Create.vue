@@ -12,11 +12,11 @@
         <div class="row">
 
           <!-- Start:: Name Input -->
-          <base-input col="4" type="text" :placeholder="$t('PLACEHOLDERS.nameAr')" v-model.trim="data.nameAr" required />
+          <base-input col="4" type="text" :placeholder="$t('PLACEHOLDERS.nameAr')" v-model.trim="data.nameAr" @input="validateInput" required />
           <!-- End:: Name Input -->
 
           <!-- Start:: Name Input -->
-          <base-input col="4" type="text" :placeholder="$t('PLACEHOLDERS.nameEn')" v-model.trim="data.nameEn" required />
+          <base-input col="4" type="text" :placeholder="$t('PLACEHOLDERS.nameEn')" v-model.trim="data.nameEn" @input="removeArabicCharacters" @copy="onCopy" @paste="onPaste" required />
           <!-- End:: Name Input -->
 
           <base-select-input col="4" :optionsList="fal_license" :placeholder="$t('PLACEHOLDERS.broker_license_required')"
@@ -61,6 +61,8 @@ export default {
         active: true,
       },
       // End:: Data Collection To Send
+      arabicRegex: /^[\u0600-\u06FF\s]+$/,
+      EnRegex: /[\u0600-\u06FF]/,
     };
   },
 
@@ -88,11 +90,22 @@ export default {
 
   methods: {
 
+    onCopy(event) {
+      event.preventDefault();
+    },
+    onPaste(event) {
+      event.preventDefault();
+    },
+     validateInput() {
+      // Remove non-Arabic characters from the input
+      this.data.nameAr = this.data.nameAr.replace(/[^\u0600-\u06FF\s]/g, "");
+    },
+    removeArabicCharacters() {
+      this.data.nameEn = this.data.nameEn.replace(this.EnRegex, "");
+    },
     // Start:: validate Form Inputs
     validateFormInputs() {
       this.isWaitingRequest = true;
-      const arabicRegex = /^[\u0600-\u06FF\s]+$/;
-      const englishRegex = /^[a-zA-Z\s]+$/;
       if (!this.data.nameAr) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.nameAr"));
@@ -101,14 +114,6 @@ export default {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.nameEn"));
         return;
-      } else if (!arabicRegex.test(this.data.nameAr)) {
-        this.isWaitingRequest = false;
-        this.$message.error(this.$t("VALIDATION.arabic_words"));
-        return;
-      } else if (!englishRegex.test(this.data.nameEn)) {
-        this.isWaitingRequest = false;
-        this.$message.error(this.$t("VALIDATION.english_words"));
-          return;
       } 
       else {
         this.submitForm();
