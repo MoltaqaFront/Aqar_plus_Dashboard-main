@@ -25,27 +25,28 @@
               <!-- End:: Status Input -->
             </div>
 
-            <div class="btns_wrapper">
+         
+               <div class="btns_wrapper">
 
-              <a-tooltip placement="bottom">
-                <template slot="title">
-                  <span>{{ $t("BUTTONS.search") }}</span>
-                </template>
-                <span class="submit_btn" @click="submitFilterForm" :disabled="isWaitingRequest">
-                  <i class="fal fa-search"></i>
-                </span>
-              </a-tooltip>
+                <a-tooltip placement="bottom">
+                  <template slot="title">
+                    <span>{{ $t("BUTTONS.search") }}</span>
+                  </template>
+                  <span class="submit_btn" @click="submitFilterForm" :disabled="isWaitingRequest">
+                    <i class="fal fa-search"></i>
+                  </span>
+                </a-tooltip>
 
-              <a-tooltip placement="bottom">
-                <template slot="title">
-                  <span>{{ $t("BUTTONS.rseet_search") }}</span>
-                </template>
-                <span class="reset_btn" :disabled="isWaitingRequest" @click="resetFilter">
-                  <i class="fal fa-redo"></i>
-                </span>
-              </a-tooltip>
+                <a-tooltip placement="bottom">
+                  <template slot="title">
+                    <span>{{ $t("BUTTONS.rseet_search") }}</span>
+                  </template>
+                  <span class="reset_btn" :disabled="isWaitingRequest" @click="resetFilter">
+                    <i class="fal fa-redo"></i>
+                  </span>
+                </a-tooltip>
 
-            </div>
+              </div>
           </form>
         </div>
       </div>
@@ -73,10 +74,15 @@
         </template>
         <!-- Start:: No Data State -->
 
-        <template v-slot:[`item.serialNumber`]="{ item, index }">
+        <template v-slot:[`item.serialNumber`]="{ item }">
+          <p class="blue-grey--text text--darken-1 fs-3" v-if="!item.serialNumber">-</p>
+          <p v-else>{{ item.serialNumber }}</p>
+        </template>
+
+        <template v-slot:[`item.id`]="{ item }">
           <div class="table_image_wrapper">
-            <h6 class="text-danger" v-if="!item.serialNumber"> {{ $t("TABLES.noData") }} </h6>
-            <p v-else>{{ (paginations.current_page - 1) * paginations.items_per_page + index + 1 }}</p>
+            <h6 class="text-danger" v-if="!item.id"> {{ $t("TABLES.noData") }} </h6>
+            <p v-else>{{ item.id }}</p>
           </div>
         </template>
 
@@ -87,9 +93,8 @@
         </template>
         <!-- End:: Name -->
 
-
         <!-- ======================== Start:: Dialogs ======================== -->
-
+       
         <!-- ======================== End:: Dialogs ======================== -->
 
       </v-data-table>
@@ -121,40 +126,6 @@ export default {
       getAppLocale: "AppLangModule/getAppLocale",
     }),
 
-    activeStatuses() {
-      return [
-        {
-          id: 1,
-          name: this.$t("STATUS.active"),
-          value: 1,
-        },
-        {
-          id: 2,
-          name: this.$t("STATUS.notActive"),
-          value: 0,
-        },
-        {
-          id: null,
-          name: this.$t("STATUS.all"),
-          value: null,
-        },
-      ];
-    },
-
-    activeStatus_modal() {
-      return [
-        {
-          id: 1,
-          name: this.$t("STATUS.published"),
-          value: "published",
-        },
-        {
-          id: 2,
-          name: this.$t("STATUS.notPublished"),
-          value: "blocked",
-        }
-      ];
-    },
   },
 
   data() {
@@ -185,21 +156,21 @@ export default {
           text: this.$t("PLACEHOLDERS.report_number"),
           value: "id",
           align: "center",
-          width: "100",
+          width:"100",
           sortable: false,
         },
         {
           text: this.$t("PLACEHOLDERS.reporter_name"),
           value: "reporter.name",
           align: "center",
-          width: "150",
+          width:"150",
           sortable: false,
         },
         {
           text: this.$t("PLACEHOLDERS.reporter_mobile_number"),
           value: "reporter.mobile",
           align: "center",
-          width: "150",
+          width:"150",
           sortable: false,
         },
         {
@@ -212,7 +183,7 @@ export default {
           text: this.$t("PLACEHOLDERS.report_date"),
           value: "created_at",
           align: "center",
-          width: "150",
+          width:"150",
           sortable: false,
         },
       ],
@@ -231,6 +202,9 @@ export default {
       itemToChangeActivationStatus: null,
       deactivateReason: null,
 
+      dialogBalance: false,
+      itemToBalance: null,
+      // Start:: Page Permissions
       permissions: null,
       // Start:: Page Permissions
 
@@ -263,6 +237,7 @@ export default {
       this.setTableRows();
     },
     // End:: Handel Filter
+
     // Start:: Set Table Rows
     updateRouterQueryParam(pagenationValue) {
       this.$router.push({
@@ -279,8 +254,6 @@ export default {
     async setTableRows() {
       this.loading = true;
       try {
-
-
         let res = await this.$axios({
           method: "GET",
           url: `advertisements/${this.$route.params.id}/reports`,
@@ -288,12 +261,11 @@ export default {
             page: this.paginations.current_page,
             id: this.filterOptions.report_number,
             user_name: this.filterOptions.reporter_name,
-            //"hasReport": 1
           },
         });
         this.loading = false;
-        // console.log("All Data ==>", res.data.data);
-       res.data.data.reports.forEach((item, index) => {
+       // console.log("All Data ==>", res.data.data);
+        res.data.data.reports.forEach((item, index) => {
           item.serialNumber = (this.paginations.current_page - 1) * this.paginations.items_per_page + index + 1;
         });
         this.tableRows = res.data.data.reports;
@@ -306,11 +278,12 @@ export default {
     },
     // End:: Set Table Rows
 
-    // ==================== Start:: Crud ====================
-    // ===== Start:: Show
-   
-    // ===== End:: Show
 
+    // ==================== Start:: Crud ====================
+   
+    // ===== Start:: Handling Activation & Deactivation
+    
+    // ===== End:: Handling Activation & Deactivation
     // ==================== End:: Crud ====================
   },
 

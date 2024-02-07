@@ -147,6 +147,7 @@
                 <i class="fal fa-wallet"></i>
               </button>
             </a-tooltip>
+            
             <template v-if="$can('clients activate', 'clients') && item.id !== 1">
               <a-tooltip placement="bottom" v-if="!item.is_active">
                 <template slot="title">
@@ -332,12 +333,6 @@ export default {
           width: "120",
           sortable: false,
         },
-        // {
-        //   text: this.$t("PLACEHOLDERS.registration_otp_status"),
-        //   value: "is_verified",
-        //   align: "center",
-        //   sortable: false,
-        // },
         {
           text: this.$t("TABLES.Clients.active"),
           value: "is_active",
@@ -448,21 +443,6 @@ export default {
       }
     },
     // End:: Set Table Rows
-
-    // Start:: Change Activation Status
-    async changeActivationStatus(item) {
-      try {
-        await this.$axios({
-          method: "POST",
-          url: `clients/active/${item.id}`,
-        });
-        this.setTableRows();
-        this.$message.success(this.$t("MESSAGES.changeActivation"));
-      } catch (error) {
-        this.$message.error(error.response.data.message);
-      }
-    },
-    // End:: Change Activation Status
 
     // ==================== Start:: Crud ====================
     // ===== Start:: Show

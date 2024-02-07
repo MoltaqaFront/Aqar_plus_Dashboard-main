@@ -1,5 +1,10 @@
 <template>
   <div class="crud_form_wrapper">
+    <div class="table_title_wrapper">
+      <div class="title_text_wrapper">
+        <h5 style="color: #49a956;">{{ $t("PLACEHOLDERS.bank_accounts_settings") }}</h5>
+      </div>
+    </div>
     <!-- Start:: Single Step Form Content -->
     <div class="single_step_form_content_wrapper">
       <form @submit.prevent="validateFormInputs">

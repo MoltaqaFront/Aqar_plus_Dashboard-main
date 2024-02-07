@@ -28,14 +28,10 @@
               <!-- End:: Phone Input -->
 
               <!-- Start:: Phone Input -->
-              <base-select-input col="4" :optionsList="regions" :placeholder="$t('TABLES.BankTransferManagement.bankTransfer')"
-                v-model="filterOptions.region_id" />
-             <!--  <base-input col="4" type="tel" :placeholder="$t('TABLES.BankTransferManagement.bankTransfer')"
-                v-model.trim="filterOptions.transformer_name" /> -->
-              <!-- End:: Phone Input -->
-
+               <base-input col="4" type="text" :placeholder="$t('TABLES.BankTransferManagement.bankTransfer')"
+                  v-model.trim="filterOptions.region_id" />
               <!-- Start:: Status Input -->
-              <base-select-input col="4" :optionsList="status" :placeholder="$t('PLACEHOLDERS.transfer_status')"
+              <base-select-input col="4" :optionsList="activeStatus_modal" :placeholder="$t('PLACEHOLDERS.transfer_status')"
                 v-model="filterOptions.status" />
               <!-- End:: Status Input -->
 
@@ -263,13 +259,18 @@ export default {
       return [
         {
           id: 1,
-          name: this.$t("STATUS.published"),
+          name: this.$t("PLACEHOLDERS.transfer_confirmed"),
           value: "approval",
         },
         {
           id: 2,
-          name: this.$t("STATUS.notPublished"),
+          name: this.$t("PLACEHOLDERS.transfer_not_confirmed"),
           value: "notApproved",
+        },
+        {
+          id: 3,
+          name: this.$t("PLACEHOLDERS.transfer_wait"),
+          value: "waitingForApproval",
         }
       ];
     },
@@ -463,10 +464,10 @@ export default {
           url: "bank-transfers",
           params: {
             page: this.paginations.current_page,
-            name: this.filterOptions.name,
-            phone: this.filterOptions.mobile,
-            bank_name: this.filterOptions.bankname,
-            area_id: this.filterOptions.region_id?.id,
+            userName: this.filterOptions.name,
+            userMobile: this.filterOptions.mobile,
+            transformerName: this.filterOptions.bankname,
+            bankId: this.filterOptions.region_id?.id,
             status: this.filterOptions.status?.value,
           },
         });

@@ -276,6 +276,7 @@
       "nameAr": "Arabic Name",
       "nameEn": "English Name",
       "startDate": "Start Date",
+      "createDate": "Creation date",
       "endDate": "End Date",
       "start_time": "start time",
       "end_time": "End time",
@@ -447,6 +448,7 @@
     "awaiting_review": "Awaiting Review",
     "published": "Published",
     "notPublished": "Not Published",
+    "block" : "Blocked",
     "all": "All"
   },
 
@@ -1120,7 +1122,7 @@
     "advertiser_traits_management": "Advertiser Traits Management",
     "trait_name": "Trait Name",
     "broker_license_number": "Broker License Number",
-    "broker_license_required": "Broker License Required",
+    "broker_license_required": "An advertising license number is required",
     "add_new_advertiser_trait": "Add New Advertiser Trait",
     "view_advertiser_trait": "View Advertiser Trait",
     "edit_advertiser_trait": "Edit Advertiser Trait",

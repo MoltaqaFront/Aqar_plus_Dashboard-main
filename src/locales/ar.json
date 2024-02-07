@@ -274,6 +274,7 @@
       "nameEn": "الاسم بالإنجليزية",
       "startDate": "تاريخ البدء",
       "endDate": "تاريخ النهاية",
+      "createDate": "تاريخ الانشاء",
       "start_time": "وقت البدء",
       "end_time": "وقت النهاية",
       "activation": "تفعيل",
@@ -445,6 +446,7 @@
 
     "published": "منشور",
     "notPublished": "غير منشور",
+    "block": "محجوب",
     "all": "الكل"
   },
 
@@ -1127,7 +1129,7 @@
     "Consumer_advertising" : "الإعلانات المتبقية",
     "packega_balence": "الباقة المشترك فيها",
     "broker_license_number": "رقم رخصة الوساطة",
-    "broker_license_required": "يستلزم رقم رخصة الوساطة",
+    "broker_license_required": "يستلزم رقم ترخيص اعلان",
     "add_new_advertiser_trait": "إدخال صفة معلن جديدة",
     "view_advertiser_trait": "عرض صفة معلن",
     "edit_advertiser_trait": "تعديل صفة معلن",

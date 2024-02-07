@@ -368,7 +368,7 @@ export default {
           params: {
             page: this.paginations.current_page,
             clientName: this.filterOptions.name,
-            rate: this.filterOptions.rate === 0 ? null : this.filterOptions.rate,
+            rate: this.filterOptions.rate === 0 ? null : `${this.filterOptions.rate}.0`,
             status: this.filterOptions.is_active?.value,
             start_date: this.filterOptions.startDate,
             end_date: this.filterOptions.endDate,

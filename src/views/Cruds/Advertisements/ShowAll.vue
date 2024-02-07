@@ -38,16 +38,13 @@
               <base-select-input col="3" v-if="Districts" :optionsList="Districts"
                 :placeholder="$t('PLACEHOLDERS.neighborhood_name')" v-model.trim="filterOptions.district_id" />
 
-                 <!-- Start:: Status Input -->
-                <base-select-input col="3" :optionsList="activeStatuses" :placeholder="$t('PLACEHOLDERS.status')"
-                  v-model="filterOptions.is_active" />
-                <!-- End:: Status Input -->
+              <!-- Start:: Status Input -->
+              <base-select-input col="3" :optionsList="activeStatuses" :placeholder="$t('PLACEHOLDERS.status')"
+                v-model="filterOptions.is_active" />
+              <!-- End:: Status Input -->
 
-              <base-input col="3" type="date" :placeholder="$t('PLACEHOLDERS.startDate')"
+              <base-input col="3" type="date" :placeholder="$t('TABLES.ImagesSpaces.createDate')"
                 v-model.trim="filterOptions.startDate" />
-
-              <base-input col="3" type="date" :placeholder="$t('PLACEHOLDERS.endDate')"
-                v-model.trim="filterOptions.endDate" />
 
             </div>
 
@@ -177,10 +174,8 @@
 
                 <div class="filter_form_wrapper w-100">
                   <form class="w-100">
-                    <base-select-input col="12" :optionsList="activeStatus_modal" :placeholder="$t('PLACEHOLDERS.status')"
-                      v-model="status_modal" />
-
-                    <div class="form-group" v-if="(status_modal && status_modal.value === 'blocked')">
+          
+                    <div class="form-group">
                       <base-input col="12" rows="3" type="textarea" :placeholder="$t('PLACEHOLDERS.reason')"
                         v-model="reason" required />
                     </div>
@@ -260,7 +255,8 @@
                 <tr>
                   <th v-for="(header, index) in tableHeaders" :key="header.value">
                     <!-- {{ index < tableHeaders.length - 1 ? header.text : '' }}  -->
-                    {{ index < tableHeaders.length - 1 ? header.text : '' }} </th>
+                    {{ index < tableHeaders.length - 1 ? header.text : '' }}
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -309,7 +305,7 @@ export default {
         },
         {
           id: 2,
-          name: this.$t("STATUS.notPublished"),
+          name: this.$t("STATUS.block"),
           value: "blocked",
         },
         {
@@ -329,7 +325,7 @@ export default {
         },
         {
           id: 2,
-          name: this.$t("STATUS.notPublished"),
+          name: this.$t("STATUS.block"),
           value: "blocked",
         }
       ];
@@ -634,6 +630,9 @@ export default {
         let res = await this.$axios({
           method: "GET",
           url: `real-estate-departments`,
+          params: {
+            "status": 1
+          },
         });
         // console.log("Cities =>", res.data.data);
         this.propertySections = res.data.data;
@@ -647,6 +646,9 @@ export default {
         let res = await this.$axios({
           method: "GET",
           url: `areas`,
+          params: {
+            "status": 1
+          },
         });
         // console.log("Cities =>", res.data.data);
         this.getAreasData = res.data.data;
@@ -661,7 +663,8 @@ export default {
           method: "GET",
           url: `countries`,
           params: {
-            area_id: `${this.filterOptions.area_id?.id}`
+            area_id: `${this.filterOptions.area_id?.id}`,
+            "status": 1
           }
         });
         // console.log("Cities =>", res.data.data);
