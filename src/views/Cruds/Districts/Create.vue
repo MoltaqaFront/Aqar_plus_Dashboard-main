@@ -21,12 +21,12 @@
 
           <!-- Start:: Name Input -->
           <base-select-input col="6" :placeholder="$t('TABLES.Areas.name')" :optionsList="getAreasData"
-            v-model.trim="data.area_id"  required />
+            v-model.trim="data.area_id" @input="getCountries" required />
           <!-- End:: Name Input -->
 
           <!-- {{ getCountriesData }} -->
           <base-select-input col="6" v-if="CountriesData" :optionsList="CountriesData"
-            :placeholder="$t('SIDENAV.Cities.name')" v-model="data.country_id" required/>
+            :placeholder="$t('SIDENAV.Cities.name')" v-model="data.country_id" required />
 
           <!-- Start:: Deactivate Switch Input -->
           <div class="input_wrapper switch_wrapper my-5">
@@ -86,7 +86,7 @@ export default {
     validateFormInputs() {
       this.isWaitingRequest = true;
       const arabicRegex = /^[\u0600-\u06FF\s]+$/;
-      const englishRegex = /^[a-zA-Z\s]+$/;
+      const englishRegex = /^[a-zA-Z\s!@#$%^&*()\-_=+[\]{};:'",.<>?`~|]+$/;
       if (!this.data.nameAr) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.nameAr"));
@@ -102,8 +102,8 @@ export default {
       } else if (!englishRegex.test(this.data.nameEn)) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.english_words"));
-          return;
-      } 
+        return;
+      }
       else {
         this.submitForm();
         return;
@@ -146,7 +146,7 @@ export default {
           method: "GET",
           url: `areas`,
           params: {
-            country_id: `${this.data.country_id?.id}`,
+            // country_id: `${this.data.country_id?.id}`,
             "status": 1
           }
         });
@@ -164,7 +164,7 @@ export default {
           method: "GET",
           url: `countries`,
           params: {
-            //area_id: `${this.data.area_id?.id}`,
+            area_id: `${this.data.area_id?.id}`,
             "status": 1
           }
         });
@@ -177,11 +177,10 @@ export default {
     },
 
 
-  }, 
+  },
 
   created() {
     this.getAreas();
-    this.getCountries();
   },
 };
 </script>

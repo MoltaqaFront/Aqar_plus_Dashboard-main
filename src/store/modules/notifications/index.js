@@ -1,6 +1,6 @@
+import notificationsMutations from "./mutations";
 import notificationsActions from "./actions.js";
 import notificationsGetters from "./getters.js";
-import notificationsMutations from "./mutations";
 
 export default {
     namespaced: true,

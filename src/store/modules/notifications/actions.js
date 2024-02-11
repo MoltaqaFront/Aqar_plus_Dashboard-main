@@ -1,6 +1,6 @@
-import Antd from "ant-design-vue";
-import axios from "axios";
 import i18n from "@/plugins/i18n.js";
+import axios from "axios";
+import Antd from "ant-design-vue";
 
 export default {
   // START:: GET NOTIFICATIONS
@@ -8,15 +8,14 @@ export default {
     // START:: SEND GET REQUEST
     axios({
       method: "GET",
-      url: `notification/get-sending-notifications`,
-      params: {
-        withPagination: 1,
-      },
+      url: `notification/index`,
     })
       .then((res) => {
         context.commit("setNotifications", {
           notifications: res.data.data.notifications,
-          unreadNotificationsCount: res.data.data.unreadCount,
+          unreadNotificationsCount: res.data.data.filter(
+            (item) => item.is_read == 0
+          ).length,
         });
       })
       .catch((error) => {
@@ -31,7 +30,7 @@ export default {
     // START:: SEND GET REQUEST
     axios({
       method: "GET",
-      url: `notification/${payload}`,
+      url: `notifications/${payload}`,
     })
       .then(() => {
         context.dispatch("getNotifications");
@@ -48,15 +47,14 @@ export default {
     // START:: SEND GET REQUEST
     axios({
       method: "GET",
-      url: `notification/get-sending-notifications`,
-      params: {
-        withPagination: 1,
-      },
+      url: `notification/index`,
     })
       .then((res) => {
         context.commit("setAllReadiedNotifications", {
           notifications: res.data.data.notifications,
-          unreadNotificationsCount: res.data.data.unreadCount,
+          unreadNotificationsCount: res.data.data.filter(
+            (item) => item.is_read == 0
+          ).length,
         });
       })
       .catch((error) => {
@@ -71,7 +69,7 @@ export default {
     // START:: SEND GET REQUEST
     axios({
       method: "DELETE",
-      url: `notification/${payload.id}`,
+      url: `notifications/${payload.id}`,
     }).then(() => {
       if (payload.notificationType == "readied_notification") {
         context.dispatch("readAllNotifications");

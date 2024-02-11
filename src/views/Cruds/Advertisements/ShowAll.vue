@@ -128,13 +128,23 @@
         <template v-slot:[`item.actions`]="{ item }">
           <div class="actions">
 
-            <a-tooltip placement="bottom">
+            <a-tooltip placement="bottom" v-if="item.status == 'blocked'">
               <template slot="title">
-                <span>{{ $t("PLACEHOLDERS.change_status") }}</span>
+                <span>{{ $t("BUTTONS.Share") }}</span>
               </template>
 
-              <button class="btn_edit" @click="selectUpdateItem(item)">
-                <i class="fas fa-exchange-alt"></i>
+              <button class="btn_activate" @click="confirmAccept(item)">
+                <i class="fas fa-share"></i>
+              </button>
+            </a-tooltip>
+
+            <a-tooltip placement="bottom" v-if="item.status == 'published'">
+              <template slot="title">
+                <span>{{ $t("BUTTONS.Block") }}</span>
+              </template>
+
+              <button class="btn_deactivate" @click="selectUpdateItem(item)">
+                <i class="fas fa-ban"></i>
               </button>
             </a-tooltip>
 
@@ -170,11 +180,11 @@
           <v-dialog v-model="dialogUpdate">
             <v-card>
               <v-card-title class="text-h5 justify-center w-100" v-if="itemToUpdate">
-                {{ $t("MESSAGES.changeItem", { name: itemToUpdate.id }) }}
+                {{ $t("PLACEHOLDERS.block_reason") }}
 
                 <div class="filter_form_wrapper w-100">
                   <form class="w-100">
-          
+
                     <div class="form-group">
                       <base-input col="12" rows="3" type="textarea" :placeholder="$t('PLACEHOLDERS.reason')"
                         v-model="reason" required />
@@ -255,8 +265,7 @@
                 <tr>
                   <th v-for="(header, index) in tableHeaders" :key="header.value">
                     <!-- {{ index < tableHeaders.length - 1 ? header.text : '' }}  -->
-                    {{ index < tableHeaders.length - 1 ? header.text : '' }}
-                  </th>
+                    {{ index < tableHeaders.length - 1 ? header.text : '' }} </th>
                 </tr>
               </thead>
               <tbody>
@@ -385,35 +394,35 @@ export default {
           text: this.$t("PLACEHOLDERS.ad_number"),
           value: "id",
           align: "center",
-          width: "100",
+          // width: "100",
           sortable: false,
         },
         {
           text: this.$t("PLACEHOLDERS.ad_section"),
           value: "category",
           align: "center",
-          width: "100",
+          // width: "100",
           sortable: false,
         },
         {
           text: this.$t("PLACEHOLDERS.property_section"),
           value: "real_estate_department.name",
           align: "center",
-          width: "100",
+          // width: "100",
           sortable: false,
         },
         {
           text: this.$t("PLACEHOLDERS.user_name"),
           value: "user.name",
           align: "center",
-          width: "120",
+          // width: "120",
           sortable: false,
         },
         {
           text: this.$t("PLACEHOLDERS.address"),
           value: "address",
           align: "center",
-          width: "250",
+          // width: "250",
           sortable: false,
         },
         {
@@ -427,7 +436,7 @@ export default {
           text: this.$t("PLACEHOLDERS.joiningDate"),
           value: "created_at",
           align: "center",
-          width: "120",
+          // width: "120",
           sortable: false,
         },
         {
@@ -607,6 +616,7 @@ export default {
 
         if (this.reason.trim() !== '') {
           requestData.status_reason = this.reason.trim();
+          requestData.status = "blocked";
         }
         let res = await this.$axios({
           method: "POST",
@@ -620,6 +630,20 @@ export default {
       } catch (error) {
         this.dialogUpdate = false;
         this.status_modal = null;
+        this.$message.error(error.response.data.message);
+      }
+    },
+
+    async confirmAccept(item) {
+      try {
+        let res = await this.$axios({
+          method: "POST",
+          url: `advertisements/${item.id}/change-status`,
+          data: { status: "published" }
+        });
+        this.setTableRows();
+        this.$message.success(res.data.message);
+      } catch (error) {
         this.$message.error(error.response.data.message);
       }
     },

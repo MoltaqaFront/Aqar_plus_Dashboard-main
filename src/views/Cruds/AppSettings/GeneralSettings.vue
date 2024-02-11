@@ -103,7 +103,7 @@ export default {
       try {
         let res = await this.$axios({
           method: "GET",
-          url: `settings?key=dashboard-contact-with-management`,
+          url: `settings?key=dashboard_contact_with_management`,
         });
         // Start:: Set Data
 
@@ -111,7 +111,7 @@ export default {
 
         this.phones = res.data.data[0].value.phones.map(phone => ({ phone: phone }));
 
-        this.data.WhatsApp_contact = res.data.data[0].value.whatsapp;
+        this.data.WhatsApp_contact = res.data.data[0].value.watsApp;
         this.data.facebook_link = res.data.data[0].value.facebook;
         this.data.snap_link = res.data.data[0].value.snapchat;
         this.data.insta_link = res.data.data[0].value.instagram;
@@ -129,7 +129,7 @@ export default {
 
       const REQUEST_DATA = new FormData();
       // Start:: Append Request Data
-      REQUEST_DATA.append("key", "dashboard-contact-with-management");
+      REQUEST_DATA.append("key", "dashboard_contact_with_management");
 
       this.phones.forEach((element, index) => {
         REQUEST_DATA.append(`value[phones][${index}]`, element.phone);

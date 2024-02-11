@@ -86,7 +86,7 @@
 
         <!-- Start:: Name -->
         <template v-slot:[`item.is_required_fal_license`]="{ item }">
-          <h6 > {{ item.is_required_fal_license == 0 ? 'لا' : 'نعم' }} </h6>
+          <h6> {{ item.is_required_fal_license == 0 ? $t("PLACEHOLDERS.yes") : $t("PLACEHOLDERS.no") }} </h6>
         </template>
         <!-- End:: Name -->
 
@@ -315,7 +315,7 @@ export default {
         },
         {
           text: this.$t("PLACEHOLDERS.broker_license_required"),
-          value: "is_required_fal_license" ,
+          value: "is_required_fal_license",
           align: "center",
           sortable: false,
         },
@@ -355,7 +355,7 @@ export default {
       deactivateReason: null,
       dialogDelete: false,
       itemToDelete: null,
-      licence : null
+      licence: null
 
     };
   },

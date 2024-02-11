@@ -184,13 +184,13 @@ export default {
       // Start:: Append Request Data
 
       try {
-        await this.$axios({
+        let res = await this.$axios({
           method: "POST",
           url: `roles`,
           data: REQUEST_DATA,
         });
         this.isWaitingRequest = false;
-        this.$message.success(this.$t("MESSAGES.addedSuccessfully"));
+        this.$message.success(res.data.message);
         this.$router.push({ path: "/roles/all" });
       } catch (error) {
         this.isWaitingRequest = false;

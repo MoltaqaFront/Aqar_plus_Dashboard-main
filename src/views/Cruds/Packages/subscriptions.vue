@@ -57,13 +57,13 @@
 
         <!-- ======================== Start:: Dialogs ======================== -->
         <template v-slot:top>
-           <!-- Start:: Balance Modal -->
-           <v-dialog v-model="dialogBalance">
+          <!-- Start:: Balance Modal -->
+          <v-dialog v-model="dialogBalance">
             <v-card>
-              <v-card-title class="text-h5 justify-center" v-if="itemToBalance">
+              <!-- <v-card-title class="text-h5 justify-center" v-if="itemToBalance">
                 <span>{{ $t('PLACEHOLDERS.current_balance') }} : </span>
                 <span>{{ itemToBalance.balance }}</span>
-              </v-card-title>
+              </v-card-title> -->
 
               <form class="w-100">
 
@@ -237,9 +237,9 @@ export default {
       // Start:: Page Permissions
       permissions: null,
       // Start:: Page Permissions
-      Remaining_advertising:'',
-      Consumer_advertising:'',
-      balance_package:'',
+      Remaining_advertising: '',
+      Consumer_advertising: '',
+      balance_package: '',
     };
   },
 
@@ -301,10 +301,10 @@ export default {
             phone: this.filterOptions.user_mobile,
             packagePrice: this.filterOptions.balance,
             AddedTax: this.filterOptions.tax,
-            totalSubscription :this.filterOptions.total_balance,
+            totalSubscription: this.filterOptions.total_balance,
             starSubscription: this.filterOptions.start_date,
             endSubscription: this.filterOptions.end_date,
-            UserBalance:  this.filterOptions.package_id,
+            UserBalance: this.filterOptions.package_id,
             status: this.filterOptions.isActive?.value,
           },
         });
@@ -360,7 +360,7 @@ export default {
     // ==================== Start:: Crud ====================
     // ===== Start:: balance
     selectAcceptItem(item) {
-      console.log("item",item);
+      console.log("item", item);
       this.dialogBalance = true;
       this.itemToBalance = item;
 

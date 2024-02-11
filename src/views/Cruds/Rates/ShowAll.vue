@@ -99,8 +99,8 @@
         </template>
         <!-- End:: Rate Comment Btns -->
 
-         <!-- Start:: Actions -->
-         <template v-slot:[`item.actions`]="{ item }">
+        <!-- Start:: Actions -->
+        <template v-slot:[`item.actions`]="{ item }">
           <div class="actions">
             <a-tooltip placement="bottom">
               <template slot="title">
@@ -139,12 +139,12 @@
           <description-modal v-if="dialogComment" :modalIsOpen="dialogComment" :modalDesc="selectedCommentTextToShow"
             @toggleModal="dialogComment = !dialogComment" />
           <!-- End:: Desc Modal -->
-             <!-- Start:: Balance Modal -->
-             <v-dialog v-model="dialogBalance">
+          <!-- Start:: Balance Modal -->
+          <v-dialog v-model="dialogBalance">
             <v-card>
               <form class="w-100">
-                <base-input col="12" type="text" :placeholder="$t('TABLES.Rates.user_commet')"
-                  v-model="balance_package" disabled />
+                <base-input col="12" type="text" :placeholder="$t('TABLES.Rates.user_commet')" v-model="balance_package"
+                  disabled />
               </form>
 
             </v-card>
@@ -199,11 +199,11 @@ export default {
           name: this.$t("STATUS.notPublished"),
           value: "unpublished",
         },
-        {
-          id: null,
-          name: this.$t("STATUS.new"),
-          value: "new",
-        },
+        // {
+        //   id: null,
+        //   name: this.$t("STATUS.new"),
+        //   value: "new",
+        // },
       ];
     },
   },
@@ -295,7 +295,7 @@ export default {
       // End:: Pagination Data
 
       status_word: '',
-      balance_package:'',
+      balance_package: '',
 
     };
   },
@@ -368,7 +368,7 @@ export default {
           params: {
             page: this.paginations.current_page,
             clientName: this.filterOptions.name,
-            rate: this.filterOptions.rate === 0 ? null : `${this.filterOptions.rate}.0`,
+            rate: this.filterOptions.rate === 0 ? null : `${this.filterOptions.rate}`,
             status: this.filterOptions.is_active?.value,
             start_date: this.filterOptions.startDate,
             end_date: this.filterOptions.endDate,
@@ -409,7 +409,7 @@ export default {
       try {
         await this.$axios({
           method: "POST",
-          url: `rates/${item.id}`, 
+          url: `rates/${item.id}`,
           data: { status: this.status_word }
         });
         this.$message.success(this.$t("MESSAGES.changedSuccessfully"));
@@ -419,9 +419,9 @@ export default {
     },
     // End:: Change Activation Status
 
-      // ===== Start:: balance
-      selectAcceptItem(item) {
-      console.log("item",item);
+    // ===== Start:: balance
+    selectAcceptItem(item) {
+      console.log("item", item);
       this.dialogBalance = true;
       this.itemToBalance = item;
 

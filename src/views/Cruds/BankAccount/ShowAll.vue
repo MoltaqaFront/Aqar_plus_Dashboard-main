@@ -13,31 +13,57 @@
           <div class="row justify-content-center">
 
             <div class="col-l2">
-              <div class="add_another" @click="addRow()">
-                <i class="fas fa-plus"></i>
+              <div class="add_another" @click="addBank()"> <!-- Add Bank div -->
+                <i class="fas fa-plus-circle"></i>
+                <!-- add bank -->
               </div>
             </div>
 
-            <div class="col-lg-6 col-12" v-for="(item, index) in ibans" :key="'l' + index">
+            <div class="col-12" v-for="(item, index) in banks_account" :key="'l' + index">
 
               <div class="item d-flex align-items-center">
-                <base-input class="w-100" type="text" :placeholder="$t('PLACEHOLDERS.iban')" v-model.trim="item.iban" />
+                <div class="row w-100">
+                  <div class="col-lg-6 col-12">
 
-                <div class="all_actions">
-                  <span class="add_another" @click="removeRow(index)">
-                    <i class="fas fa-minus"></i>
-                  </span>
+                    <base-select-input class="w-100" :optionsList="banks" :placeholder="$t('PLACEHOLDERS.bank_name')"
+                      v-model.trim="item.bank_name" />
+                  </div>
+
+                  <div class="col-lg-6" v-for="(iban, ibanIndex) in item.ibans" :key="ibanIndex">
+                    <div class="iban_col d-flex">
+                      <base-input class="w-100" type="text" :placeholder="$t('PLACEHOLDERS.iban')"
+                        v-model.trim="iban.iban_num" />
+
+                      <div class="add_another">
+                        <div @click="removeIban(index, ibanIndex)">
+                          <i class="fas fa-minus-circle"></i>
+                          <!-- remove iban -->
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+
+                <div class="add_another">
+                  <div @click="addIban(index)"> <!-- Add IBAN div -->
+                    <i class="fas fa-plus-circle"></i>
+                    <!-- add iban -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="add_another">
+                <div @click="removeBank(index)"> <!-- Remove Bank div -->
+                  <i class="fas fa-minus-circle"></i>
+                  <!-- Remove Bank -->
                 </div>
               </div>
 
             </div>
 
           </div>
-
-          <!-- Start:: Tax Percentage Input -->
-          <base-select-input col="6" :optionsList="banks" :placeholder="$t('PLACEHOLDERS.bank_name')"
-            v-model.trim="data.bank_id" />
-          <!-- End:: Tax Percentage Input -->
 
           <!-- Start:: Submit Button Wrapper -->
           <div class="btn_wrapper">
@@ -70,9 +96,14 @@ export default {
       banks: [],
       // End:: Data Collection To Send
 
-      ibans: [
+      banks_account: [
         {
-          iban: ''
+          bank_name: '',
+          ibans: [
+            {
+              iban_num: ''
+            }
+          ]
         }
       ]
     };
@@ -80,12 +111,20 @@ export default {
 
   methods: {
 
-    addRow() {
-      this.ibans.push({ phone: "" })
+    addBank() {
+      this.banks_account.push({
+        bank_name: '',
+        ibans: [{ iban_num: '' }]
+      });
     },
-
-    removeRow(index) {
-      this.ibans.splice(index, 1)
+    removeBank(index) {
+      this.banks_account.splice(index, 1);
+    },
+    addIban(bankIndex) {
+      this.banks_account[bankIndex].ibans.push({ iban_num: '' });
+    },
+    removeIban(bankIndex, ibanIndex) {
+      this.banks_account[bankIndex].ibans.splice(ibanIndex, 1);
     },
 
     // Start:: Get Data To Edit
@@ -99,10 +138,14 @@ export default {
 
         // Transform the API response
 
-        console.log("res.data.data.bank", res.data.data)
-        this.ibans = res.data.data[0].iban.map(item => ({ iban: item }));
+        const transformedData = res.data.data.map(bank => ({
+          ...bank,
+          ibans: bank.ibans.map(iban_num => ({ iban_num })),
+        }));
+        this.banks_account = transformedData;
 
-        this.data.bank_id = res.data.data[0].bank;
+        console.log("res.data.data.bank", transformedData)
+        // this.data.bank_id = res.data.data[0].bank;
 
         // End:: Set Data
       } catch (error) {
@@ -118,11 +161,14 @@ export default {
       const REQUEST_DATA = new FormData();
       // Start:: Append Request Data
 
-      this.ibans.forEach((element, index) => {
-        REQUEST_DATA.append(`iban[${index}]`, element.iban);
-      });
+      this.banks_account.forEach((element, index) => {
+        REQUEST_DATA.append(`bank_id[]`, element.bank_name?.id);
 
-      REQUEST_DATA.append("bank_id", this.data.bank_id?.id);
+        element.ibans.forEach((iban, inner_index) => {
+          REQUEST_DATA.append(`iban[${index}][]`, iban.iban_num);
+        });
+
+      });
 
       // Start:: Append Request Data
 
@@ -137,7 +183,7 @@ export default {
         this.getDataToEdit();
       } catch (error) {
         this.isWaitingRequest = false;
-        this.$message.error(error.response.data.errors);
+        this.$message.error(error.response.data.message);
       }
     },
     // End:: Submit Form
@@ -177,6 +223,10 @@ export default {
   gap: 10px
 }
 
+.iban_col {
+  gap: 10px;
+}
+
 .all_action {
   display: flex;
   gap: 15px
@@ -186,6 +236,8 @@ export default {
   border: none;
   padding: 8px;
   width: 40px;
+  // min-width: 110px;
+  // max-width: 190px;
   height: 40px;
   border: 1px solid var(--light_gray_clr);
   border-radius: 50%;

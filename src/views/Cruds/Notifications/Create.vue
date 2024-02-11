@@ -142,8 +142,8 @@ export default {
         return;
       } else if (!englishRegex.test(this.data.titleEn)) {
         this.isWaitingRequest = false;
-          this.$message.error(this.$t("VALIDATION.english_words_required"));
-          return;
+        this.$message.error(this.$t("VALIDATION.english_words_required"));
+        return;
       }
       else if (!arabicRegex.test(this.data.contentAr)) {
         this.isWaitingRequest = false;
@@ -151,8 +151,8 @@ export default {
         return;
       } else if (!englishRegex.test(this.data.contentEn)) {
         this.isWaitingRequest = false;
-          this.$message.error(this.$t("VALIDATION.english_content_required"));
-          return;
+        this.$message.error(this.$t("VALIDATION.english_content_required"));
+        return;
       }
       else {
         this.submitForm();
@@ -202,10 +202,10 @@ export default {
       try {
         let res = await this.$axios({
           method: "GET",
-          url: "clients"
+          url: "notification/get-users"
         });
         this.loading = false;
-        this.clients = res.data.data;
+        this.clients = res.data.data.users;
       } catch (error) {
         this.loading = false;
         console.log(error.response.data.message);

@@ -8,16 +8,70 @@
         <transition-group name="fade" v-if="receivedMessages.length">
           <div class="notification" v-for="(message, index) in receivedMessages" :key="'k' + index">
 
-            <!-- <router-link :to="'chat/show/' + message.chatId" v-if="message.type == 'new_message'"> -->
-            <h3>{{ message.data.title }}</h3>
-            <p>{{ message.data.body }}</p>
+            <!-- start :: rate -->
+            <router-link v-if="message.data.type == 'rate'" :to="'/rates/all'">
+              <h3>{{ message.data.title }}</h3>
+              <p>{{ message.data.body }}</p>
 
-            <!-- @click="DeleteNotification(message.id)" -->
-            <div v-if="message.id" :class="{ 'read': message.is_read == 1 }" class="delete_notification"
-              @click="NotificationsReaded(message.id)">
-              <i class="fas fa-check-double"></i>
+              <!-- @click="DeleteNotification(message.id)" -->
+              <div v-if="message.id" :class="{ 'read': message.is_read == 1 }" class="delete_notification"
+                @click="NotificationsReaded(message.id)">
+                <i class="fas fa-check-double"></i>
+              </div>
+            </router-link>
+            <!-- End :: rate -->
+
+            <!-- start :: contact -->
+            <router-link v-if="message.data.type == 'contact'" :to="'/contact-messages/all'">
+              <h3>{{ message.data.title }}</h3>
+              <p>{{ message.data.body }}</p>
+
+              <!-- @click="DeleteNotification(message.id)" -->
+              <div v-if="message.id" :class="{ 'read': message.is_read == 1 }" class="delete_notification"
+                @click="NotificationsReaded(message.id)">
+                <i class="fas fa-check-double"></i>
+              </div>
+            </router-link>
+            <!-- End :: contact -->
+
+            <!-- start :: users -->
+            <router-link v-if="message.data.type == 'users'" :to="'/clients/all'">
+              <h3>{{ message.data.title }}</h3>
+              <p>{{ message.data.body }}</p>
+
+              <!-- @click="DeleteNotification(message.id)" -->
+              <div v-if="message.id" :class="{ 'read': message.is_read == 1 }" class="delete_notification"
+                @click="NotificationsReaded(message.id)">
+                <i class="fas fa-check-double"></i>
+              </div>
+            </router-link>
+            <!-- End :: users -->
+
+            <!-- start :: advertisement -->
+            <router-link v-if="message.data.type == 'advertisement'" :to="'/advertisements/all'">
+              <h3>{{ message.data.title }}</h3>
+              <p>{{ message.data.body }}</p>
+
+              <!-- @click="DeleteNotification(message.id)" -->
+              <div v-if="message.id" :class="{ 'read': message.is_read == 1 }" class="delete_notification"
+                @click="NotificationsReaded(message.id)">
+                <i class="fas fa-check-double"></i>
+              </div>
+            </router-link>
+            <!-- End :: advertisement -->
+
+            <!-- start :: subscription -->
+            <!-- <router-link  :to="'chat/show/' + message.data.id"> -->
+            <div v-if="message.data.type == 'subscription'">
+              <h3>{{ message.data.title }}</h3>
+              <p>{{ message.data.body }}</p>
+              <div v-if="message.id" :class="{ 'read': message.is_read == 1 }" class="delete_notification"
+                @click="NotificationsReaded(message.id)">
+                <i class="fas fa-check-double"></i>
+              </div>
             </div>
             <!-- </router-link> -->
+            <!-- End :: subscription -->
 
           </div>
 
@@ -42,7 +96,7 @@
 </template>
 
 <script>
-import { mapGetters  , mapActions} from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "CreateContact",
 
@@ -53,7 +107,7 @@ export default {
       // End:: Loader Control Data
 
       receivedMessages: [],
-      notificationCount: null ,
+      notificationCount: null,
 
       // Start:: Pagination Data
       paginations: {
@@ -92,7 +146,7 @@ export default {
       try {
         let res = await this.$axios({
           method: "GET",
-          url: "notification/get-sending-notifications",
+          url: "notification/index",
           params: {
             page: this.paginations.current_page
           },
@@ -113,13 +167,13 @@ export default {
           method: "POST",
           url: `notification/mark-as-read`,
           params: {
-            "notification_id" : item_id
+            "notification_id": item_id
           }
         });
-        this.$message.success(res.data.message);
+        // this.$message.success(res.data.message);
         this.readAllNotifications();
         this.notificationsData.unreadNotifications--;
-        console.log("notificationsData.unreadNotifications", this.notificationsData.unreadNotifications)
+        // console.log("notificationsData.unreadNotifications", this.notificationsData.unreadNotifications)
         this.getData();
       } catch (error) {
         this.dialogDelete = false;
@@ -217,7 +271,7 @@ export default {
       font-size: 20px;
       color: #DDD
     }
-    
+
   }
 }
 

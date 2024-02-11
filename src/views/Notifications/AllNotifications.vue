@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { mapGetters  , mapActions} from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "CreateContact",
 
@@ -53,7 +53,7 @@ export default {
       // End:: Loader Control Data
 
       receivedMessages: [],
-      notificationCount: null ,
+      notificationCount: null,
 
       // Start:: Pagination Data
       paginations: {
@@ -97,7 +97,7 @@ export default {
             page: this.paginations.current_page
           },
         });
-        console.log("All Data ==>", res.data.data);
+        console.log("All Data index ==>", res.data.data);
         this.receivedMessages = res.data.data;
         this.paginations.last_page = res.data.data.meta.last_page;
         this.paginations.items_per_page = res.data.data.meta.per_page;
@@ -113,7 +113,7 @@ export default {
           method: "POST",
           url: `notification/mark-as-read`,
           params: {
-            "notification_id" : item_id
+            "notification_id": item_id
           }
         });
         this.$message.success(res.data.message);
@@ -217,7 +217,7 @@ export default {
       font-size: 20px;
       color: #DDD
     }
-    
+
   }
 }
 

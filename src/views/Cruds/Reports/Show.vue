@@ -185,21 +185,21 @@ export default {
           text: this.$t("PLACEHOLDERS.report_number"),
           value: "id",
           align: "center",
-          width: "100",
+          // width: "100",
           sortable: false,
         },
         {
           text: this.$t("PLACEHOLDERS.reporter_name"),
           value: "reporter.name",
           align: "center",
-          width: "150",
+          // width: "150",
           sortable: false,
         },
         {
           text: this.$t("PLACEHOLDERS.reporter_mobile_number"),
           value: "reporter.mobile",
           align: "center",
-          width: "150",
+          // width: "150",
           sortable: false,
         },
         {
@@ -212,7 +212,7 @@ export default {
           text: this.$t("PLACEHOLDERS.report_date"),
           value: "created_at",
           align: "center",
-          width: "150",
+          // width: "150",
           sortable: false,
         },
       ],
@@ -248,9 +248,9 @@ export default {
 
   methods: {
     // Start:: Handel Filter
-    async submitFilterForm() {
+    submitFilterForm() {
       if (this.$route.query.page !== '1') {
-        await this.$router.push({ path: '/reports/show/:id', query: { page: 1 } });
+        this.$router.push({ path: `/reports/show/+${this.$route.params.id}`, query: { page: 1 } });
       }
       this.setTableRows();
     },
@@ -258,7 +258,7 @@ export default {
       this.filterOptions.report_number = null;
       this.filterOptions.reporter_name = null;
       if (this.$route.query.page !== '1') {
-        await this.$router.push({ path: '/reports/show/:id', query: { page: 1 } });
+        await this.$router.push({ path: `/reports/show/+${this.$route.params.id}`, query: { page: 1 } });
       }
       this.setTableRows();
     },
@@ -293,7 +293,7 @@ export default {
         });
         this.loading = false;
         // console.log("All Data ==>", res.data.data);
-       res.data.data.reports.forEach((item, index) => {
+        res.data.data.reports.forEach((item, index) => {
           item.serialNumber = (this.paginations.current_page - 1) * this.paginations.items_per_page + index + 1;
         });
         this.tableRows = res.data.data.reports;
@@ -308,7 +308,7 @@ export default {
 
     // ==================== Start:: Crud ====================
     // ===== Start:: Show
-   
+
     // ===== End:: Show
 
     // ==================== End:: Crud ====================

@@ -20,7 +20,7 @@
           <!-- End:: Name Input -->
 
           <base-select-input col="6" type="text" :optionsList="regions" :placeholder="$t('TABLES.Areas.name')"
-            v-model.trim="data.region_id" required/>
+            v-model.trim="data.region_id" required />
 
           <!-- Start:: Deactivate Switch Input -->
           <div class="input_wrapper switch_wrapper my-5">
@@ -78,7 +78,7 @@ export default {
     validateFormInputs() {
       this.isWaitingRequest = true;
       const arabicRegex = /^[\u0600-\u06FF\s]+$/;
-      const englishRegex = /^[a-zA-Z\s]+$/;
+      const englishRegex = /^[a-zA-Z\s!@#$%^&*()\-_=+[\]{};:'",.<>?`~|]+$/;
       if (!this.data.nameAr) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.nameAr"));
@@ -87,7 +87,7 @@ export default {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.nameEn"));
         return;
-      } else if(!this.data.region_id){
+      } else if (!this.data.region_id) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.area_field"));
       } else if (!arabicRegex.test(this.data.nameAr)) {
@@ -98,7 +98,7 @@ export default {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.english_words"));
         return;
-      } 
+      }
       else {
         this.submitForm();
         return;

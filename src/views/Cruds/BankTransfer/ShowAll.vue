@@ -14,7 +14,8 @@
           <form @submit.prevent="submitFilterForm">
             <div class="row justify-content-center align-items-center w-100">
               <!-- Start:: Name Input -->
-              <base-input col="4" type="text" :placeholder="$t('TABLES.BankTransferManagement.bank_name')" v-model.trim="filterOptions.bankname" />
+              <base-input col="4" type="text" :placeholder="$t('TABLES.BankTransferManagement.bank_name')"
+                v-model.trim="filterOptions.bankname" />
               <!-- End:: Name Input -->
 
               <!-- Start:: Email Input -->
@@ -27,12 +28,14 @@
                 v-model.trim="filterOptions.mobile" />
               <!-- End:: Phone Input -->
 
-              <!-- Start:: Phone Input -->
-               <base-input col="4" type="text" :placeholder="$t('TABLES.BankTransferManagement.bankTransfer')"
-                  v-model.trim="filterOptions.region_id" />
-              <!-- Start:: Status Input -->
-              <base-select-input col="4" :optionsList="activeStatus_modal" :placeholder="$t('PLACEHOLDERS.transfer_status')"
-                v-model="filterOptions.status" />
+
+              <!-- Start:: Tax Percentage Input -->
+              <base-select-input col="6" :optionsList="banks"
+                :placeholder="$t('TABLES.BankTransferManagement.bankTransfer')" v-model.trim="filterOptions.bank_id" />
+              <!-- End:: Tax Percentage Input -->
+
+              <base-select-input col="4" :optionsList="activeStatus_modal"
+                :placeholder="$t('PLACEHOLDERS.transfer_status')" v-model="filterOptions.status" />
               <!-- End:: Status Input -->
 
             </div>
@@ -99,29 +102,39 @@
         </template>
         <!-- End:: Name -->
 
-         <!-- Start:: status Type -->
-            <template v-slot:[`item.is_active`]="{ item }">
-              <h6 class="text-danger" v-if="!item.is_active"> {{ $t("TABLES.noData") }} </h6>
-              <v-chip v-else color="blue-grey darken-3" text-color="white" small>
-                {{ item.is_active }}
-              </v-chip>
-            </template>
-            <!-- End:: status Type -->
+        <!-- Start:: status Type -->
+        <template v-slot:[`item.is_active`]="{ item }">
+          <h6 class="text-danger" v-if="!item.is_active"> {{ $t("TABLES.noData") }} </h6>
+          <v-chip v-else color="blue-grey darken-3" text-color="white" small>
+            {{ item.is_active }}
+          </v-chip>
+        </template>
+        <!-- End:: status Type -->
 
 
-         <!-- Start:: Actions -->
-         <template v-slot:[`item.actions`]="{ item }">
+        <!-- Start:: Actions -->
+        <template v-slot:[`item.actions`]="{ item }">
           <div class="actions">
-              <a-tooltip placement="bottom">
-                  <template slot="title">
-                    <span>{{ $t("PLACEHOLDERS.status_share_change") }}</span>
-                  </template>
+            <a-tooltip placement="bottom">
+              <template slot="title">
+                <span>{{ $t("PLACEHOLDERS.transfer_completed") }}</span>
+              </template>
 
-                  <button class="btn_edit" @click="selectUpdateItem(item)">
-                    <i class="fas fa-exchange-alt"></i>
-                  </button>
-              </a-tooltip>
-           
+              <button class="btn_activate" @click="confirmAccept(item)">
+                <i class="fas fa-check-circle"></i>
+              </button>
+            </a-tooltip>
+
+            <a-tooltip placement="bottom">
+              <template slot="title">
+                <span>{{ $t("PLACEHOLDERS.transfer_not_completed") }}</span>
+              </template>
+
+              <button class="btn_deactivate" @click="selectDeactivateItem(item)">
+                <i class="fas fa-exclamation-circle"></i>
+              </button>
+            </a-tooltip>
+
           </div>
         </template>
         <!-- End:: Actions -->
@@ -136,7 +149,7 @@
           <v-dialog v-model="dialogDeactivate">
             <v-card>
               <v-card-title class="text-h5 justify-center" v-if="itemToChangeActivationStatus">
-                {{ $t("TITLES.convert_Message", { name: itemToChangeActivationStatus.name }) }}
+                {{ $t("PLACEHOLDERS.reason_for_not_transfer") }}
               </v-card-title>
 
               <form class="w-100">
@@ -156,37 +169,39 @@
           </v-dialog>
           <!-- End:: Deactivate Modal -->
 
-           <!-- Start:: Update Modal -->
-              <v-dialog v-model="dialogUpdate">
-                <v-card>
-                  <v-card-title class="text-h5 justify-center w-100" v-if="itemToUpdate">
-                    {{ $t("MESSAGES.changeItem", { name: itemToUpdate.id }) }}
+          <!-- Start:: Update Modal -->
+          <v-dialog v-model="dialogUpdate">
+            <v-card>
+              <v-card-title class="text-h5 justify-center w-100" v-if="itemToUpdate">
+                {{ $t("MESSAGES.reason_for_not_transfer", { name: itemToUpdate.id }) }}
 
-                    <div class="filter_form_wrapper w-100">
-                      <form class="w-100">
-                        <base-select-input col="12" :optionsList="activeStatus_modal" :placeholder="$t('PLACEHOLDERS.status')"
-                          v-model="status_modal" />
+                <div class="filter_form_wrapper w-100">
+                  <form class="w-100">
+                    <!-- <base-select-input col="12" :optionsList="activeStatus_modal" :placeholder="$t('PLACEHOLDERS.status')"
+                      v-model="status_modal" /> -->
 
-                        <div class="form-group" v-if="(status_modal && status_modal.value === 'blocked')">
-                          <base-input col="12" rows="3" type="textarea" :placeholder="$t('PLACEHOLDERS.reason')"
-                            v-model="reason" required />
-                        </div>
+                    <!-- <base-input type="textarea" col="5"  /> -->
 
-                      </form>
+                    <div class="form-group" v-if="(status_modal && status_modal.value === 'blocked')">
+                      <base-input col="12" rows="3" type="textarea" :placeholder="$t('PLACEHOLDERS.reason')"
+                        v-model="reason" required />
                     </div>
 
-                  </v-card-title>
-                  <v-card-actions>
-                    <v-btn class="modal_confirm_btn" @click="confirmChangeStatus">{{
-                      $t("BUTTONS.ok")
-                    }}</v-btn>
+                  </form>
+                </div>
 
-                    <v-btn class="modal_cancel_btn" @click="dialogUpdate = false">{{ $t("BUTTONS.cancel") }}</v-btn>
-                    <v-spacer></v-spacer>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-              <!-- End:: Update Modal -->
+              </v-card-title>
+              <v-card-actions>
+                <v-btn class="modal_confirm_btn" @click="confirmChangeStatus">{{
+                  $t("BUTTONS.ok")
+                }}</v-btn>
+
+                <v-btn class="modal_cancel_btn" @click="dialogUpdate = false">{{ $t("BUTTONS.cancel") }}</v-btn>
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+          <!-- End:: Update Modal -->
 
           <!-- Start:: Delete Modal -->
           <v-dialog v-model="dialogDelete">
@@ -292,7 +307,7 @@ export default {
         bankname: null,
         iban: null,
         transfer_amount: null,
-       // receipt_image: null,
+        bank_id: null,
         status: null,
         created_at: null,
         region_id: null
@@ -365,7 +380,7 @@ export default {
           width: "150",
           sortable: false
         },
-         {
+        {
           text: this.$t("TABLES.BankTransferManagement.status"),
           value: "is_active",
           align: "center",
@@ -383,7 +398,7 @@ export default {
       regions: [],
       // End:: Table Data
 
-       // Start:: Dialogs Control Data
+      // Start:: Dialogs Control Data
       dialogImage: false,
       selectedItemImage: null,
       dialogDeactivate: false,
@@ -405,6 +420,8 @@ export default {
       // End:: Pagination Data
 
       permissions: null,
+
+      banks: []
     };
   },
 
@@ -435,7 +452,7 @@ export default {
       this.filterOptions.receipt_image = null;
       this.filterOptions.created_at = null;
       this.filterOptions.status = null;
-      this.filterOptions.region_id = null;
+      this.filterOptions.bank_id = null;
       if (this.$route.query.page !== '1') {
         await this.$router.push({ path: '/bankTransfer/all', query: { page: 1 } });
       }
@@ -467,7 +484,7 @@ export default {
             userName: this.filterOptions.name,
             userMobile: this.filterOptions.mobile,
             transformerName: this.filterOptions.bankname,
-            bankId: this.filterOptions.region_id?.id,
+            bankId: this.filterOptions.bank_id?.id,
             status: this.filterOptions.status?.value,
           },
         });
@@ -504,16 +521,17 @@ export default {
       const REQUEST_DATA = {};
       // Start:: Append Request Data
       REQUEST_DATA.not_approved_reason = this.deactivateReason;
+      REQUEST_DATA.status = "notApproved";
       // Start:: Append Request Data
 
       try {
-        await this.$axios({
+        let res = await this.$axios({
           method: "POST",
           url: `bank-transfers/${targetItem.id}/change-status`,
           data: targetItem.is_active ? REQUEST_DATA : null,
           //data: REQUEST_DATA,
         });
-        this.$message.success(this.$t("MESSAGES.changeActivation"));
+        this.$message.success(res.data.message);
         this.setTableRows();
         // let filteredElemet = this.tableRows.find(element => element.id === targetItem.id);
         // filteredElemet.is_active = !filteredElemet.is_active;
@@ -524,65 +542,67 @@ export default {
       }
     },
     // ===== End:: Handling Activation & Deactivation
-    selectUpdateItem(item) {
-      this.dialogUpdate = true;
-      this.itemToUpdate = item;
-      // console.log(item);
-    },
+    // selectUpdateItem(item) {
+    //   this.dialogUpdate = true;
+    //   this.itemToUpdate = item;
+    //   // console.log(item);
+    // },
 
-    async confirmChangeStatus() {
+    // async confirmChangeStatus() {
+    //   try {
+
+    //     const requestData = {
+    //       status: this.status_modal.value
+    //     };
+
+    //     if (this.reason.trim() !== '') {
+    //       requestData.status_reason = this.reason.trim();
+    //     }
+    //     let res = await this.$axios({
+    //       method: "POST",
+    //       url: `bank-transfers/${targetItem.id}/change-status`,
+    //       data: requestData // Put the data in the 'data' property
+    //     });
+    //     this.$message.success(res.data.message);
+    //     this.$message.success(this.$t("MESSAGES.share_ad"));
+    //     this.dialogUpdate = false;
+    //     this.setTableRows();
+    //     this.status_modal = null;
+    //   } catch (error) {
+    //     this.dialogUpdate = false;
+    //     this.status_modal = null;
+    //     this.$message.error(error.response.data.message);
+    //   }
+    // },
+
+    // ===== Start:: Accept bank transfer
+    async confirmAccept(item) {
       try {
-
-        const requestData = {
-          status: this.status_modal.value
-        };
-
-        if (this.reason.trim() !== '') {
-          requestData.status_reason = this.reason.trim();
-        }
         let res = await this.$axios({
           method: "POST",
-          url: `bank-transfers/${targetItem.id}/change-status`,
-          data: requestData // Put the data in the 'data' property
+          url: `bank-transfers/${item.id}/change-status`,
+          data: { status: "approval " }
         });
+        this.setTableRows();
         this.$message.success(res.data.message);
-        this.$message.success(this.$t("MESSAGES.share_ad"));
-        this.dialogUpdate = false;
-        this.setTableRows();
-        this.status_modal = null;
       } catch (error) {
-        this.dialogUpdate = false;
-        this.status_modal = null;
-        this.$message.error(error.response.data.message);
-      }
-    },
-
-    // ==================== Start:: Crud ====================
-    // ===== Start:: End
-   
-    // ===== Start:: Delete
-    selectDeleteItem(item) {
-      this.dialogDelete = true;
-      this.itemToDelete = item;
-    },
-    async confirmDeleteItem() {
-      try {
-        await this.$axios({
-          method: "DELETE",
-          url: `users/${this.itemToDelete.id}`,
-        });
-        this.dialogDelete = false;
-        this.tableRows = this.tableRows.filter((item) => {
-          return item.id != this.itemToDelete.id;
-        });
-        this.setTableRows();
-        this.$message.success(this.$t("MESSAGES.deletedSuccessfully"));
-      } catch (error) {
-        this.dialogDelete = false;
         this.$message.error(error.response.data.message);
       }
     },
     // ===== End:: Delete
+
+    async getBanks() {
+      try {
+        let res = await this.$axios({
+          method: "GET",
+          url: `banks`
+        });
+        // console.log("Cities =>", res.data.data);
+        this.banks = res.data.data;
+      } catch (error) {
+        console.log(error.response.data.message);
+      }
+    },
 
     // ==================== End:: Crud ====================
   },
@@ -595,7 +615,8 @@ export default {
     if (this.$route.query.page) {
       this.paginations.current_page = +this.$route.query.page;
     }
-    this.setTableRows()
+    this.setTableRows();
+    this.getBanks()
     // End:: Fire Methods
   },
 };

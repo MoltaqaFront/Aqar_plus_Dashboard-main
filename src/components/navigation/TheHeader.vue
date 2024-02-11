@@ -16,19 +16,23 @@
         <div class="navbar_btns_wrapper">
           <div class="group">
             <!-- ********** Start:: Notification Button ********** -->
-            <v-tooltip bottom>
-                <template v-slot:activator="{ on, attrs }">
-                  <button v-bind="attrs" v-on="on">
-                    <v-badge :content="notificationsData.unreadNotifications" floating>
-                    <div class="notification_btn" @click.stop="
-                      toggleNotificationsMenu();">
-                      <i class=" fal fa-bell"></i>
-                    </div>
-                    </v-badge>
-                  </button>
-                </template>
-                <span class="toolTip">{{ $t("TOOLTIPS.notifications") }}</span>
-              </v-tooltip>
+            <div class="user_notification_content_wrapper">
+              <!-- <a-badge :count="notificationCount" :overflow-count="9">
+                <button aria-label="notification_btn" class="notification_btn" @click.stop="
+                  toggleNotificationsMenu();
+                ">
+                  <i class="fal fa-bell"></i>
+                </button>
+              </a-badge> -->
+
+              <v-badge :content="notificationsData.unreadNotifications" floating>
+                <div class="notification_btn" @click.stop="
+                  toggleNotificationsMenu();">
+                  <i class=" fal fa-bell"></i>
+                </div>
+              </v-badge>
+
+            </div>
             <!-- ********** End:: Notification Button ********** -->
 
             <div class="group">
@@ -154,44 +158,42 @@ export default {
 
     // Start:: Toggle Notifications Menu
     toggleNotificationsMenu() {
-      //this.notificationsMenuIsOpen = !this.notificationsMenuIsOpen;
-      /* this.chatsDrawerIsOpen = false;
-      this.notificationCount = 0; */
+      // this.notificationsMenuIsOpen = !this.notificationsMenuIsOpen;
+      // this.chatsDrawerIsOpen = false;
       this.$router.push("/all-notifications/show");
+
     },
     // End:: Toggle Notifications Menu
 
     // Start:: Notification Redirect
     redirectNotification(notifyType) {
-    if (notifyType === "new_user_register") {
-      this.$router.push(`/clients/all`);
-    } else if (
-      notifyType === "add_shipment_attach" ||
-      notifyType === "update_shipment_request" ||
-      notifyType === "new_shipment_request"
-    ) {
-      this.$router.push(`/shipment/all`);
-    } else if (notifyType === "new_authorization_for_user") {
-      this.$router.push(`/authorizations/all`);
-    }
-  },
-
+      if (notifyType == "new_user_register") {
+        this.$router.push("/clients/all");
+      } else if (
+        notifyType == "add_shipment_attach" ||
+        notifyType == "update_shipment_request" ||
+        notifyType == "new_shipment_request"
+      ) {
+        this.$router.push("/shipment/all");
+      } else if (notifyType == "new_authorization_for_user") {
+        this.$router.push("/authorizations/all");
+      }
+    },
     // End:: Notification Redirect
+
     async getData() {
       try {
         let res = await this.$axios({
           method: "GET",
-          url: "notification/get-sending-notifications"
+          url: "notification/index"
         });
-        console.log("All Data ==>", res.data.data);
+        // console.log("All Data ==>", res.data.data);
         this.notificationCount = res.data.data.filter((item) => item.is_read == 0).length;
-        //this.notificationCount = res.data.data.unreadCount;
-
       } catch (error) {
         this.loading = false;
         console.log(error.response.data.message);
       }
-    }, 
+    },
   },
 
   created() {
@@ -208,7 +210,7 @@ export default {
       this.notificationsMenuIsOpen = false;
     });
     // End:: Fire Methods
-    },
+  },
 };
 </script>
 

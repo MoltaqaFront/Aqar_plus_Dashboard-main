@@ -11,11 +11,11 @@
       <form @submit.prevent="validateFormInputs">
         <div class="row">
           <!-- Start:: Ar Content Text Editor -->
-          <base-text-editor col="6" :placeholder="$t('PLACEHOLDERS.contentAr')" v-model.trim="data.contentAr"  required />
+          <base-text-editor col="6" :placeholder="$t('PLACEHOLDERS.contentAr')" v-model.trim="data.contentAr" required />
           <!-- End:: Ar Content Text Editor -->
 
           <!-- Start:: En Content Text Editor -->
-          <base-text-editor col="6" :placeholder="$t('PLACEHOLDERS.contentEn')" v-model.trim="data.contentEn"  required />
+          <base-text-editor col="6" :placeholder="$t('PLACEHOLDERS.contentEn')" v-model.trim="data.contentEn" required />
           <!-- Start:: En Content Text Editor -->
 
           <!-- Start:: Submit Button Wrapper -->
@@ -43,6 +43,7 @@ export default {
 
       // Start:: Data Collection To Send
       data: {
+        id: null,
         contentAr: null,
         contentEn: null
       },
@@ -56,11 +57,12 @@ export default {
       try {
         let res = await this.$axios({
           method: "GET",
-          url: `settings?key=about_us`,
+          url: `staticPages?key=about_app`,
         });
         // Start:: Set Data
-        this.data.contentAr = res.data.data[0].value_ar;
-        this.data.contentEn = res.data.data[0].value_en;
+        this.data.id = res.data.data[0].id;
+        this.data.contentAr = res.data.data[0].content_ar;
+        this.data.contentEn = res.data.data[0].content_en;
         // End:: Set Data
       } catch (error) {
         console.log(error.response.data.message);
@@ -71,21 +73,36 @@ export default {
     // Start:: validate Form Inputs
     validateFormInputs() {
       this.isWaitingRequest = true;
-      // const arabicRegex = /^[\u0600-\u06FF\s]+$/;
-      // const englishRegex = /^[a-zA-Z\s]+$/;
-      if (!this.data.contentAr) {
-        this.isWaitingRequest = false;
-        this.$message.error(this.$t("VALIDATION.contentAr"));
-        return;
-      } else if (!this.data.contentEn) {
-        this.isWaitingRequest = false;
-        this.$message.error(this.$t("VALIDATION.contentEn"));
-        return;
-      }
-      else {
+
+      // Updated regex patterns to accept numbers and signs along with letters
+      const arabicRegex = /^[\u0600-\u06FF\s0-9!@#$%^&*()\-_=+[\]{};:'",.<>?`~|]+$/;
+      const englishRegex = /^[a-zA-Z\s0-9!@#$%^&*()\-_=+[\]{};:'",.<>?`~|]+$/;
+
+      // Remove HTML tags from contentAr and contentEn
+      const contentArWithoutHTML = this.stripHTMLTags(this.data.contentAr);
+      const contentEnWithoutHTML = this.stripHTMLTags(this.data.contentEn);
+
+      if (!contentArWithoutHTML) {
+        this.showErrorAndReset("VALIDATION.contentAr");
+      } else if (!contentEnWithoutHTML) {
+        this.showErrorAndReset("VALIDATION.contentEn");
+      } else if (!arabicRegex.test(contentArWithoutHTML)) {
+        this.showErrorAndReset("VALIDATION.content_arabic_required");
+      } else if (!englishRegex.test(contentEnWithoutHTML)) {
+        this.showErrorAndReset("VALIDATION.content_english_required");
+      } else {
         this.submitForm();
-        return;
       }
+    },
+
+    stripHTMLTags(html) {
+      // Use regex to strip HTML tags
+      return html ? html.replace(/<[^>]+>/g, '') : '';
+    },
+
+    showErrorAndReset(errorMessageKey) {
+      this.isWaitingRequest = false;
+      this.$message.error(this.$t(errorMessageKey));
     },
     // End:: validate Form Inputs
 
@@ -94,17 +111,17 @@ export default {
 
       const REQUEST_DATA = new FormData();
       // Start:: Append Request Data
-      REQUEST_DATA.append("key", "about_us");
+      REQUEST_DATA.append("key", "about_app");
       // REQUEST_DATA.append("value[name_en]", this.data.nameEn);
       // REQUEST_DATA.append("value[name_ar]", this.data.nameAr);
-      REQUEST_DATA.append("value[ar]", this.data.contentAr);
-      REQUEST_DATA.append("value[en]", this.data.contentEn);
-      // REQUEST_DATA.append("_method", "PUT");
+      REQUEST_DATA.append("content[ar]", this.data.contentAr);
+      REQUEST_DATA.append("content[en]", this.data.contentEn);
+      REQUEST_DATA.append("_method", "PUT");
 
       try {
         await this.$axios({
           method: "POST",
-          url: `settings`,
+          url: `staticPages/${this.data.id}`,
           data: REQUEST_DATA,
         });
         this.isWaitingRequest = false;

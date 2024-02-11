@@ -57,7 +57,7 @@
 
               <div class="col-2" v-if="field_values.length > 2">
                 <div class="all_actions">
-                  <span class="add_another" @click="removeRow(index,item)">
+                  <span class="add_another" @click="removeRow(index, item)">
                     <i class="fas fa-minus"></i>
                   </span>
 
@@ -229,7 +229,7 @@ export default {
       )
     },
 
-   async removeRow(index,item) {
+    async removeRow(index, item) {
       this.field_values.splice(index, 1);
 
       // Remove duplicates from field_values array
@@ -302,7 +302,7 @@ export default {
         this.field_values.forEach((element, index) => {
 
           if (element.id) {
-             REQUEST_DATA.append(`value[${index}][id]`, element.id);
+            REQUEST_DATA.append(`value[${index}][id]`, element.id);
           }
 
           if (element.value_ar) {
@@ -368,7 +368,7 @@ export default {
           this.data.field_type =
           {
             id: 0,
-            name: this.data.field_type,
+            name: res.data.data.additionalField.type_translated,
             value: this.data.field_type,
           }
         }

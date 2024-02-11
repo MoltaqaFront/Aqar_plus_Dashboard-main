@@ -51,6 +51,7 @@ export default {
 
       // Start:: Data Collection To Send
       data: {
+        id: null,
         contentAr: null,
         contentEn: null,
         nameAr: null,
@@ -66,11 +67,12 @@ export default {
       try {
         let res = await this.$axios({
           method: "GET",
-          url: `settings?key=privacy_policy`,
+          url: `staticPages?key=privacy_policy`,
         });
         // Start:: Set Data
-        this.data.contentAr = res.data.data[0].value_ar;
-        this.data.contentEn = res.data.data[0].value_en;
+        this.data.id = res.data.data[0].id;
+        this.data.contentAr = res.data.data[0].content_ar;
+        this.data.contentEn = res.data.data[0].content_en;
         // this.data.nameAr = res.data.data[0].name.ar;
         // this.data.nameEn = res.data.data[0].name.en;
         // End:: Set Data
@@ -84,18 +86,35 @@ export default {
     validateFormInputs() {
       this.isWaitingRequest = true;
 
-      if (!this.data.contentAr) {
-        this.isWaitingRequest = false;
-        this.$message.error(this.$t("VALIDATION.contentAr"));
-        return;
-      } else if (!this.data.contentEn) {
-        this.isWaitingRequest = false;
-        this.$message.error(this.$t("VALIDATION.contentEn"));
-        return;
+      // Updated regex patterns to accept numbers and signs along with letters
+      const arabicRegex = /^[\u0600-\u06FF\s0-9!@#$%^&*()\-_=+[\]{};:'",.<>?`~|]+$/;
+      const englishRegex = /^[a-zA-Z\s0-9!@#$%^&*()\-_=+[\]{};:'",.<>?`~|]+$/;
+
+      // Remove HTML tags from contentAr and contentEn
+      const contentArWithoutHTML = this.stripHTMLTags(this.data.contentAr);
+      const contentEnWithoutHTML = this.stripHTMLTags(this.data.contentEn);
+
+      if (!contentArWithoutHTML) {
+        this.showErrorAndReset("VALIDATION.contentAr");
+      } else if (!contentEnWithoutHTML) {
+        this.showErrorAndReset("VALIDATION.contentEn");
+      } else if (!arabicRegex.test(contentArWithoutHTML)) {
+        this.showErrorAndReset("VALIDATION.content_arabic_required");
+      } else if (!englishRegex.test(contentEnWithoutHTML)) {
+        this.showErrorAndReset("VALIDATION.content_english_required");
       } else {
         this.submitForm();
-        return;
       }
+    },
+
+    stripHTMLTags(html) {
+      // Use regex to strip HTML tags
+      return html ? html.replace(/<[^>]+>/g, '') : '';
+    },
+
+    showErrorAndReset(errorMessageKey) {
+      this.isWaitingRequest = false;
+      this.$message.error(this.$t(errorMessageKey));
     },
     // End:: validate Form Inputs
 
@@ -107,14 +126,14 @@ export default {
       REQUEST_DATA.append("key", "privacy_policy");
       // REQUEST_DATA.append("name[en]", this.data.nameEn);
       // REQUEST_DATA.append("name[ar]", this.data.nameAr);
-      REQUEST_DATA.append("value[ar]", this.data.contentAr);
-      REQUEST_DATA.append("value[en]", this.data.contentEn);
-      // REQUEST_DATA.append("_method", "PUT");
+      REQUEST_DATA.append("content[ar]", this.data.contentAr);
+      REQUEST_DATA.append("content[en]", this.data.contentEn);
+      REQUEST_DATA.append("_method", "PUT");
 
       try {
         await this.$axios({
           method: "POST",
-          url: `settings`,
+          url: `staticPages/${this.data.id}`,
           data: REQUEST_DATA,
         });
         this.isWaitingRequest = false;
