@@ -18,8 +18,10 @@ import AllCountries from "../views/Cruds/Countries/ShowAll.vue";
 import AllDistricts from "../views/Cruds/Districts/ShowAll.vue";
 import AllEstateDepartments from "../views/Cruds/EstateDepartments/ShowAll.vue";
 import AllFinancialReports from "../views/Cruds/FinancialReports/ShowAll.vue";
+
 import AllNotifications from "../views/Cruds/Notifications/ShowAll.vue";
 import AllNotificationsHome from "../views/Notifications/AllNotifications.vue";
+
 import AllOffers from "../views/Cruds/Offers/ShowAll.vue";
 import AllPackages from "../views/Cruds/Packages/ShowAll.vue";
 import AllRates from "../views/Cruds/Rates/ShowAll.vue";

@@ -122,19 +122,19 @@ export default {
       } else if (!englishRegex.test(this.data.name_en)) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.english_words"));
-          return;
+        return;
       }
       else if (!this.data.publish_start_date) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.startDate"));
         return;
       }
-      else if(!this.data.discount){
+      else if (!this.data.discount) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.discount_field"));
         return;
       }
-      else if(this.data.discount < 1 || this.data.discount > 100){
+      else if (this.data.discount < 1 || this.data.discount > 100) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.dissount"));
         return;
@@ -166,13 +166,13 @@ export default {
       // Start:: Append Request Data
 
       try {
-        await this.$axios({
+        let res = await this.$axios({
           method: "POST",
           url: `offers/${this.$route.params.id}`,
           data: REQUEST_DATA,
         });
         this.isWaitingRequest = false;
-        this.$message.success(this.$t("MESSAGES.addedSuccessfully"));
+        this.$message.success(res.data.message);
         this.$router.push({ path: "/offers/all" });
       } catch (error) {
         this.isWaitingRequest = false;

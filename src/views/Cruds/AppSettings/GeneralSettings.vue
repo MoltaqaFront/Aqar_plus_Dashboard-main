@@ -29,22 +29,27 @@
 
           </div>
 
-          <!-- Start:: Tax Percentage Input -->
+          <!-- Start:: general_email Input -->
+          <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.general_email')"
+            v-model.trim="data.general_email" />
+          <!-- End:: general_email Input -->
+
+          <!-- Start:: WhatsApp_contact Input -->
           <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.WhatsApp_contact')"
             v-model.trim="data.WhatsApp_contact" />
-          <!-- End:: Tax Percentage Input -->
+          <!-- End:: WhatsApp_contact Input -->
 
           <!-- Start:: Tax Percentage Input -->
-          <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.facebook_link')"
-            v-model.trim="data.facebook_link" />
+          <!-- <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.facebook_link')"
+            v-model.trim="data.facebook_link" /> -->
           <!-- End:: Tax Percentage Input -->
 
           <!-- Start:: Delivery Price Input -->
-          <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.insta_link')" v-model.trim="data.insta_link" />
+          <!-- <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.insta_link')" v-model.trim="data.insta_link" /> -->
           <!-- End:: Delivery Price Input -->
 
           <!-- Start:: Driver's Daily Orders Amount Input -->
-          <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.snap_link')" v-model.trim="data.snap_link" />
+          <!-- <base-input col="6" type="text" :placeholder="$t('PLACEHOLDERS.snap_link')" v-model.trim="data.snap_link" /> -->
           <!-- End:: Driver's Daily Orders Amount Input -->
 
           <!-- Start:: Submit Button Wrapper -->
@@ -76,6 +81,7 @@ export default {
         facebook_link: null,
         snap_link: null,
         insta_link: null,
+        general_email: null
 
       },
       // End:: Data Collection To Send
@@ -111,10 +117,11 @@ export default {
 
         this.phones = res.data.data[0].value.phones.map(phone => ({ phone: phone }));
 
+        this.data.general_email = res.data.data[0].value.organization_email;
         this.data.WhatsApp_contact = res.data.data[0].value.watsApp;
-        this.data.facebook_link = res.data.data[0].value.facebook;
-        this.data.snap_link = res.data.data[0].value.snapchat;
-        this.data.insta_link = res.data.data[0].value.instagram;
+        // this.data.facebook_link = res.data.data[0].value.facebook; 
+        // this.data.snap_link = res.data.data[0].value.snapchat;
+        // this.data.insta_link = res.data.data[0].value.instagram;
 
         // End:: Set Data
       } catch (error) {
@@ -135,10 +142,11 @@ export default {
         REQUEST_DATA.append(`value[phones][${index}]`, element.phone);
       });
 
+      REQUEST_DATA.append("value[organization_email]", this.data.general_email);
       REQUEST_DATA.append("value[watsApp]", this.data.WhatsApp_contact);
-      REQUEST_DATA.append("value[facebook]", this.data.facebook_link);
-      REQUEST_DATA.append("value[snapchat]", this.data.snap_link);
-      REQUEST_DATA.append("value[instagram]", this.data.insta_link);
+      // REQUEST_DATA.append("value[facebook]", this.data.facebook_link);
+      // REQUEST_DATA.append("value[snapchat]", this.data.snap_link);
+      // REQUEST_DATA.append("value[instagram]", this.data.insta_link);
 
       // Start:: Append Request Data
 
@@ -205,12 +213,3 @@ export default {
   }
 }
 </style>
-
-
-value:{
-  phones:[
-    "0567837943",
-    "0567837943",
-    "0567837943",
-  ]
-}

@@ -6,18 +6,10 @@ export default {
     try {
       let res = await axios({
         method: "GET",
-        url: `roles`,
+        url: `get-roles`,
       });
       // console.log("ROLES =>", res.data.body.roles_and_permissions);
-      context.commit(
-        "setRoles",
-        res.data.data.map((item) => {
-          return {
-            id: item.id,
-            name: item.name,
-          };
-        })
-      );
+      context.commit("setRoles", res.data.data.roles);
     } catch (error) {
       console.log(error.response.data.message);
     }

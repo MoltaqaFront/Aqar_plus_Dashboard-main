@@ -203,7 +203,8 @@
       <!-- End:: additionalServices Route -->
 
       <!-- Start:: Bank transfer management -->
-      <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')">
+      <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')"
+        v-if="$can('bankTransfers index', 'bankTransfers')">
         <router-link to="/bankTransfer/all">
           <span class="route_icon">
             <img src="@/assets/media/icons/ui_icons/exchange.png" alt="icon" width="40" height="40" />
@@ -242,7 +243,8 @@
       <!-- End:: contacts Route -->
 
       <!-- Start:: Side Nav Routes -->
-      <div class="side_routes_wrapper">
+
+      <div class="side_routes_wrapper" v-if="$can('staticPages index', 'staticPages')">
         <a-menu style="width: 100%" mode="vertical" :open-keys="openKeys" @openChange="onOpenChange">
           <!-- Start:: Side Nav Tab -->
           <a-sub-menu v-for="item in sideNavbarList" :key="item.key" :data-type="!item.children ? 'single_route' : ''">
@@ -286,18 +288,19 @@
       </div>
       <!-- End:: settings Route -->
 
-        <!-- Start:: Bank Account Route -->
-        <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')" >
-          <router-link to="/banks-account/all">
-            <span class="route_icon">
-              <img src="@/assets/media/icons/ui_icons/accounting.png" alt="icon" width="40" height="40" />
-            </span>
-            <span class="route_text">
-              {{ $t("PLACEHOLDERS.bank_accounts_settings") }}
-            </span>
-          </router-link>
-        </div>
-        <!-- End:: Bank Account Route -->
+      <!-- Start:: Bank Account Route -->
+      <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')"
+        v-if="$can('bankAccounts create', 'bankAccounts')">
+        <router-link to="/banks-account/all">
+          <span class="route_icon">
+            <img src="@/assets/media/icons/ui_icons/accounting.png" alt="icon" width="40" height="40" />
+          </span>
+          <span class="route_text">
+            {{ $t("PLACEHOLDERS.bank_accounts_settings") }}
+          </span>
+        </router-link>
+      </div>
+      <!-- End:: Bank Account Route -->
 
       <!-- Start:: users Route -->
       <div class="home_route" @click="$emit('fireToggleNavDrawerEmit')" v-if="$can('users index', 'users')">
@@ -326,7 +329,7 @@
       <!-- End:: roles Route -->
 
       <div class="side_routes_wrapper">
-        <a-menu  mode="inline">
+        <a-menu mode="inline">
           <!-- Start:: Logout Tab -->
           <a-sub-menu key="logout" @titleClick="logoutConfirmationModalIsOpen = true">
             <!-- ========= Start:: Main Tab -->
@@ -344,7 +347,7 @@
       <!-- End:: Side Nav Routes -->
 
       <!-- Start:: Logout Confirmation Modal -->
-      <v-dialog v-model="logoutConfirmationModalIsOpen" >
+      <v-dialog v-model="logoutConfirmationModalIsOpen">
         <v-card>
           <v-card-title class="text-h5 justify-center">
             {{ $t("TITLES.logoutConfirmingMessage") }}

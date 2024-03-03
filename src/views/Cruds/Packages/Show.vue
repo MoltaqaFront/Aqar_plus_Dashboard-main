@@ -30,6 +30,9 @@
           <base-select-input col="6" :optionsList="show_image"
             :placeholder="$t('PLACEHOLDERS.show_advertiser_image_logo')" v-model.trim="data.show_image" disabled />
 
+          <base-input col="12" rows="3" type="textarea" :placeholder="$t('PLACEHOLDERS.package_features')"
+            v-model.trim="data.description" disabled />
+
           <!-- Start:: Deactivate Switch Input -->
           <div class="input_wrapper switch_wrapper my-5">
             <v-switch color="green" :label="data.active ? $t('PLACEHOLDERS.active') : $t('PLACEHOLDERS.notActive')"
@@ -65,6 +68,7 @@ export default {
         number_people_allowed: null,
         show_image: null,
         number_of_ads: null,
+        description: null,
         active: true,
       },
       // End:: Data Collection To Send
@@ -110,6 +114,7 @@ export default {
         this.data.package_duration = res.data.data.Package.duration;
         this.data.number_of_ads = res.data.data.Package.number_of_advertisements;
         this.data.show_image = res.data.data.Package.can_show_image;
+        this.data.description = res.data.data.Package.description;
 
         if (this.data.show_image) {
           this.data.show_image = { name: this.$t('PLACEHOLDERS.yes'), value: res.data.data.Package.can_show_image };

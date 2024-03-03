@@ -30,6 +30,9 @@
           <base-select-input col="6" :optionsList="show_image"
             :placeholder="$t('PLACEHOLDERS.show_advertiser_image_logo')" v-model.trim="data.show_image" required />
 
+          <base-input col="12" rows="3" type="textarea" :placeholder="$t('PLACEHOLDERS.package_features')"
+            v-model.trim="data.description" required />
+
           <!-- Start:: Deactivate Switch Input -->
           <div class="input_wrapper switch_wrapper my-5">
             <v-switch color="green" :label="data.active ? $t('PLACEHOLDERS.active') : $t('PLACEHOLDERS.notActive')"
@@ -125,30 +128,30 @@ export default {
         this.$message.error(this.$t("VALIDATION.english_words"));
         return;
       }
-       else if (!this.data.price) {
+      else if (!this.data.price) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.price"));
         return;
-      }  else if (!this.data.price || this.data.price <= 0){
+      } else if (!this.data.price || this.data.price <= 0) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.price_validation"));
         return;
-      }  else if (!this.data.number_of_ads) {
+      } else if (!this.data.number_of_ads) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.number_of_ads"));
         return;
-      } 
-      else if (!this.data.number_of_ads || this.data.number_of_ads <= 0){
+      }
+      else if (!this.data.number_of_ads || this.data.number_of_ads <= 0) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.advertise_validaion"));
         return;
-      } 
+      }
       else if (!this.data.package_duration || this.data.package_duration === 'null') {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.package_duration_field"));
         return;
       }
-       else if (!this.data.package_duration || this.data.package_duration <= 0){
+      else if (!this.data.package_duration || this.data.package_duration <= 0) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.package_duration"));
         return;
@@ -169,6 +172,7 @@ export default {
       REQUEST_DATA.append("number_of_advertisements", this.data.number_of_ads);
       REQUEST_DATA.append("duration", this.data.package_duration);
       REQUEST_DATA.append("can_show_image", this.data.show_image?.value);
+      REQUEST_DATA.append("description", this.data.description);
       REQUEST_DATA.append("is_active", +this.data.active);
       REQUEST_DATA.append("_method", "PUT");
       // Start:: Append Request Data
@@ -202,6 +206,7 @@ export default {
         this.data.package_duration = res.data.data.Package.duration;
         this.data.number_of_ads = res.data.data.Package.number_of_advertisements;
         this.data.show_image = res.data.data.Package.can_show_image;
+        this.data.description = res.data.data.Package.description;
 
         if (this.data.show_image) {
           this.data.show_image = { name: this.$t('PLACEHOLDERS.yes'), value: res.data.data.Package.can_show_image };

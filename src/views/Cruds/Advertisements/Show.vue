@@ -50,24 +50,22 @@
             v-model="data.field_type" disabled />
           <!-- End:: Status Input -->
 
-
-          <div v-if="(data.field_type && data.field_type.value == 'checkbox')
+          <!--  v-if="(data.field_type && data.field_type.value == 'checkbox')
             || (data.field_type && data.field_type.value == 'radio')
-            || (data.field_type && data.field_type.value == 'dropdown')">
+            || (data.field_type && data.field_type.value == 'dropdown')" -->
 
+          <div>
+            <h3>{{ $t('PLACEHOLDERS.additional_fields') }}</h3>
+            <div class="row align-items-center">
 
-            <div class="row align-items-center" v-for="(item, index) in field_values" :key="'o' + index">
-
-              <div class="col-lg-5 col-12">
-                <base-input col="12" type="text" :placeholder="$t('PLACEHOLDERS.nameAr')" v-model.trim="item.value_ar"
-                  disabled />
+              <div class="col-lg-6 col-12" v-for="(item, index) in field_values" :key="'o' + index">
+                <base-input col="12" type="text" :placeholder="$t('PLACEHOLDERS.additional_field')"
+                  v-model.trim="item.name" disabled />
               </div>
-              <div class="col-lg-5 col-12">
+              <!-- <div class="col-lg-5 col-12">
                 <base-input col="12" type="text" :placeholder="$t('PLACEHOLDERS.nameEn')" v-model.trim="item.value_en"
                   disabled />
-              </div>
-
-
+              </div> -->
             </div>
 
           </div>
@@ -225,19 +223,19 @@ export default {
         this.data.advertiser_image.path = res.data.data.Advertisement.user.avatar;
         this.data.advertiser_name = res.data.data.Advertisement.user.name;
         this.data.advertiser_mobile_number = res.data.data.Advertisement.user.mobile;
-        this.data.advertiser_whatsapp_number = res.data.data.Advertisement.user.watsapp;
+        this.data.advertiser_whatsapp_number = res.data.data.Advertisement.user.whatsapp;
 
-        this.field_values = res.data.data.Advertisement.additional_fields[0].values;
-        this.data.field_type = res.data.data.Advertisement.additional_fields[0].type;
+        this.field_values = res.data.data.Advertisement.additional_fields;
+        // this.data.field_type = res.data.data.Advertisement.additional_fields.type;
 
-        if (this.data.field_type) {
-          this.data.field_type =
-          {
-            id: 0,
-            name: this.data.field_type,
-            value: this.data.field_type,
-          }
-        }
+        // if (this.data.field_type) {
+        //   this.data.field_type =
+        //   {
+        //     id: 0,
+        //     name: this.data.field_type,
+        //     value: this.data.field_type,
+        //   }
+        // }
 
       } catch (error) {
         this.loading = false;

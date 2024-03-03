@@ -19,18 +19,18 @@
               <!-- End:: Status Input -->
 
               <!-- Start:: Start Date Input -->
-              <base-picker-input col="3" type="date" :placeholder="$t('PLACEHOLDERS.startDate')"
+              <base-picker-input col="3" type="date" :placeholder="$t('PLACEHOLDERS.send_date')"
                 v-model.trim="filterOptions.startDate" />
               <!-- End:: Start Date Input -->
 
               <!-- Start:: End Date Input -->
-              <base-picker-input col="3" type="date" :placeholder="$t('PLACEHOLDERS.endDate')"
-                v-model.trim="filterOptions.endDate" />
+              <!-- <base-picker-input col="3" type="date" :placeholder="$t('PLACEHOLDERS.endDate')"
+                v-model.trim="filterOptions.endDate" /> -->
               <!-- End:: End Date Input -->
 
               <!-- Start:: Status Input -->
-              <base-select-input col="3" :optionsList="activeStatuses" :placeholder="$t('PLACEHOLDERS.status')"
-                v-model="filterOptions.is_active" />
+              <!-- <base-select-input col="3" :optionsList="activeStatuses" :placeholder="$t('PLACEHOLDERS.status')"
+                v-model="filterOptions.is_active" /> -->
               <!-- End:: Status Input -->
 
               <!-- Start:: Rate Input -->
@@ -312,26 +312,26 @@ export default {
   methods: {
     // Start:: Handel Filter
     async submitFilterForm() {
-      if (!this.filterOptions.startDate && this.filterOptions.endDate) {
-        this.$message.error(this.$t("VALIDATION.startDate"));
-        return;
-      } else if (this.filterOptions.startDate && !this.filterOptions.endDate) {
-        this.$message.error(this.$t("VALIDATION.endDate"));
-        return;
-      } else if (this.filterOptions.endDate && this.filterOptions.startDate) {
-        const startDate = new Date(this.filterOptions.startDate);
-        const endDate = new Date(this.filterOptions.endDate);
-        if (endDate <= startDate) {
-          this.$message.error(this.$t("VALIDATION.handle"));
-          return;
-        }
+      // if (!this.filterOptions.startDate && this.filterOptions.endDate) {
+      //   this.$message.error(this.$t("VALIDATION.startDate"));
+      //   return;
+      // } else if (this.filterOptions.startDate && !this.filterOptions.endDate) {
+      //   this.$message.error(this.$t("VALIDATION.endDate"));
+      //   return;
+      // } else if (this.filterOptions.endDate && this.filterOptions.startDate) {
+      //   const startDate = new Date(this.filterOptions.startDate);
+      //   const endDate = new Date(this.filterOptions.endDate);
+      //   if (endDate <= startDate) {
+      //     this.$message.error(this.$t("VALIDATION.handle"));
+      //     return;
+      //   }
+      // }
+      // else {
+      if (this.$route.query.page !== '1') {
+        await this.$router.push({ path: '/rates/all', query: { page: 1 } });
       }
-      else {
-        if (this.$route.query.page !== '1') {
-          await this.$router.push({ path: '/rates/all', query: { page: 1 } });
-        }
-        this.setTableRows();
-      }
+      this.setTableRows();
+      // }
     },
     async resetFilter() {
       this.filterOptions.name = null;
@@ -370,7 +370,7 @@ export default {
             clientName: this.filterOptions.name,
             rate: this.filterOptions.rate === 0 ? null : `${this.filterOptions.rate}`,
             status: this.filterOptions.is_active?.value,
-            start_date: this.filterOptions.startDate,
+            createdAt: this.filterOptions.startDate,
             end_date: this.filterOptions.endDate,
           },
         });

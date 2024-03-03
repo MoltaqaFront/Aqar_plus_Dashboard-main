@@ -321,70 +321,70 @@ export default {
           text: this.$t("TABLES.BankTransferManagement.serialNumber"),
           value: "serialNumber",
           align: "center",
-          width: "80",
+          // width: "80",
           sortable: false
         },
         {
           text: this.$t("TABLES.BankTransferManagement.name"),
           value: "user.name",
           align: "center",
-          width: "120",
+          // width: "120",
           sortable: false
         },
         {
           text: this.$t("TABLES.BankTransferManagement.phone"),
           value: "user.mobile",
           align: "center",
-          width: "150",
+          // width: "150",
           sortable: false
         },
         {
           text: this.$t("TABLES.BankTransferManagement.bank_name"),
           value: "transformer_name",
           align: "center",
-          width: "150",
+          // width: "150",
           sortable: false
         },
         {
           text: this.$t("TABLES.BankTransferManagement.bankTransfer"),
           value: "bank.name",
           align: "center",
-          width: "180",
+          // width: "180",
           sortable: false
         },
         {
           text: this.$t("TABLES.BankTransferManagement.number"),
           value: "iban",
-          width: "100",
+          // width: "100",
           align: "center",
           sortable: false
         },
         {
-          text: this.$t("TABLES.BankTransferManagement.money"),
+          text: this.$t("PLACEHOLDERS.package_price_inclusive_of_tax"),
           value: "transfer_amount",
           align: "center",
-          width: "150",
+          // width: "150",
           sortable: false
         },
         {
           text: this.$t("TABLES.BankTransferManagement.image"),
           value: "receipt_image",
           align: "center",
-          width: "120",
+          // width: "120",
           sortable: false
         },
         {
           text: this.$t("TABLES.BankTransferManagement.data"),
           value: "created_at",
           align: "center",
-          width: "150",
+          // width: "150",
           sortable: false
         },
         {
           text: this.$t("TABLES.BankTransferManagement.status"),
           value: "is_active",
           align: "center",
-          width: "120",
+          // width: "120",
           sortable: false,
         },
         {

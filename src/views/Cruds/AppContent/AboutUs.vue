@@ -86,11 +86,13 @@ export default {
         this.showErrorAndReset("VALIDATION.contentAr");
       } else if (!contentEnWithoutHTML) {
         this.showErrorAndReset("VALIDATION.contentEn");
-      } else if (!arabicRegex.test(contentArWithoutHTML)) {
-        this.showErrorAndReset("VALIDATION.content_arabic_required");
-      } else if (!englishRegex.test(contentEnWithoutHTML)) {
-        this.showErrorAndReset("VALIDATION.content_english_required");
-      } else {
+      }
+      // else if (!arabicRegex.test(contentArWithoutHTML)) {
+      //   this.showErrorAndReset("VALIDATION.content_arabic_required");
+      // } else if (!englishRegex.test(contentEnWithoutHTML)) {
+      //   this.showErrorAndReset("VALIDATION.content_english_required");
+      // } 
+      else {
         this.submitForm();
       }
     },

@@ -86,7 +86,7 @@
 
         <!-- Start:: Name -->
         <template v-slot:[`item.is_required_fal_license`]="{ item }">
-          <h6> {{ item.is_required_fal_license == 0 ? $t("PLACEHOLDERS.yes") : $t("PLACEHOLDERS.no") }} </h6>
+          <h6> {{ item.is_required_fal_license == 0 ? $t("PLACEHOLDERS.no") : $t("PLACEHOLDERS.yes") }} </h6>
         </template>
         <!-- End:: Name -->
 

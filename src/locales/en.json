@@ -1201,7 +1201,11 @@
 
     "transfer_completed": "Transfer Completed",
     "transfer_not_completed": "Transfer Not Completed",
-    "reason_for_not_transfer": "Reason for Not Transfer"
+    "reason_for_not_transfer": "Reason for Not Transfer",
+    "general_email": "Email Address",
+    "package_features": "Package Features",
+    "package_price_inclusive_of_tax": "Package Price Inclusive of Tax",
+    "send_date": "Send Date"
   },
 
   "VALIDATION": {

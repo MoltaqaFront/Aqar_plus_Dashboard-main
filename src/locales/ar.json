@@ -702,6 +702,7 @@
     "status_share_change": "تغير حالة النشر",
     "messageType": "نوع الرسالة",
     "date": "التاريخ",
+    "send_date": "تاريخ الارسال",
     "name": "الإسم",
     "email": "البريد الإلكتروني",
     "mobileNumber": "رقم الجوال",
@@ -1206,7 +1207,10 @@
 
     "transfer_completed": "تم التحويل",
     "transfer_not_completed": "لم يتم التحويل",
-    "reason_for_not_transfer": "سبب عدم التحويل"
+    "reason_for_not_transfer": "سبب عدم التحويل",
+    "general_email": "البريد الإلكتروني للمؤسسة",
+    "package_features": "مميزات الباقة",
+    "package_price_inclusive_of_tax": "سعر الباقة شامل الضريبة"
   },
 
   "VALIDATION": {

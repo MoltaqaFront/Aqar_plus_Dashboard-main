@@ -30,6 +30,10 @@
           <base-select-input col="6" :optionsList="show_image"
             :placeholder="$t('PLACEHOLDERS.show_advertiser_image_logo')" v-model.trim="data.show_image" required />
 
+
+          <base-input col="12" rows="3" type="textarea" :placeholder="$t('PLACEHOLDERS.package_features')"
+            v-model.trim="data.description" required />
+
           <!-- Start:: Deactivate Switch Input -->
           <div class="input_wrapper switch_wrapper my-5">
             <v-switch color="green" :label="data.active ? $t('PLACEHOLDERS.active') : $t('PLACEHOLDERS.notActive')"
@@ -72,6 +76,7 @@ export default {
         number_people_allowed: null,
         show_image: null,
         number_of_ads: null,
+        description: null,
         active: true,
       },
       // End:: Data Collection To Send
@@ -116,7 +121,7 @@ export default {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.nameEn"));
         return;
-      }else if (!arabicRegex.test(this.data.nameAr)) {
+      } else if (!arabicRegex.test(this.data.nameAr)) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.arabic_words"));
         return;
@@ -125,36 +130,36 @@ export default {
         this.$message.error(this.$t("VALIDATION.english_words"));
         return;
       }
-       else if (!this.data.price) {
+      else if (!this.data.price) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.price"));
         return;
-      }  else if (!this.data.price || this.data.price <= 0){
+      } else if (!this.data.price || this.data.price <= 0) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.price_validation"));
         return;
-      }  else if (!this.data.number_of_ads) {
+      } else if (!this.data.number_of_ads) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.number_of_ads"));
         return;
-      } 
-      else if (!this.data.number_of_ads || this.data.number_of_ads <= 0){
+      }
+      else if (!this.data.number_of_ads || this.data.number_of_ads <= 0) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.advertise_validaion"));
         return;
-      } 
+      }
       else if (!this.data.package_duration || this.data.package_duration === 'null') {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.package_duration_field"));
         return;
       }
-       else if (!this.data.package_duration || this.data.package_duration <= 0){
+      else if (!this.data.package_duration || this.data.package_duration <= 0) {
         this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.package_duration"));
         return;
       }
-      else if (!this.data.show_image){
-        this.isWaitingRequest = false; 
+      else if (!this.data.show_image) {
+        this.isWaitingRequest = false;
         this.$message.error(this.$t("VALIDATION.can_show_image"));
       } else {
         this.submitForm();
@@ -173,6 +178,7 @@ export default {
       REQUEST_DATA.append("number_of_advertisements", this.data.number_of_ads);
       REQUEST_DATA.append("duration", this.data.package_duration);
       REQUEST_DATA.append("can_show_image", this.data.show_image?.value);
+      REQUEST_DATA.append("description", this.data.description);
       REQUEST_DATA.append("is_active", +this.data.active);
       // Start:: Append Request Data
 
